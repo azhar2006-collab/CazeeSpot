@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CrazeeSpot – Custom Gifts & More</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --yellow:  #FFD700;
+      --pink:    #FF4F8B;
+      --teal:    #00C9A7;
+      --purple:  #7B2FBE;
+      --orange:  #FF7A00;
+      --dark:    #1A1A2E;
+      --light:   #FFFAF0;
+      --card-bg: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 999;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(255,250,240,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 2.5px solid var(--yellow);
+      box-shadow: 0 2px 24px rgba(255,215,0,0.15);
+    }
+    .nav-logo {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 700;
+      color: var(--dark);
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--pink); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--pink), var(--orange));
+      color: #fff !important;
+      padding: 0.55rem 1.4rem;
+      border-radius: 50px;
+      box-shadow: 0 4px 14px rgba(255,79,139,0.35);
+      transition: transform 0.2s, box-shadow 0.2s !important;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,79,139,0.5) !important; color: #fff !important; }
+
+    /* ── HERO ────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 7rem 2.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(145deg, #fff6fb 0%, #f0fff9 50%, #fffbea 100%);
+    }
+    .hero-bg-dots {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,79,139,0.12) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    .blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); pointer-events: none; z-index: 0;
+    }
+    .blob1 { width: 420px; height: 420px; background: rgba(255,215,0,0.25); top: -80px; right: -100px; animation: float 7s ease-in-out infinite; }
+    .blob2 { width: 320px; height: 320px; background: rgba(255,79,139,0.18); bottom: 0; left: -80px; animation: float 9s ease-in-out infinite reverse; }
+    .blob3 { width: 260px; height: 260px; background: rgba(0,201,167,0.18); top: 30%; right: 15%; animation: float 8s ease-in-out infinite 2s; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-28px)} }
+
+    .hero-content { position: relative; z-index: 1; max-width: 600px; }
+    .hero-badge {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--dark);
+      font-weight: 800; font-size: 0.82rem;
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      letter-spacing: 2px; text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      animation: popIn 0.5s 0.1s both;
+    }
+    .hero h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(3rem, 6vw, 5.2rem);
+      line-height: 1.12;
+      margin-bottom: 1.2rem;
+      animation: popIn 0.5s 0.25s both;
+    }
+    .hero h1 span { color: var(--pink); }
+    .hero p {
+      font-size: 1.15rem; font-weight: 600;
+      color: #555; max-width: 480px;
+      line-height: 1.7; margin-bottom: 2rem;
+      animation: popIn 0.5s 0.4s both;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; animation: popIn 0.5s 0.55s both; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--pink), var(--orange));
+      color: #fff; font-weight: 800; font-size: 1rem;
+      padding: 0.85rem 2rem; border-radius: 50px; border: none;
+      cursor: pointer; text-decoration: none;
+      box-shadow: 0 6px 20px rgba(255,79,139,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(255,79,139,0.55); }
+    .btn-outline {
+      border: 2.5px solid var(--purple);
+      color: var(--purple); font-weight: 800; font-size: 1rem;
+      padding: 0.85rem 2rem; border-radius: 50px;
+      cursor: pointer; text-decoration: none; background: transparent;
+      transition: background 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { background: var(--purple); color: #fff; }
+
+    .hero-emoji-strip {
+      position: absolute; right: 5vw; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 1.4rem;
+      z-index: 1;
+    }
+    .emoji-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 1.1rem 1.4rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      font-size: 2.2rem;
+      text-align: center;
+      animation: floatCard 5s ease-in-out infinite;
+      transition: transform 0.2s;
+    }
+    .emoji-card:nth-child(2) { animation-delay: 0.8s; }
+    .emoji-card:nth-child(3) { animation-delay: 1.6s; }
+    .emoji-card:nth-child(4) { animation-delay: 2.4s; }
+    .emoji-card:nth-child(5) { animation-delay: 3.2s; }
+    @keyframes floatCard { 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-12px) rotate(3deg)} }
+
+    @keyframes popIn { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── SECTION TITLES ──────────────────────────── */
+    .section-title {
+      text-align: center;
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 0.6rem;
+    }
+    .section-sub {
+      text-align: center;
+      color: #666; font-size: 1.05rem; font-weight: 600;
+      max-width: 520px; margin: 0 auto 3.5rem;
+    }
+    .pill {
+      display: inline-block;
+      padding: 0.25rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem; font-weight: 800;
+      letter-spacing: 2px; text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    /* ── TICKER ──────────────────────────────────── */
+    .ticker-wrap {
+      background: var(--dark);
+      padding: 0.85rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker {
+      display: inline-flex;
+      animation: ticker 28s linear infinite;
+    }
+    .ticker-item {
+      color: var(--yellow);
+      font-weight: 800; font-size: 0.95rem;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 0 2rem;
+    }
+    .ticker-item span { color: var(--pink); margin-right: 1rem; }
+    @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ── PRODUCTS ────────────────────────────────── */
+    .products {
+      padding: 6rem 2.5rem;
+      background: #fff;
+      position: relative;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .product-card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 2rem 1.6rem;
+      border: 2.5px solid transparent;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      cursor: pointer;
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .product-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      opacity: 0.04;
+      transition: opacity 0.25s;
+    }
+    .product-card:hover { transform: translateY(-8px); box-shadow: 0 16px 48px rgba(0,0,0,0.13); }
+    .product-card:hover::before { opacity: 0.08; }
+    .product-card:nth-child(1) { border-color: var(--pink); } .product-card:nth-child(1):hover { border-color: var(--pink); }
+    .product-card:nth-child(2) { border-color: var(--teal); }
+    .product-card:nth-child(3) { border-color: var(--purple); }
+    .product-card:nth-child(4) { border-color: var(--orange); }
+    .product-card:nth-child(5) { border-color: var(--yellow); }
+    .product-card:nth-child(6) { border-color: var(--pink); }
+    .product-card:nth-child(7) { border-color: var(--teal); }
+    .product-card:nth-child(8) { border-color: var(--purple); }
+    .product-emoji {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      display: block;
+      animation: gentle-spin 6s ease-in-out infinite;
+    }
+    @keyframes gentle-spin { 0%,100%{transform:rotate(-8deg) scale(1)} 50%{transform:rotate(8deg) scale(1.1)} }
+    .product-card h3 {
+      font-size: 1.2rem; font-weight: 900;
+      margin-bottom: 0.5rem; color: var(--dark);
+    }
+    .product-card p { font-size: 0.92rem; color: #777; line-height: 1.6; }
+    .product-tag {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--dark); font-size: 0.7rem; font-weight: 800;
+      padding: 0.2rem 0.7rem; border-radius: 20px;
+      margin-top: 0.8rem;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+
+    /* ── WHY US ──────────────────────────────────── */
+    .why-us {
+      padding: 6rem 2.5rem;
+      background: linear-gradient(160deg, var(--dark) 0%, #16213e 100%);
+      position: relative; overflow: hidden;
+    }
+    .why-us .section-title { color: var(--yellow); }
+    .why-us .section-sub { color: rgba(255,255,255,0.65); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.8rem; max-width: 1100px; margin: 0 auto;
+    }
+    .feature-card {
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: background 0.25s, transform 0.25s;
+    }
+    .feature-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-6px); }
+    .feature-icon { font-size: 2.8rem; margin-bottom: 1rem; }
+    .feature-card h3 { color: #fff; font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .feature-card p { color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.6; }
+
+    /* ── GALLERY / INSPIRATION ───────────────────── */
+    .gallery {
+      padding: 6rem 2.5rem;
+      background: linear-gradient(160deg, #fff6fb 0%, #f0fff9 100%);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto;
+      gap: 1.2rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .gallery-item {
+      border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      font-size: 3.5rem;
+      min-height: 180px;
+      font-weight: 900;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+      position: relative; overflow: hidden;
+    }
+    .gallery-item:hover { transform: scale(1.04); box-shadow: 0 12px 40px rgba(0,0,0,0.18); }
+    .gallery-item span.label {
+      font-size: 0.85rem; font-weight: 800;
+      color: #fff; margin-top: 0.5rem;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+    .g1 { background: linear-gradient(135deg,#FF4F8B,#FF7A00); grid-column: span 2; }
+    .g2 { background: linear-gradient(135deg,#7B2FBE,#00C9A7); }
+    .g3 { background: linear-gradient(135deg,#FFD700,#FF4F8B); }
+    .g4 { background: linear-gradient(135deg,#00C9A7,#7B2FBE); grid-column: span 2; }
+    .g5 { background: linear-gradient(135deg,#FF7A00,#FFD700); }
+    .g6 { background: linear-gradient(135deg,#FF4F8B,#7B2FBE); }
+
+    /* ── TESTIMONIALS ────────────────────────────── */
+    .testimonials {
+      padding: 6rem 2.5rem;
+      background: #fff;
+    }
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem; max-width: 1100px; margin: 0 auto;
+    }
+    .tcard {
+      background: var(--light);
+      border-radius: 20px;
+      padding: 2rem;
+      border-left: 5px solid var(--pink);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: transform 0.2s;
+    }
+    .tcard:nth-child(2) { border-left-color: var(--teal); }
+    .tcard:nth-child(3) { border-left-color: var(--purple); }
+    .tcard:hover { transform: translateY(-5px); }
+    .stars { color: var(--yellow); font-size: 1.2rem; margin-bottom: 0.8rem; }
+    .tcard p { font-size: 0.95rem; line-height: 1.7; color: #555; font-style: italic; }
+    .tcard .name { font-weight: 800; color: var(--dark); margin-top: 1rem; font-size: 0.9rem; }
+
+    /* ── CONTACT ─────────────────────────────────── */
+    .contact {
+      padding: 6rem 2.5rem;
+      background: linear-gradient(160deg, #fff6fb, #fffbea);
+      text-align: center;
+    }
+    .contact-box {
+      max-width: 600px; margin: 0 auto;
+      background: #fff;
+      border-radius: 28px;
+      padding: 3rem 2.5rem;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.1);
+      border: 2.5px solid var(--yellow);
+    }
+    .contact-box h3 { font-family: 'Pacifico', cursive; font-size: 1.8rem; margin-bottom: 0.6rem; color: var(--dark); }
+    .contact-box p { color: #666; margin-bottom: 2rem; font-size: 1rem; font-weight: 600; }
+    .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+    .info-row {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--light); padding: 1rem 1.4rem;
+      border-radius: 14px; font-weight: 700;
+    }
+    .info-row .ico { font-size: 1.5rem; }
+    .info-row a { color: var(--pink); text-decoration: none; }
+    .info-row a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ──────────────────────────────────── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem; font-weight: 600;
+    }
+    footer span { color: var(--pink); }
+    footer .footer-logo {
+      font-family: 'Pacifico', cursive;
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--pink), var(--yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block; margin-bottom: 0.5rem;
+    }
+
+    /* ── FLOATING WHATSAPP ───────────────────────── */
+    .wa-btn {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      z-index: 9999;
+      background: #25D366;
+      color: #fff;
+      border-radius: 50%;
+      width: 62px; height: 62px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 28px rgba(37,211,102,0.5);
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: waPulse 2.5s ease-in-out infinite;
+    }
+    .wa-btn:hover { transform: scale(1.12); box-shadow: 0 10px 38px rgba(37,211,102,0.7); animation: none; }
+    .wa-btn svg { width: 34px; height: 34px; }
+    @keyframes waPulse {
+      0%,100% { box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+      50%      { box-shadow: 0 6px 42px rgba(37,211,102,0.85), 0 0 0 12px rgba(37,211,102,0.1); }
+    }
+    .wa-tooltip {
+      position: fixed;
+      bottom: 3.3rem; right: 5.8rem;
+      background: #fff;
+      color: var(--dark);
+      font-weight: 800; font-size: 0.85rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 50px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(8px);
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .wa-btn:hover ~ .wa-tooltip,
+    .wa-tooltip:hover { opacity: 1; transform: translateX(0); }
+
+    /* ── RESPONSIVE ──────────────────────────────── */
+    @media(max-width: 900px) {
+      .hero-emoji-strip { display: none; }
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { display: none; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .g1, .g4 { grid-column: span 1; }
+    }
+    @media(max-width: 540px) {
+      .hero { padding: 6rem 1.4rem 3rem; }
+      .products, .why-us, .gallery, .testimonials, .contact { padding: 4rem 1.2rem; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">CrazeeSpot</div>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://wa.me/917397554214" target="_blank" class="nav-cta">Order Now 🎁</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-dots"></div>
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">✨ India's Favourite Gift Studio</div>
+    <h1>Gifts That <span>Wow</span> Every Time</h1>
+    <p>Personalised gifts crafted with love — from polaroids & magic frames to caricatures & custom keychains. Make every moment unforgettable!</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/917397554214" target="_blank" class="btn-primary">Shop on WhatsApp 💬</a>
+      <a href="#products" class="btn-outline">See Products</a>
+    </div>
+  </div>
+
+  <div class="hero-emoji-strip">
+    <div class="emoji-card">📸</div>
+    <div class="emoji-card">🖼️</div>
+    <div class="emoji-card">🎂</div>
+    <div class="emoji-card">👜</div>
+    <div class="emoji-card">🗝️</div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span class="ticker-item"><span>★</span> Polaroids</span>
+    <span class="ticker-item"><span>★</span> Magic Frames</span>
+    <span class="ticker-item"><span>★</span> Mosaic Frames</span>
+    <span class="ticker-item"><span>★</span> Caricatures</span>
+    <span class="ticker-item"><span>★</span> Custom Wallets</span>
+    <span class="ticker-item"><span>★</span> Birthday Gifts</span>
+    <span class="ticker-item"><span>★</span> Keychains</span>
+    <span class="ticker-item"><span>★</span> Pen Stands</span>
+    <span class="ticker-item"><span>★</span> Polaroids</span>
+    <span class="ticker-item"><span>★</span> Magic Frames</span>
+    <span class="ticker-item"><span>★</span> Mosaic Frames</span>
+    <span class="ticker-item"><span>★</span> Caricatures</span>
+    <span class="ticker-item"><span>★</span> Custom Wallets</span>
+    <span class="ticker-item"><span>★</span> Birthday Gifts</span>
+    <span class="ticker-item"><span>★</span> Keychains</span>
+    <span class="ticker-item"><span>★</span> Pen Stands</span>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div style="text-align:center;margin-bottom:0.5rem;">
+    <span class="pill" style="background:#fff0f6;color:var(--pink);">Our Collection</span>
+  </div>
+  <h2 class="section-title">Handpicked <span style="color:var(--pink)">Gifts</span></h2>
+  <p class="section-sub">Every product is made with heart — personalised just for your special someone.</p>
+
+  <div class="products-grid">
+    <div class="product-card">
+      <span class="product-emoji">📸</span>
+      <h3>Polaroids</h3>
+      <p>Relive your favourite memories with beautifully printed custom polaroid photos. Perfect for walls, gifting & scrapbooks.</p>
+      <span class="product-tag">Bestseller</span>
+    </div>
+    <div class="product-card">
+      <span class="product-emoji">✏️</span>
+      <h3>Table Pen Stand</h3>
+      <p>Customised pen stands engraved with a name or message. A classy desk companion they'll love every day.</p>
+      <span class="product-tag">Custom Name</span>
+    </div>
+    <div class="product-card">
+      <span class="product-emoji">✨</span>
+      <h3>Magic Frames</h3>
+      <p>Stunning LED magic mirror frames that light up with your photo & message. Pure magic in a gift box!</p>
+      <span class="product-tag">Trending</span>
+    </div>
+    <div class="product-card">
+      <span class="product-emoji">👜</span>
+      <h3>Customised Wallets</h3>
+      <p>Premium wallets personalised with photos, names or initials. A practical gift that feels super personal.</p>
+      <span class="product-tag">Premium</span>
+    </div>
+    <div class="product-card">
+      <span class="product-emoji">🎨</span>
+      <h3>Mosaic Frames</h3>
+      <p>A large portrait built from dozens of tiny photos — a stunning mosaic that tells your full story in one frame.</p>
+      <span class="product-tag">Unique</span>
+    </div>
+    <div class="product-card">
+      <span class="product-emoji">🎂</span>
+      <h3>Birthday Gifts</h3>
+      <p>Surprise hampers, photo books, custom cakes toppers & more — everything to make birthdays absolutely unforgettable.</p>
+      <span class="product-tag">Bestseller</span>
+    </div>
+    <div class="product-card">
+      <span class="product-emoji">🎭</span>
+      <h3>Caricatures</h3>
+      <p>Funny, adorable hand-drawn digital caricatures — the most unique and laugh-worthy gift for any occasion!</p>
+      <span class="product-tag">Fun</span>
+    </div>
+    <div class="product-card">
+      <span class="product-emoji">🗝️</span>
+      <h3>Keychains</h3>
+      <p>Personalised photo & name keychains in metal, acrylic & resin finishes. Small gift, massive impression!</p>
+      <span class="product-tag">Custom</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-us" id="why">
+  <div style="text-align:center;margin-bottom:0.5rem;">
+    <span class="pill" style="background:rgba(255,215,0,0.15);color:var(--yellow);">Why CrazeeSpot</span>
+  </div>
+  <h2 class="section-title">Made With <span style="color:var(--teal)">❤️</span> Love</h2>
+  <p class="section-sub">We pour creativity and care into every single order, big or small.</p>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🎨</div>
+      <h3>100% Custom</h3>
+      <p>Every gift is tailored specifically to your requirements — names, photos, colours, everything!</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Fast Delivery</h3>
+      <p>Quick turnaround times so your gift arrives right on time for that special occasion.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🏅</div>
+      <h3>Premium Quality</h3>
+      <p>We never compromise on materials. Every product is built to last and impress.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💬</div>
+      <h3>Easy WhatsApp Orders</h3>
+      <p>No complicated forms. Just message us on WhatsApp and we'll take care of the rest!</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">😍</div>
+      <h3>1000+ Happy Customers</h3>
+      <p>Hundreds of smiles delivered. Join our growing family of delighted customers!</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💰</div>
+      <h3>Affordable Prices</h3>
+      <p>Thoughtful gifts don't have to break the bank. Great value on every single product.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div style="text-align:center;margin-bottom:0.5rem;">
+    <span class="pill" style="background:#fff0f6;color:var(--pink);">Inspiration</span>
+  </div>
+  <h2 class="section-title">Gift <span style="color:var(--purple)">Ideas</span></h2>
+  <p class="section-sub">A little peek into the magic we create every day.</p>
+
+  <div class="gallery-grid">
+    <div class="gallery-item g1">📸 <span class="label">Polaroid Wall</span></div>
+    <div class="gallery-item g2">✨ <span class="label">Magic Frame</span></div>
+    <div class="gallery-item g3">🎭 <span class="label">Caricature</span></div>
+    <div class="gallery-item g4">🎨 <span class="label">Mosaic Frame</span></div>
+    <div class="gallery-item g5">👜 <span class="label">Custom Wallet</span></div>
+    <div class="gallery-item g6">🗝️ <span class="label">Keychain</span></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="reviews">
+  <div style="text-align:center;margin-bottom:0.5rem;">
+    <span class="pill" style="background:#fff0f6;color:var(--pink);">Reviews</span>
+  </div>
+  <h2 class="section-title">What People <span style="color:var(--teal)">Say</span></h2>
+  <p class="section-sub">Real love from real customers 💛</p>
+
+  <div class="testimonials-grid">
+    <div class="tcard">
+      <div class="stars">★★★★★</div>
+      <p>"Ordered a mosaic frame for my parents' anniversary and they were absolutely speechless! The quality was stunning and delivery was super quick. CrazeeSpot never disappoints!"</p>
+      <div class="name">— Priya R., Chennai</div>
+    </div>
+    <div class="tcard">
+      <div class="stars">★★★★★</div>
+      <p>"Got a caricature made for my best friend's birthday. It was hilarious and adorable at the same time! Everyone at the party loved it. Will definitely order again!"</p>
+      <div class="name">— Karthik S., Bangalore</div>
+    </div>
+    <div class="tcard">
+      <div class="stars">★★★★★</div>
+      <p>"The magic frame I ordered was beyond my expectations. The LED effect was so beautiful. Easy WhatsApp ordering, great communication, and perfect finish. 10/10!"</p>
+      <div class="name">— Ananya M., Coimbatore</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div style="margin-bottom:0.5rem;">
+    <span class="pill" style="background:#fff0f6;color:var(--pink);">Get In Touch</span>
+  </div>
+  <h2 class="section-title" style="margin-bottom:0.5rem;">Order Your <span style="color:var(--pink)">Gift</span> Today</h2>
+  <p class="section-sub">Reach out to us on WhatsApp and we'll help you create something truly special 🎁</p>
+
+  <div class="contact-box">
+    <h3>Say Hello! 👋</h3>
+    <p>We're just one message away. Chat with us on WhatsApp to place an order, ask about products, or get a custom quote.</p>
+    <div class="contact-info">
+      <div class="info-row">
+        <span class="ico">💬</span>
+        <div>
+          <div style="font-size:0.75rem;color:#999;text-transform:uppercase;letter-spacing:1px;">WhatsApp</div>
+          <a href="https://wa.me/917397554214" target="_blank">+91 73975 54214</a>
+        </div>
+      </div>
+      <div class="info-row">
+        <span class="ico">📍</span>
+        <div>
+          <div style="font-size:0.75rem;color:#999;text-transform:uppercase;letter-spacing:1px;">Location</div>
+          <span style="color:var(--dark);">India – Shipping Nationwide</span>
+        </div>
+      </div>
+      <div class="info-row">
+        <span class="ico">⏰</span>
+        <div>
+          <div style="font-size:0.75rem;color:#999;text-transform:uppercase;letter-spacing:1px;">Hours</div>
+          <span style="color:var(--dark);">Mon–Sun · 9 AM – 9 PM</span>
+        </div>
+      </div>
+    </div>
+    <a href="https://wa.me/917397554214" target="_blank" class="btn-primary" style="display:inline-block;margin-top:1.8rem;font-size:1.05rem;">
+      💬 Chat on WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">CrazeeSpot</span>
+  Made with <span>❤️</span> for gift lovers everywhere &nbsp;|&nbsp; © 2025 CrazeeSpot. All rights reserved.
+</footer>
+
+<!-- FLOATING WHATSAPP BUTTON -->
+<a href="https://wa.me/917397554214" target="_blank" class="wa-btn" title="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 3C8.82 3 3 8.82 3 16c0 2.39.63 4.63 1.73 6.57L3 29l6.65-1.74A12.94 12.94 0 0016 29c7.18 0 13-5.82 13-13S23.18 3 16 3z" fill="#fff"/>
+    <path d="M16 5.2A10.8 10.8 0 0126.8 16 10.8 10.8 0 0116 26.8a10.75 10.75 0 01-5.57-1.54l-.4-.24-4.12 1.08 1.1-4.01-.26-.42A10.75 10.75 0 015.2 16 10.8 10.8 0 0116 5.2zm-2.63 5.5c-.2-.44-.41-.45-.6-.46-.16 0-.34 0-.52 0s-.48.07-.73.36c-.25.29-.97.95-.97 2.3s.99 2.67 1.13 2.86c.14.19 1.93 3.07 4.74 4.18.66.29 1.18.46 1.58.59.66.21 1.27.18 1.74.11.53-.08 1.63-.66 1.86-1.31.23-.64.23-1.19.16-1.31-.07-.12-.26-.19-.54-.33s-1.68-.83-1.94-.93c-.26-.1-.44-.14-.63.15-.19.29-.73.93-.9 1.12-.16.19-.33.21-.61.07-.28-.14-1.18-.44-2.24-1.39-.83-.74-1.38-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.49.14-.17.19-.28.28-.47.1-.18.05-.35-.02-.49z" fill="#25D366"/>
+  </svg>
+</a>
+<div class="wa-tooltip">Chat with us! 💬</div>
+
+</body>
+</html>
