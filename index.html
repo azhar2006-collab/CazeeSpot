@@ -50,153 +50,149 @@
     ::-webkit-scrollbar-track { background: var(--cream-light); }
     ::-webkit-scrollbar-thumb { background: linear-gradient(var(--brown-amber), var(--brown-mid)); border-radius: 2px; }
 
-    /* ─────────────────────────────────────────
-       WAVE CANVAS SYSTEM
-       Each section gets a positioned SVG wave
-    ───────────────────────────────────────── */
-    .wave-divider {
+    /* ════════════════════════════════════════
+       WAVE SYSTEM — multiple layered SVG waves
+       ════════════════════════════════════════ */
+
+    /* Animated transition dividers */
+    .wave-sep {
       position: relative;
       width: 100%;
       overflow: hidden;
       line-height: 0;
-      z-index: 2;
+      z-index: 3;
     }
-    .wave-divider svg {
-      display: block;
-      width: 100%;
-      height: 70px;
-    }
-    .wave-divider.flip svg {
-      transform: scaleX(-1);
-    }
+    .wave-sep svg { display: block; width: 100%; }
 
-    /* Animated SVG wave backgrounds embedded per section */
-    .section-wave-bg {
+    /* Full-section ambient wave backgrounds */
+    .wave-ambient {
       position: absolute;
       inset: 0;
       overflow: hidden;
       pointer-events: none;
       z-index: 0;
     }
-    .section-wave-bg svg {
+    .wave-ambient__layer {
       position: absolute;
       bottom: 0;
+      left: 0;
+      width: 300%;
+      will-change: transform;
+    }
+    .wave-ambient__layer--1 { animation: wambient1 18s ease-in-out infinite; opacity: 0.07; }
+    .wave-ambient__layer--2 { animation: wambient2 26s ease-in-out infinite; opacity: 0.05; bottom: -12px; }
+    .wave-ambient__layer--3 { animation: wambient3 34s ease-in-out infinite; opacity: 0.04; bottom: -24px; }
+
+    @keyframes wambient1 {
+      0%,100% { transform: translateX(0) scaleY(1); }
+      33%     { transform: translateX(-8%) scaleY(1.06); }
+      66%     { transform: translateX(-16%) scaleY(0.94); }
+    }
+    @keyframes wambient2 {
+      0%,100% { transform: translateX(-6%) scaleY(1); }
+      50%     { transform: translateX(6%) scaleY(1.08); }
+    }
+    @keyframes wambient3 {
+      0%,100% { transform: translateX(-12%) scaleY(1); }
+      40%     { transform: translateX(4%) scaleY(0.92); }
+      80%     { transform: translateX(-20%) scaleY(1.1); }
+    }
+
+    /* Top wave decorations on dark sections */
+    .wave-top-decor, .wave-bottom-decor {
+      position: absolute;
+      left: 0; right: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+      line-height: 0;
+    }
+    .wave-top-decor { top: 0; }
+    .wave-bottom-decor { bottom: 0; }
+
+    .wave-top-decor svg,
+    .wave-bottom-decor svg {
+      display: block;
       width: 200%;
-      animation: waveDrift 18s linear infinite;
     }
-    .section-wave-bg svg:nth-child(2) {
-      animation: waveDrift 24s linear infinite reverse;
-      opacity: 0.5;
-    }
-    .section-wave-bg svg:nth-child(3) {
-      animation: waveDrift 30s linear infinite;
-      opacity: 0.3;
-      bottom: -20px;
-    }
-    @keyframes waveDrift {
+    .wave-top-decor .wa { animation: wdrift 22s linear infinite; opacity: 0.12; }
+    .wave-top-decor .wb { animation: wdrift 32s linear infinite reverse; opacity: 0.07; margin-top: -40px; }
+    .wave-bottom-decor .wa { animation: wdrift 20s linear infinite; opacity: 0.14; }
+    .wave-bottom-decor .wb { animation: wdrift 28s linear infinite reverse; opacity: 0.08; margin-bottom: -20px; }
+    @keyframes wdrift {
       0%   { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
 
-    /* ── CURSOR TRAIL ── */
-    .cursor-dot {
-      position: fixed;
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--brown-amber);
-      pointer-events: none;
-      z-index: 99999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.05s;
-      mix-blend-mode: multiply;
-    }
-    .cursor-ring {
-      position: fixed;
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(196, 122, 48, 0.5);
-      pointer-events: none;
-      z-index: 99998;
-      transform: translate(-50%, -50%);
-      transition: transform 0.12s ease, width 0.2s, height 0.2s, opacity 0.2s;
+    /* ── CURSOR TRAIL (desktop only) ── */
+    .cursor-dot, .cursor-ring { pointer-events: none; }
+    @media (hover: hover) {
+      .cursor-dot {
+        position: fixed; width: 8px; height: 8px; border-radius: 50%;
+        background: var(--brown-amber); z-index: 99999;
+        transform: translate(-50%, -50%); mix-blend-mode: multiply;
+      }
+      .cursor-ring {
+        position: fixed; width: 32px; height: 32px; border-radius: 50%;
+        border: 1.5px solid rgba(196, 122, 48, 0.5); z-index: 99998;
+        transform: translate(-50%, -50%);
+        transition: width 0.2s, height 0.2s, opacity 0.2s;
+      }
     }
 
     /* ── LOADER ── */
     #loader {
-      position: fixed; inset: 0;
-      z-index: 99999;
+      position: fixed; inset: 0; z-index: 99999;
       background: var(--brown-deep);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      pointer-events: all;
       transition: transform 1s cubic-bezier(0.76, 0, 0.24, 1);
       overflow: hidden;
     }
-    /* wave inside loader */
-    #loader .loader-wave-bg {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 180px;
-      overflow: hidden;
+    #loader .lw {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 200px; overflow: hidden;
     }
-    #loader .loader-wave-bg svg {
-      position: absolute;
-      bottom: 0;
-      width: 200%;
-      animation: waveDrift 12s linear infinite;
+    #loader .lw svg {
+      position: absolute; bottom: 0; width: 200%;
     }
-    #loader .loader-wave-bg svg:nth-child(2) {
-      animation: waveDrift 18s linear infinite reverse;
-      opacity: 0.4;
-    }
-    #loader.hide {
-      transform: translateY(-100vh);
-      pointer-events: none;
-    }
+    #loader .lw svg:nth-child(1) { animation: wdrift 10s linear infinite; opacity: 0.18; }
+    #loader .lw svg:nth-child(2) { animation: wdrift 15s linear infinite reverse; opacity: 0.1; }
+    #loader .lw svg:nth-child(3) { animation: wdrift 20s linear infinite; opacity: 0.07; bottom: -10px; }
+    #loader.hide { transform: translateY(-100vh); pointer-events: none; }
     #loader::before {
-      content: '';
-      position: absolute;
-      width: 500px; height: 500px;
-      border-radius: 50%;
+      content: ''; position: absolute; width: 500px; height: 500px; border-radius: 50%;
       background: radial-gradient(circle, rgba(196,122,48,0.12) 0%, transparent 70%);
-      pointer-events: none;
-      animation: loaderGlow 3s ease-in-out infinite alternate;
+      animation: lglow 3s ease-in-out infinite alternate;
     }
-    @keyframes loaderGlow { from{transform:scale(1);opacity:0.6;} to{transform:scale(1.2);opacity:1;} }
-    .loader-inner {
-      position: relative; z-index: 2;
-      display: flex; flex-direction: column; align-items: center; gap: 0;
-    }
-    .loader-gem { font-size: 1rem; color: var(--brown-amber); letter-spacing: 6px; margin-bottom: 24px; opacity: 0.6; animation: loaderLogoIn 0.6s ease 0.1s both; }
-    .loader-logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 7vw, 5rem); font-weight: 700; color: var(--brown-glow); letter-spacing: -2px; line-height: 1; animation: loaderLogoIn 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.2s both; }
-    .loader-logo span { color: var(--brown-amber); }
-    .loader-logo-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: rgba(232,201,160,0.38); letter-spacing: 0.5px; margin-top: 10px; display: block; text-align: center; animation: loaderLogoIn 0.7s ease 0.35s both; }
-    .loader-divider { width: 0; height: 1px; margin: 32px 0 28px; background: linear-gradient(90deg, transparent, var(--brown-amber), transparent); animation: loaderLineExpand 0.7s ease 0.5s forwards; }
-    @keyframes loaderLineExpand { from{width:0;opacity:0;} to{width:200px;opacity:1;} }
-    .loader-progress-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; animation: loaderLogoIn 0.6s ease 0.5s both; }
-    .loader-bar { width: 200px; height: 1px; background: rgba(196,122,48,0.15); border-radius: 2px; overflow: hidden; }
-    .loader-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--brown-mid), var(--brown-amber), var(--brown-light)); }
-    .loader-pct { font-family: 'Cormorant Garamond', serif; font-size: 0.82rem; color: rgba(196,122,48,0.5); letter-spacing: 3px; }
-    @keyframes loaderLogoIn { from{opacity:0;transform:translateY(16px);} to{opacity:1;transform:translateY(0);} }
+    @keyframes lglow { from{transform:scale(1);opacity:0.6;} to{transform:scale(1.2);opacity:1;} }
+    .li { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+    .li-gem { font-size: 1rem; color: var(--brown-amber); letter-spacing: 6px; margin-bottom: 24px; opacity: 0.6; animation: lfadein 0.6s ease 0.1s both; }
+    .li-logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 7vw, 5rem); font-weight: 700; color: var(--brown-glow); letter-spacing: -2px; line-height: 1; animation: lfadein 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.2s both; }
+    .li-logo span { color: var(--brown-amber); }
+    .li-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: rgba(232,201,160,0.38); letter-spacing: 0.5px; margin-top: 10px; display: block; text-align: center; animation: lfadein 0.7s ease 0.35s both; }
+    .li-line { width: 0; height: 1px; margin: 32px 0 28px; background: linear-gradient(90deg, transparent, var(--brown-amber), transparent); animation: lline 0.7s ease 0.5s forwards; }
+    @keyframes lline { from{width:0;opacity:0;} to{width:200px;opacity:1;} }
+    .li-prog { display: flex; flex-direction: column; align-items: center; gap: 14px; animation: lfadein 0.6s ease 0.5s both; }
+    .li-bar { width: 200px; height: 1px; background: rgba(196,122,48,0.15); border-radius: 2px; overflow: hidden; }
+    .li-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--brown-mid), var(--brown-amber), var(--brown-light)); }
+    .li-pct { font-family: 'Cormorant Garamond', serif; font-size: 0.82rem; color: rgba(196,122,48,0.5); letter-spacing: 3px; }
+    @keyframes lfadein { from{opacity:0;transform:translateY(16px);} to{opacity:1;transform:translateY(0);} }
 
     /* ── NAVBAR ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 1000;
-      padding: 0 5%;
-      display: flex; align-items: center; justify-content: space-between;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 0 5%; display: flex; align-items: center; justify-content: space-between;
       height: 72px;
       background: var(--nav-bg);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid rgba(155, 90, 30, 0.1);
       transition: all 0.4s;
     }
-    nav.scrolled { height: 62px; background: rgba(254, 252, 248, 0.97); border-bottom-color: rgba(155, 90, 30, 0.2); box-shadow: 0 4px 40px rgba(30, 16, 8, 0.1); }
+    nav.scrolled { height: 62px; background: rgba(254,252,248,0.97); border-bottom-color: rgba(155,90,30,0.2); box-shadow: 0 4px 40px rgba(30,16,8,0.1); }
     .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .nav-logo-icon { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, var(--brown-amber), var(--brown-dark)); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; position: relative; overflow: hidden; }
+    .nav-logo-icon { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, var(--brown-amber), var(--brown-dark)); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; position: relative; overflow: hidden; flex-shrink: 0; }
     .nav-logo-icon::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%); animation: shimmer 3s infinite; }
-    @keyframes shimmer { 0%{transform:translateX(-100%) translateY(-100%) rotate(45deg);} 100%{transform:translateX(100%) translateY(100%) rotate(45deg);} }
+    @keyframes shimmer { 0%{transform:translateX(-100%)translateY(-100%)rotate(45deg);} 100%{transform:translateX(100%)translateY(100%)rotate(45deg);} }
     .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 700; color: var(--brown-deep); letter-spacing: -0.5px; }
     .nav-logo-text span { color: var(--brown-amber); }
     .nav-links { display: flex; gap: 36px; list-style: none; }
@@ -204,465 +200,467 @@
     .nav-links a::before { content: ''; position: absolute; bottom: -3px; left: 50%; right: 50%; height: 1.5px; background: var(--brown-amber); transition: left 0.3s, right 0.3s; border-radius: 2px; }
     .nav-links a:hover { color: var(--brown-deep); }
     .nav-links a:hover::before { left: 0; right: 0; }
-    .nav-cta { background: var(--brown-deep) !important; color: var(--brown-glow) !important; padding: 10px 26px; border-radius: 50px; font-weight: 600 !important; font-size: 0.88rem !important; position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s !important; box-shadow: 0 4px 20px rgba(30, 16, 8, 0.3); }
+    .nav-cta { background: var(--brown-deep) !important; color: var(--brown-glow) !important; padding: 10px 26px; border-radius: 50px; font-weight: 600 !important; font-size: 0.88rem !important; position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s !important; box-shadow: 0 4px 20px rgba(30,16,8,0.3); }
     .nav-cta::before { display: none !important; }
-    .nav-cta::after { content: ''; position: absolute; inset: 0; border-radius: 50px; background: linear-gradient(135deg, rgba(196,122,48,0.3), transparent); opacity: 0; transition: opacity 0.3s; }
-    .nav-cta:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 30px rgba(30,16,8,0.4) !important; }
-    .nav-cta:hover::after { opacity: 1; }
-    .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
+    .nav-cta:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 30px rgba(30,16,8,0.4) !important; color: var(--brown-glow) !important; }
+    .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
     .burger span { display: block; width: 26px; height: 2px; background: var(--brown-warm); border-radius: 2px; transition: all 0.3s; }
-    .mobile-menu { display: none; position: fixed; inset: 0; background: rgba(30, 16, 8, 0.97); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 36px; }
+    .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; background: rgba(30,16,8,0.98);
+      z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+    }
     .mobile-menu.open { display: flex; }
-    .mobile-menu a { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 700; color: var(--brown-glow); text-decoration: none; transition: color 0.3s; opacity: 0; animation: menuItemIn 0.4s ease forwards; }
-    .mobile-menu.open a:nth-child(1){animation-delay:0.05s;} .mobile-menu.open a:nth-child(2){animation-delay:0.1s;} .mobile-menu.open a:nth-child(3){animation-delay:0.15s;} .mobile-menu.open a:nth-child(4){animation-delay:0.2s;} .mobile-menu.open a:nth-child(5){animation-delay:0.25s;} .mobile-menu.open a:nth-child(6){animation-delay:0.3s;}
-    @keyframes menuItemIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+    .mobile-menu a { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 700; color: var(--brown-glow); text-decoration: none; transition: color 0.3s; opacity: 0; animation: menuIn 0.4s ease forwards; }
+    .mobile-menu.open a:nth-child(2){animation-delay:0.05s;} .mobile-menu.open a:nth-child(3){animation-delay:0.1s;} .mobile-menu.open a:nth-child(4){animation-delay:0.15s;} .mobile-menu.open a:nth-child(5){animation-delay:0.2s;} .mobile-menu.open a:nth-child(6){animation-delay:0.25s;} .mobile-menu.open a:nth-child(7){animation-delay:0.3s;}
+    @keyframes menuIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
     .mobile-menu a:hover { color: var(--brown-amber); }
-    .mobile-close { position: absolute; top: 22px; right: 28px; font-size: 1.6rem; color: var(--brown-pale); cursor: pointer; transition: color 0.3s; }
+    .mobile-close { position: absolute; top: 22px; right: 28px; font-size: 1.6rem; color: var(--brown-pale); cursor: pointer; transition: color 0.3s; background: none; border: none; }
     .mobile-close:hover { color: var(--brown-amber); }
+    .mobile-wa { display: inline-flex; align-items: center; gap: 10px; background: #25D366; color: #fff !important; padding: 14px 32px; border-radius: 50px !important; font-size: 1rem !important; font-family: 'Outfit', sans-serif !important; font-weight: 600 !important; margin-top: 8px; }
+
     @media (max-width: 900px) { .nav-links { display: none; } .burger { display: flex; } }
 
     /* ── HERO ── */
     .hero {
-      min-height: 100vh;
+      min-height: 100svh;
       position: relative;
       display: flex; align-items: center;
       padding-top: 72px;
       overflow: hidden;
-      /* Warm brown-to-amber radial gradient base */
       background:
         radial-gradient(ellipse 80% 60% at 10% 50%, rgba(61,34,16,0.95) 0%, transparent 70%),
         radial-gradient(ellipse 60% 80% at 90% 30%, rgba(30,16,8,0.8) 0%, transparent 60%),
         linear-gradient(160deg, #2a1508 0%, #3d2210 40%, #1e1008 100%);
     }
 
-    /* HERO animated wave stack at bottom */
-    .hero-waves {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 220px;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 1;
+    /* Multi-layer hero wave stack */
+    .hero-wave-stack {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 260px; overflow: hidden; pointer-events: none; z-index: 1;
     }
-    .hero-waves svg {
-      position: absolute;
-      bottom: 0;
+    .hero-wave-stack svg {
+      position: absolute; bottom: 0;
       width: 220%;
     }
-    .hero-wave-1 { animation: heroWave1 16s ease-in-out infinite; opacity: 0.35; }
-    .hero-wave-2 { animation: heroWave2 22s ease-in-out infinite; opacity: 0.22; }
-    .hero-wave-3 { animation: heroWave3 28s ease-in-out infinite; opacity: 0.15; }
-    @keyframes heroWave1 {
-      0%,100% { transform: translateX(0) scaleY(1); }
-      50%      { transform: translateX(-20%) scaleY(1.08); }
-    }
-    @keyframes heroWave2 {
-      0%,100% { transform: translateX(-10%) scaleY(1); }
-      50%      { transform: translateX(10%) scaleY(0.92); }
-    }
-    @keyframes heroWave3 {
-      0%,100% { transform: translateX(-5%) scaleY(1); }
-      50%      { transform: translateX(-25%) scaleY(1.1); }
-    }
+    .hw1 { animation: hwave1 14s ease-in-out infinite; opacity: 0.4; }
+    .hw2 { animation: hwave2 20s ease-in-out infinite; opacity: 0.28; }
+    .hw3 { animation: hwave3 26s ease-in-out infinite; opacity: 0.2; }
+    .hw4 { animation: hwave4 32s ease-in-out infinite; opacity: 0.14; }
+    .hw5 { animation: hwave5 38s ease-in-out infinite; opacity: 0.1; }
+    @keyframes hwave1 { 0%,100%{transform:translateX(0) scaleY(1);} 50%{transform:translateX(-18%) scaleY(1.09);} }
+    @keyframes hwave2 { 0%,100%{transform:translateX(-8%) scaleY(1);} 50%{transform:translateX(12%) scaleY(0.91);} }
+    @keyframes hwave3 { 0%,100%{transform:translateX(-4%) scaleY(1);} 50%{transform:translateX(-22%) scaleY(1.12);} }
+    @keyframes hwave4 { 0%,100%{transform:translateX(-15%) scaleY(1);} 50%{transform:translateX(5%) scaleY(0.88);} }
+    @keyframes hwave5 { 0%,100%{transform:translateX(0) scaleY(1);} 50%{transform:translateX(-25%) scaleY(1.06);} }
 
-    .hero-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
-    .hero-aurora {
-      position: absolute; inset: 0; pointer-events: none;
+    /* Floating orbs */
+    .hero-aurora { position: absolute; inset: 0; pointer-events: none;
       background:
         radial-gradient(ellipse 60% 50% at 15% 65%, rgba(155,90,30,0.09) 0%, transparent 70%),
         radial-gradient(ellipse 40% 60% at 88% 30%, rgba(100,55,15,0.07) 0%, transparent 60%),
         radial-gradient(ellipse 50% 40% at 55% 95%, rgba(196,122,48,0.1) 0%, transparent 60%);
       animation: auroraShift 12s ease-in-out infinite alternate;
     }
-    @keyframes auroraShift { 0%{opacity:1;transform:scale(1);} 100%{opacity:0.7;transform:scale(1.05) translateY(-10px);} }
-    .hero-deco-circle { position: absolute; border-radius: 50%; border: 1px solid rgba(196, 122, 48, 0.1); pointer-events: none; animation: circlePulse 6s ease-in-out infinite; }
+    @keyframes auroraShift { 0%{opacity:1;transform:scale(1);} 100%{opacity:0.7;transform:scale(1.05)translateY(-10px);} }
+    .hero-deco-circle { position: absolute; border-radius: 50%; border: 1px solid rgba(196,122,48,0.1); pointer-events: none; animation: cpulse 6s ease-in-out infinite; }
     .hero-deco-circle:nth-child(1){width:500px;height:500px;right:-80px;top:8%;animation-delay:0s;}
     .hero-deco-circle:nth-child(2){width:360px;height:360px;right:20px;top:18%;animation-delay:1.5s;border-color:rgba(155,90,30,0.08);}
     .hero-deco-circle:nth-child(3){width:220px;height:220px;right:100px;top:30%;animation-delay:3s;border-color:rgba(212,160,106,0.12);}
-    @keyframes circlePulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.03);opacity:0.6;}}
+    @keyframes cpulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.03);opacity:0.6;}}
 
     .hero-content {
       position: relative; z-index: 2;
       width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 5%;
       display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center;
     }
-    .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; background: rgba(196,122,48,0.12); border: 1px solid rgba(196,122,48,0.3); color: var(--brown-light); padding: 8px 20px; border-radius: 50px; font-size: 0.76rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 26px; animation: heroFadeUp 0.9s ease both; }
-    .eyebrow-dot { width: 6px; height: 6px; background: var(--brown-amber); border-radius: 50%; animation: dotBlink 1.6s ease-in-out infinite; }
-    @keyframes dotBlink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.3;transform:scale(1.6);}}
-    .hero-h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.2rem, 5.5vw, 5.2rem); font-weight: 700; line-height: 1.06; letter-spacing: -2px; color: var(--brown-glow); margin-bottom: 14px; animation: heroFadeUp 1s ease 0.1s both; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; background: rgba(196,122,48,0.12); border: 1px solid rgba(196,122,48,0.3); color: var(--brown-light); padding: 8px 20px; border-radius: 50px; font-size: 0.76rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 26px; animation: heroUp 0.9s ease both; }
+    .eyebrow-dot { width: 6px; height: 6px; background: var(--brown-amber); border-radius: 50%; animation: dotblink 1.6s ease-in-out infinite; flex-shrink: 0; }
+    @keyframes dotblink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.3;transform:scale(1.6);}}
+    .hero-h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5.5vw, 5.2rem); font-weight: 700; line-height: 1.06; letter-spacing: -2px; color: var(--brown-glow); margin-bottom: 14px; animation: heroUp 1s ease 0.1s both; }
     .hero-h1 em { font-style: italic; color: var(--brown-amber); }
     .hero-h1 .script { font-family: 'Dancing Script', cursive; font-size: 1.08em; color: var(--brown-pale); display: block; }
-    .hero-tagline { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; animation: heroFadeUp 1.05s ease 0.15s both; }
-    .tagline-bar { flex-shrink: 0; }
+    .hero-tagline { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; animation: heroUp 1.05s ease 0.15s both; flex-wrap: wrap; }
     .tagline-bar svg { display: block; }
-    .hero-tagline-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--brown-pale); }
-    .hero-desc { font-size: 1.01rem; color: rgba(232,201,160,0.6); line-height: 1.8; margin-bottom: 38px; max-width: 470px; animation: heroFadeUp 1.1s ease 0.2s both; }
-    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; animation: heroFadeUp 1.2s ease 0.3s both; }
-    .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--brown-deep); color: var(--brown-glow); padding: 15px 34px; border-radius: 50px; font-weight: 600; font-size: 0.96rem; text-decoration: none; position: relative; overflow: hidden; box-shadow: 0 6px 30px rgba(30,16,8,0.35); transition: transform 0.3s, box-shadow 0.3s; }
-    .btn-primary::before { content: ''; position: absolute; inset: 0; border-radius: 50px; background: linear-gradient(135deg, rgba(196,122,48,0.4), rgba(196,122,48,0.1)); opacity: 0; transition: opacity 0.35s; }
-    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 44px rgba(30,16,8,0.45); }
-    .btn-primary:hover::before { opacity: 1; }
-    .btn-secondary { display: inline-flex; align-items: center; gap: 10px; background: transparent; color: var(--brown-deep); padding: 15px 34px; border-radius: 50px; font-weight: 600; font-size: 0.96rem; text-decoration: none; border: 1.5px solid rgba(100,55,20,0.25); transition: all 0.3s; }
-    .btn-secondary:hover { border-color: var(--brown-amber); color: var(--brown-amber); transform: translateY(-3px); background: rgba(196,122,48,0.04); }
-    .hero-stats { display: flex; gap: 40px; margin-top: 50px; animation: heroFadeUp 1.3s ease 0.4s both; }
+    .hero-tagline-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: var(--brown-pale); }
+    .hero-desc { font-size: 1rem; color: rgba(232,201,160,0.6); line-height: 1.8; margin-bottom: 38px; max-width: 470px; animation: heroUp 1.1s ease 0.2s both; }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; animation: heroUp 1.2s ease 0.3s both; }
+    .hero-stats { display: flex; gap: 28px; margin-top: 48px; animation: heroUp 1.3s ease 0.4s both; flex-wrap: wrap; }
     .stat-item { text-align: center; }
-    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 700; color: var(--brown-amber); display: block; line-height: 1; }
-    .stat-label { font-size: 0.72rem; color: var(--text-soft); text-transform: uppercase; letter-spacing: 1.8px; margin-top: 4px; display: block; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 700; color: var(--brown-amber); display: block; line-height: 1; }
+    .stat-label { font-size: 0.7rem; color: var(--text-soft); text-transform: uppercase; letter-spacing: 1.8px; margin-top: 4px; display: block; }
     .stat-sep { width: 1px; background: rgba(155,90,30,0.15); align-self: stretch; margin: 4px 0; }
-    .hero-img-wrap { position: relative; animation: heroFadeRight 1.1s ease 0.3s both; }
+    @keyframes heroUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+    /* Hero image */
+    .hero-img-wrap { position: relative; animation: heroRight 1.1s ease 0.3s both; }
     .hero-img-arch { width: 100%; aspect-ratio: 4/5; border-radius: 50% 50% 46% 46% / 44% 44% 50% 50%; overflow: hidden; position: relative; box-shadow: 0 30px 90px rgba(30,16,8,0.22), 0 0 0 8px rgba(196,122,48,0.08), 0 0 0 16px rgba(196,122,48,0.05); }
     .hero-img-arch img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s; }
     .hero-img-arch:hover img { transform: scale(1.04); }
     .hero-img-arch::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(180deg, rgba(196,122,48,0.25) 0%, transparent 40%, transparent 60%, rgba(30,16,8,0.5) 100%); z-index: 1; pointer-events: none; }
-    .float-badge { position: absolute; background: var(--cream-white); border: 1px solid rgba(155,90,30,0.12); border-radius: 16px; padding: 14px 20px; display: flex; align-items: center; gap: 12px; box-shadow: 0 8px 32px rgba(30,16,8,0.1); z-index: 3; animation: floatY ease-in-out infinite; }
+    .float-badge { position: absolute; background: var(--cream-white); border: 1px solid rgba(155,90,30,0.12); border-radius: 16px; padding: 12px 18px; display: flex; align-items: center; gap: 12px; box-shadow: 0 8px 32px rgba(30,16,8,0.1); z-index: 3; animation: floatY ease-in-out infinite; }
     .float-badge.b1{top:6%;right:-8%;animation-duration:4.2s;}
     .float-badge.b2{bottom:8%;left:-8%;animation-duration:5s;animation-delay:1.5s;}
     @keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
-    .badge-icon{font-size:1.6rem;}
-    .badge-text{font-size:0.84rem;font-weight:700;color:var(--brown-deep);line-height:1.2;}
-    .badge-sub{font-size:0.72rem;color:var(--text-soft);margin-top:1px;}
-    @keyframes heroFadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
-    @keyframes heroFadeRight{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
-    @media(max-width:900px){
-      .hero-content{grid-template-columns:1fr;gap:40px;text-align:center;}
-      .hero-img-wrap{order:-1;max-width:340px;margin:0 auto;}
-      .hero-desc{margin:0 auto 38px;}
-      .hero-btns{justify-content:center;}
-      .hero-stats{justify-content:center;}
-      .hero-tagline{justify-content:center;}
-      .hero-deco-circle{display:none;}
-      .float-badge.b1{right:0;top:-4%;}
-      .float-badge.b2{left:0;bottom:-4%;}
-    }
+    .badge-icon{font-size:1.4rem;}
+    .badge-text{font-size:0.82rem;font-weight:700;color:var(--brown-deep);line-height:1.2;}
+    .badge-sub{font-size:0.7rem;color:var(--text-soft);margin-top:1px;}
+    @keyframes heroRight{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
+
+    /* ── BUTTONS ── */
+    .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--brown-deep); color: var(--brown-glow); padding: 14px 30px; border-radius: 50px; font-weight: 600; font-size: 0.95rem; text-decoration: none; position: relative; overflow: hidden; box-shadow: 0 6px 30px rgba(30,16,8,0.35); transition: transform 0.3s, box-shadow 0.3s; white-space: nowrap; }
+    .btn-primary::before { content: ''; position: absolute; inset: 0; border-radius: 50px; background: linear-gradient(135deg, rgba(196,122,48,0.4), rgba(196,122,48,0.1)); opacity: 0; transition: opacity 0.35s; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 44px rgba(30,16,8,0.45); }
+    .btn-primary:hover::before { opacity: 1; }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 10px; background: transparent; color: var(--brown-deep); padding: 14px 30px; border-radius: 50px; font-weight: 600; font-size: 0.95rem; text-decoration: none; border: 1.5px solid rgba(100,55,20,0.25); transition: all 0.3s; white-space: nowrap; }
+    .btn-secondary:hover { border-color: var(--brown-amber); color: var(--brown-amber); transform: translateY(-3px); background: rgba(196,122,48,0.04); }
 
     /* ── MARQUEE ── */
-    .marquee-section {
-      padding: 0;
-      overflow: hidden;
-      position: relative;
-      background: var(--brown-deep);
-    }
-    .marquee-section::before,.marquee-section::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none;}
+    .marquee-section { padding: 0; overflow: hidden; position: relative; background: var(--brown-deep); }
+    .marquee-section::before,.marquee-section::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;}
     .marquee-section::before{left:0;background:linear-gradient(90deg,var(--brown-deep),transparent);}
     .marquee-section::after{right:0;background:linear-gradient(-90deg,var(--brown-deep),transparent);}
-    .marquee-track{display:flex;animation:marqueeRoll 25s linear infinite;white-space:nowrap;will-change:transform;}
-    .marquee-item{display:inline-flex;align-items:center;gap:12px;padding:19px 30px;font-size:0.78rem;font-weight:600;color:rgba(232,201,160,0.55);letter-spacing:2px;text-transform:uppercase;flex-shrink:0;transition:color 0.3s;}
-    .marquee-item:hover{color:var(--brown-pale);}
-    .marquee-gem{color:var(--brown-amber);font-size:0.55rem;animation:gemSpin 8s linear infinite;display:inline-block;}
-    @keyframes gemSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-    @keyframes marqueeRoll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+    .marquee-track{display:flex;animation:mroll 25s linear infinite;white-space:nowrap;will-change:transform;}
+    .marquee-item{display:inline-flex;align-items:center;gap:10px;padding:18px 26px;font-size:0.76rem;font-weight:600;color:rgba(232,201,160,0.55);letter-spacing:2px;text-transform:uppercase;flex-shrink:0;}
+    .marquee-gem{color:var(--brown-amber);font-size:0.55rem;animation:gspin 8s linear infinite;display:inline-block;}
+    @keyframes gspin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+    @keyframes mroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
     /* ── SECTION COMMON ── */
-    section { padding: 100px 5%; position: relative; overflow: hidden; }
-    .section-header { text-align: center; margin-bottom: 64px; position: relative; z-index: 2; }
-    .section-eyebrow { display: inline-block; color: var(--brown-amber); font-size: 0.73rem; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase; margin-bottom: 14px; position: relative; }
+    section { padding: clamp(60px, 8vw, 100px) 5%; position: relative; overflow: hidden; }
+    .section-header { text-align: center; margin-bottom: clamp(40px, 6vw, 64px); position: relative; z-index: 2; }
+    .section-eyebrow { display: inline-block; color: var(--brown-amber); font-size: 0.73rem; font-weight: 700; letter-spacing: 3.5px; text-transform: uppercase; margin-bottom: 14px; }
     .section-eyebrow::before,.section-eyebrow::after{content:'──';display:inline-block;margin:0 10px;color:rgba(196,122,48,0.4);font-size:0.6rem;vertical-align:middle;}
-    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 700; letter-spacing: -0.8px; line-height: 1.12; color: var(--brown-deep); }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.9rem, 4vw, 3.5rem); font-weight: 700; letter-spacing: -0.8px; line-height: 1.12; color: var(--brown-deep); }
     .section-title em { font-style: italic; color: var(--brown-amber); }
-    .section-desc { color: var(--text-muted); font-size: 1rem; max-width: 540px; margin: 14px auto 0; line-height: 1.8; }
+    .section-desc { color: var(--text-muted); font-size: 0.97rem; max-width: 540px; margin: 14px auto 0; line-height: 1.8; }
     .divider { width: 60px; height: 1.5px; background: linear-gradient(90deg, transparent, var(--brown-amber), transparent); margin: 22px auto 0; }
 
     /* ── ABOUT ── */
-    .about {
-      background: var(--cream-white);
-      /* cream wave background */
-    }
-    /* Wave accent in cream sections */
-    .about .section-wave-bg svg path { fill: rgba(196,122,48,0.05); }
-
-    .about-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; position: relative; z-index: 2; }
+    .about { background: var(--cream-white); }
+    .about-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2; }
     .about-visual { position: relative; }
-    .about-bg-word { font-family: 'Cormorant Garamond', serif; font-size: clamp(9rem, 18vw, 16rem); font-weight: 700; color: rgba(155,90,30,0.04); line-height: 1; position: absolute; top: -30px; left: -30px; pointer-events: none; letter-spacing: -8px; user-select: none; }
-    .about-cards { display: flex; flex-direction: column; gap: 18px; position: relative; z-index: 2; }
-    .about-card { background: var(--cream-mid); border: 1px solid rgba(155,90,30,0.1); border-radius: 16px; padding: 22px 24px; display: flex; align-items: center; gap: 18px; transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); cursor: default; position: relative; overflow: hidden; }
+    .about-bg-word { font-family: 'Cormorant Garamond', serif; font-size: clamp(8rem, 15vw, 16rem); font-weight: 700; color: rgba(155,90,30,0.04); line-height: 1; position: absolute; top: -30px; left: -20px; pointer-events: none; letter-spacing: -8px; user-select: none; }
+    .about-cards { display: flex; flex-direction: column; gap: 16px; position: relative; z-index: 2; }
+    .about-card { background: var(--cream-mid); border: 1px solid rgba(155,90,30,0.1); border-radius: 16px; padding: 20px 22px; display: flex; align-items: center; gap: 16px; transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); position: relative; overflow: hidden; }
     .about-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, var(--brown-amber), var(--brown-mid)); transform: scaleY(0); transition: transform 0.35s; transform-origin: bottom; border-radius: 0 2px 2px 0; }
     .about-card:hover { transform: translateX(6px); background: var(--cream-deep); border-color: rgba(155,90,30,0.2); }
     .about-card:hover::before { transform: scaleY(1); }
-    .about-card-icon { width: 54px; height: 54px; border-radius: 14px; background: linear-gradient(135deg, var(--brown-amber), var(--brown-dark)); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; position: relative; overflow: hidden; }
+    .about-card-icon { width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, var(--brown-amber), var(--brown-dark)); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; position: relative; overflow: hidden; }
     .about-card-icon::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent); }
-    .about-card-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-soft); }
-    .about-card-val { font-size: 1.02rem; font-weight: 700; color: var(--brown-deep); margin-top: 3px; }
+    .about-card-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-soft); }
+    .about-card-val { font-size: 0.98rem; font-weight: 700; color: var(--brown-deep); margin-top: 3px; }
+    .about-content { }
     .about-content .section-eyebrow { display: block; margin-bottom: 10px; }
-    .about-content h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem,3.5vw,2.9rem); font-weight: 700; line-height: 1.18; color: var(--brown-deep); margin-bottom: 18px; }
+    .about-content h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.9rem); font-weight: 700; line-height: 1.18; color: var(--brown-deep); margin-bottom: 18px; }
     .about-content h2 em { font-style: italic; color: var(--brown-amber); }
-    .about-quote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.25rem; color: var(--brown-mid); padding: 16px 20px; margin-bottom: 22px; line-height: 1.6; background: linear-gradient(135deg, rgba(196,122,48,0.06), rgba(155,90,30,0.04)); border-left: 3px solid var(--brown-amber); border-radius: 0 10px 10px 0; }
-    .about-content p { color: var(--text-muted); font-size: 0.97rem; line-height: 1.82; margin-bottom: 14px; }
-    .about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 30px; }
-    .about-highlight { background: var(--cream-mid); border: 1px solid rgba(155,90,30,0.1); border-radius: 12px; padding: 18px; transition: all 0.35s; cursor: default; }
+    .about-quote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2rem; color: var(--brown-mid); padding: 16px 20px; margin-bottom: 22px; line-height: 1.6; background: linear-gradient(135deg, rgba(196,122,48,0.06), rgba(155,90,30,0.04)); border-left: 3px solid var(--brown-amber); border-radius: 0 10px 10px 0; }
+    .about-content p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.82; margin-bottom: 14px; }
+    .about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px; }
+    .about-highlight { background: var(--cream-mid); border: 1px solid rgba(155,90,30,0.1); border-radius: 12px; padding: 16px; transition: all 0.35s; }
     .about-highlight:hover { background: var(--brown-deep); border-color: var(--brown-deep); transform: translateY(-4px); }
     .about-highlight:hover .about-highlight-text,.about-highlight:hover .about-highlight-icon { color: var(--brown-glow); }
-    .about-highlight-icon { font-size: 1.4rem; margin-bottom: 7px; display: block; transition: all 0.35s; }
-    .about-highlight-text { font-size: 0.86rem; font-weight: 600; color: var(--brown-deep); transition: color 0.35s; }
-    @media(max-width:900px){.about-inner{grid-template-columns:1fr;gap:40px;}.about-visual{display:none;}}
+    .about-highlight-icon { font-size: 1.3rem; margin-bottom: 6px; display: block; transition: all 0.35s; }
+    .about-highlight-text { font-size: 0.84rem; font-weight: 600; color: var(--brown-deep); transition: color 0.35s; }
 
     /* ── PRODUCTS ── */
-    .products {
-      /* Warm cream bg with wave bottom decoration */
-      background: linear-gradient(180deg, var(--cream-light) 0%, #f0e8d8 100%);
-    }
-
-    /* products wave tones: soft amber on cream */
-    .products-content { position: relative; z-index: 2; }
-    .products-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(300px,1fr)); gap: 26px; max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+    .products { background: linear-gradient(180deg, var(--cream-light) 0%, #f0e8d8 100%); }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 22px; max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
     .product-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; transition: transform 0.4s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.4s; cursor: pointer; position: relative; }
-    .product-card:hover { transform: translateY(-12px) scale(1.012); box-shadow: var(--shadow-lift); border-color: rgba(155,90,30,0.25); }
+    .product-card:hover { transform: translateY(-10px) scale(1.012); box-shadow: var(--shadow-lift); border-color: rgba(155,90,30,0.25); }
     .product-card-img-wrap { overflow: hidden; position: relative; }
     .product-card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; transition: transform 0.55s ease; }
     .product-card:hover .product-card-img { transform: scale(1.08); }
     .product-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(30,16,8,0.55) 100%); }
-    .product-badge { position: absolute; top: 15px; left: 15px; background: var(--brown-deep); color: var(--brown-pale); font-size: 0.7rem; font-weight: 700; padding: 6px 14px; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; }
-    .product-card-body { padding: 24px; }
-    .product-icon { font-size: 1.7rem; margin-bottom: 10px; display: block; }
-    .product-name { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 700; margin-bottom: 7px; color: var(--brown-deep); }
-    .product-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.68; margin-bottom: 18px; }
-    .product-cta { display: inline-flex; align-items: center; gap: 8px; color: var(--brown-amber); font-size: 0.87rem; font-weight: 600; text-decoration: none; transition: gap 0.25s, color 0.25s; }
+    .product-badge { position: absolute; top: 15px; left: 15px; background: var(--brown-deep); color: var(--brown-pale); font-size: 0.68rem; font-weight: 700; padding: 5px 13px; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; }
+    .product-card-body { padding: 22px; }
+    .product-icon { font-size: 1.6rem; margin-bottom: 10px; display: block; }
+    .product-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 7px; color: var(--brown-deep); }
+    .product-desc { font-size: 0.86rem; color: var(--text-muted); line-height: 1.66; margin-bottom: 16px; }
+    .product-cta { display: inline-flex; align-items: center; gap: 8px; color: var(--brown-amber); font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: gap 0.25s, color 0.25s; }
     .product-cta:hover { gap: 14px; color: var(--brown-mid); }
     .product-card.featured { grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; }
     .product-card.featured .product-card-img-wrap { aspect-ratio: auto; height: 100%; }
     .product-card.featured .product-card-img { height: 100%; aspect-ratio: auto; }
-    @media(max-width:768px){.product-card.featured{grid-column:span 1;display:block;}.product-card.featured .product-card-img-wrap{height:auto;}.product-card.featured .product-card-img{height:auto;aspect-ratio:4/3;}}
 
     /* ── MINI PRODUCTS ── */
-    .mini-products {
-      /* darker warm cream */
-      background: linear-gradient(180deg, var(--cream-deep) 0%, #ddd0bc 100%);
-      position: relative;
-    }
-    .mini-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(200px,1fr)); gap: 20px; max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
-    .mini-card { background: var(--cream-white); border: 1px solid rgba(155,90,30,0.1); border-radius: 16px; padding: 30px 22px; text-align: center; transition: all 0.4s cubic-bezier(0.34,1.4,0.64,1); cursor: pointer; position: relative; overflow: hidden; }
+    .mini-products { background: linear-gradient(180deg, var(--cream-deep) 0%, #ddd0bc 100%); }
+    .mini-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 18px; max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+    .mini-card { background: var(--cream-white); border: 1px solid rgba(155,90,30,0.1); border-radius: 16px; padding: 28px 20px; text-align: center; transition: all 0.4s cubic-bezier(0.34,1.4,0.64,1); cursor: pointer; position: relative; overflow: hidden; }
     .mini-card::before { content: ''; position: absolute; inset: 0; border-radius: 16px; background: radial-gradient(circle at center, rgba(196,122,48,0.08) 0%, transparent 70%); opacity: 0; transition: opacity 0.35s; }
     .mini-card:hover::before { opacity: 1; }
     .mini-card:hover { background: var(--brown-deep); border-color: var(--brown-dark); transform: translateY(-8px); box-shadow: var(--glow-warm); }
     .mini-card:hover .mini-card-name,.mini-card:hover .mini-card-desc { color: rgba(232,201,160,0.85); }
-    .mini-card-icon { font-size: 2.4rem; margin-bottom: 15px; display: block; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+    .mini-card-icon { font-size: 2.2rem; margin-bottom: 14px; display: block; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
     .mini-card:hover .mini-card-icon { transform: scale(1.25) rotate(8deg); }
-    .mini-card-name { font-size: 0.96rem; font-weight: 700; color: var(--brown-deep); margin-bottom: 7px; transition: color 0.35s; }
-    .mini-card-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; transition: color 0.35s; }
+    .mini-card-name { font-size: 0.93rem; font-weight: 700; color: var(--brown-deep); margin-bottom: 7px; transition: color 0.35s; }
+    .mini-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; transition: color 0.35s; }
 
     /* ── WHY US ── */
-    .why-us {
-      /* Deep brown with wave accents */
-      background: linear-gradient(160deg, #2a1508 0%, var(--brown-deep) 50%, #261406 100%);
-      position: relative; overflow: hidden;
-    }
-    .why-us-bg { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 50% 60% at 20% 80%, rgba(155,90,30,0.15) 0%, transparent 60%), radial-gradient(ellipse 40% 50% at 80% 20%, rgba(100,55,15,0.12) 0%, transparent 60%); animation: whyBgPulse 8s ease-in-out infinite alternate; }
-    @keyframes whyBgPulse{0%{opacity:1;}100%{opacity:0.6;}}
-    .why-orb { position: absolute; width: 500px; height: 500px; border-radius: 50%; border: 1px solid rgba(196,122,48,0.07); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: orbSpin 30s linear infinite; pointer-events: none; }
+    .why-us { background: linear-gradient(160deg, #2a1508 0%, var(--brown-deep) 50%, #261406 100%); }
+    .why-us-bg { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 50% 60% at 20% 80%, rgba(155,90,30,0.15) 0%, transparent 60%), radial-gradient(ellipse 40% 50% at 80% 20%, rgba(100,55,15,0.12) 0%, transparent 60%); animation: whybg 8s ease-in-out infinite alternate; }
+    @keyframes whybg{0%{opacity:1;}100%{opacity:0.6;}}
+    .why-orb { position: absolute; width: 500px; height: 500px; border-radius: 50%; border: 1px solid rgba(196,122,48,0.07); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: orbspin 30s linear infinite; pointer-events: none; }
     .why-orb:nth-child(2){width:700px;height:700px;animation-duration:50s;animation-direction:reverse;border-color:rgba(196,122,48,0.04);}
-    @keyframes orbSpin{from{transform:translate(-50%,-50%) rotate(0deg);}to{transform:translate(-50%,-50%) rotate(360deg);}}
+    @keyframes orbspin{from{transform:translate(-50%,-50%)rotate(0deg);}to{transform:translate(-50%,-50%)rotate(360deg);}}
     .why-us .section-eyebrow { color: var(--brown-pale); }
     .why-us .section-title { color: var(--cream-white); }
     .why-us .section-title em { color: var(--brown-light); }
     .why-us .section-desc { color: rgba(232,201,160,0.5); }
-    .why-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(270px,1fr)); gap: 22px; max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
-    .why-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(196,122,48,0.15); border-radius: var(--radius); padding: 34px 28px; text-align: center; transition: all 0.4s; position: relative; overflow: hidden; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+    .why-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(196,122,48,0.15); border-radius: var(--radius); padding: 32px 26px; text-align: center; transition: all 0.4s; position: relative; overflow: hidden; }
     .why-card::before { content: ''; position: absolute; inset: 0; border-radius: var(--radius); background: linear-gradient(135deg, rgba(196,122,48,0.12), transparent); opacity: 0; transition: opacity 0.35s; }
     .why-card:hover { background: rgba(255,255,255,0.07); border-color: rgba(196,122,48,0.4); transform: translateY(-8px); }
     .why-card:hover::before { opacity: 1; }
-    .why-icon { width: 64px; height: 64px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 20px; background: rgba(196,122,48,0.1); border: 1px solid rgba(196,122,48,0.22); transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+    .why-icon { width: 62px; height: 62px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; margin: 0 auto 18px; background: rgba(196,122,48,0.1); border: 1px solid rgba(196,122,48,0.22); transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); }
     .why-card:hover .why-icon { background: linear-gradient(135deg, var(--brown-amber), var(--brown-mid)); transform: scale(1.1) rotate(-4deg); box-shadow: 0 8px 30px rgba(196,122,48,0.35); }
-    .why-title { font-size: 1.02rem; font-weight: 700; margin-bottom: 9px; color: var(--cream-light); }
-    .why-desc { font-size: 0.86rem; color: rgba(232,201,160,0.5); line-height: 1.7; }
-
-    /* ── WHY SECTION WAVES (dark amber on brown) ── */
-    .why-waves-top, .why-waves-bottom {
-      position: absolute;
-      left: 0; right: 0;
-      height: 100px;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .why-waves-top { top: 0; }
-    .why-waves-bottom { bottom: 0; }
-    .why-waves-top svg, .why-waves-bottom svg {
-      position: absolute;
-      width: 200%;
-    }
-    .why-waves-top svg { top: 0; animation: waveTopDrift 20s linear infinite; }
-    .why-waves-top svg:nth-child(2) { animation: waveTopDrift 28s linear infinite reverse; opacity: 0.5; }
-    .why-waves-bottom svg { bottom: 0; animation: waveDrift 22s linear infinite; }
-    .why-waves-bottom svg:nth-child(2) { animation: waveDrift 30s linear infinite reverse; opacity: 0.5; }
-    @keyframes waveTopDrift {
-      0%   { transform: translateX(0) scaleY(-1); }
-      100% { transform: translateX(-50%) scaleY(-1); }
-    }
+    .why-title { font-size: 1rem; font-weight: 700; margin-bottom: 9px; color: var(--cream-light); }
+    .why-desc { font-size: 0.84rem; color: rgba(232,201,160,0.5); line-height: 1.7; }
 
     /* ── SHOWCASE ── */
-    .showcase {
-      background: linear-gradient(180deg, var(--cream-white) 0%, var(--cream-mid) 100%);
-    }
-    .showcase-grid { display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: repeat(2,250px); gap: 18px; max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
-    .showcase-item { border-radius: 16px; overflow: hidden; position: relative; cursor: pointer; }
-    .showcase-item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.55s ease,filter 0.4s; filter:brightness(0.88) saturate(0.9); }
-    .showcase-item:hover img { transform:scale(1.1); filter:brightness(1) saturate(1.1); }
+    .showcase { background: linear-gradient(180deg, var(--cream-white) 0%, var(--cream-mid) 100%); }
+    .showcase-grid { display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: repeat(2,220px); gap: 16px; max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+    .showcase-item { border-radius: 14px; overflow: hidden; position: relative; cursor: pointer; }
+    .showcase-item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.55s ease,filter 0.4s; filter:brightness(0.88)saturate(0.9); }
+    .showcase-item:hover img { transform:scale(1.1); filter:brightness(1)saturate(1.1); }
     .showcase-item.large { grid-row: span 2; }
-    .showcase-caption { position: absolute; bottom:0; left:0; right:0; padding:28px 20px 20px; background:linear-gradient(0deg,rgba(30,16,8,0.85) 0%,transparent 100%); transform:translateY(100%); transition:transform 0.4s ease; }
+    .showcase-caption { position: absolute; bottom:0; left:0; right:0; padding:22px 18px 16px; background:linear-gradient(0deg,rgba(30,16,8,0.85) 0%,transparent 100%); transform:translateY(100%); transition:transform 0.4s ease; }
     .showcase-item:hover .showcase-caption { transform:translateY(0); }
-    .showcase-caption h3 { font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-weight:700; color:#fff; }
-    .showcase-caption p { font-size:0.83rem; color:rgba(255,255,255,0.65); margin-top:4px; }
-    @media(max-width:700px){.showcase-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}.showcase-item.large{grid-row:span 1;}}
+    .showcase-caption h3 { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:700; color:#fff; }
+    .showcase-caption p { font-size:0.8rem; color:rgba(255,255,255,0.65); margin-top:3px; }
 
     /* ── TESTIMONIALS ── */
-    .testimonials {
-      background: linear-gradient(180deg, var(--cream-light) 0%, #ede5d5 100%);
-    }
-    .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(300px,1fr)); gap: 22px; max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
-    .testimonial-card { background: var(--cream-white); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 30px 26px; transition: all 0.35s; position: relative; }
+    .testimonials { background: linear-gradient(180deg, var(--cream-light) 0%, #ede5d5 100%); }
+    .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+    .testimonial-card { background: var(--cream-white); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 28px 24px; transition: all 0.35s; position: relative; }
     .testimonial-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--brown-amber), transparent); transform: scaleX(0); transition: transform 0.4s; border-radius: var(--radius) var(--radius) 0 0; }
     .testimonial-card:hover { transform: translateY(-6px); box-shadow: var(--glow-warm); border-color: rgba(155,90,30,0.25); }
     .testimonial-card:hover::before { transform: scaleX(1); }
-    .stars { color: var(--brown-amber); font-size: 0.9rem; margin-bottom: 16px; letter-spacing: 3px; }
-    .testimonial-text { font-size: 0.93rem; color: var(--text-muted); line-height: 1.78; margin-bottom: 22px; font-style: italic; position: relative; padding-left: 20px; }
+    .stars { color: var(--brown-amber); font-size: 0.88rem; margin-bottom: 14px; letter-spacing: 3px; }
+    .testimonial-text { font-size: 0.91rem; color: var(--text-muted); line-height: 1.78; margin-bottom: 20px; font-style: italic; position: relative; padding-left: 20px; }
     .testimonial-text::before { content: '\201C'; font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: rgba(196,122,48,0.15); line-height: 0.8; position: absolute; top: -4px; left: -10px; }
-    .testimonial-author { display: flex; align-items: center; gap: 13px; }
-    .author-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--brown-amber), var(--brown-dark)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: var(--brown-glow); flex-shrink: 0; }
-    .author-name { font-weight: 700; font-size: 0.93rem; color: var(--brown-deep); }
-    .author-loc { font-size: 0.77rem; color: var(--text-soft); margin-top: 2px; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .author-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--brown-amber), var(--brown-dark)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.95rem; color: var(--brown-glow); flex-shrink: 0; }
+    .author-name { font-weight: 700; font-size: 0.91rem; color: var(--brown-deep); }
+    .author-loc { font-size: 0.75rem; color: var(--text-soft); margin-top: 2px; }
 
     /* ── CTA SECTION ── */
     .cta-section {
-      padding: 100px 5%;
+      padding: clamp(70px, 8vw, 100px) 5%;
       background: linear-gradient(135deg, var(--brown-dark) 0%, #1a0c04 50%, var(--brown-deep) 100%);
       text-align: center; position: relative; overflow: hidden;
     }
     .cta-section::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 700px; height: 350px; border-radius: 50%; background: rgba(196,122,48,0.08); pointer-events: none; }
-    .cta-section::after { content: '✦'; position: absolute; font-size: 200px; color: rgba(196,122,48,0.04); top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; font-family: serif; animation: ctaStarSpin 20s linear infinite; }
-    @keyframes ctaStarSpin{from{transform:translate(-50%,-50%) rotate(0deg);}to{transform:translate(-50%,-50%) rotate(360deg);}}
-    .cta-section h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem,4vw,3.2rem); font-weight: 700; margin-bottom: 16px; color: var(--cream-light); position: relative; z-index: 1; }
+    .cta-section::after { content: '✦'; position: absolute; font-size: 200px; color: rgba(196,122,48,0.04); top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; font-family: serif; animation: ctaspin 20s linear infinite; }
+    @keyframes ctaspin{from{transform:translate(-50%,-50%)rotate(0deg);}to{transform:translate(-50%,-50%)rotate(360deg);}}
+    .cta-section h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 700; margin-bottom: 16px; color: var(--cream-light); position: relative; z-index: 1; }
     .cta-section h2 em { font-style: italic; color: var(--brown-light); }
-    .cta-section p { color: rgba(232,201,160,0.5); font-size: 1.01rem; margin-bottom: 40px; position: relative; z-index: 1; }
-    .cta-btns { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
-    .cta-section .btn-primary { background: var(--cream-white); color: var(--brown-deep); box-shadow: 0 6px 30px rgba(0,0,0,0.3); }
-    .cta-section .btn-primary:hover { box-shadow: 0 14px 44px rgba(0,0,0,0.4); }
+    .cta-section p { color: rgba(232,201,160,0.5); font-size: 0.98rem; margin-bottom: 38px; position: relative; z-index: 1; }
+    .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+    .cta-section .btn-primary { background: var(--cream-white); color: var(--brown-deep); }
     .cta-section .btn-secondary { color: var(--brown-pale); border-color: rgba(196,122,48,0.3); }
     .cta-section .btn-secondary:hover { border-color: var(--brown-light); color: var(--brown-light); background: rgba(196,122,48,0.06); }
 
-    /* CTA waves */
-    .cta-waves {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 90px;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .cta-waves svg {
-      position: absolute; bottom: 0;
-      width: 200%;
-      animation: waveDrift 20s linear infinite;
-      opacity: 0.3;
-    }
-    .cta-waves svg:nth-child(2) {
-      animation: waveDrift 28s linear infinite reverse;
-      opacity: 0.15;
-    }
-
     /* ── CONTACT ── */
-    .contact {
-      background: linear-gradient(180deg, var(--cream-deep) 0%, var(--cream-mid) 100%);
-    }
-    .contact-wrap { max-width: 920px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; position: relative; z-index: 2; }
-    .contact-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 700; margin-bottom: 14px; color: var(--brown-deep); }
+    .contact { background: linear-gradient(180deg, var(--cream-deep) 0%, var(--cream-mid) 100%); }
+    .contact-wrap { max-width: 920px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 55px; align-items: start; position: relative; z-index: 2; }
+    .contact-info h3 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 3vw, 1.9rem); font-weight: 700; margin-bottom: 14px; color: var(--brown-deep); }
     .contact-info h3 em { font-style: italic; color: var(--brown-amber); }
-    .contact-info p { color: var(--text-muted); font-size: 0.93rem; line-height: 1.78; margin-bottom: 28px; }
-    .hours-badge { display: inline-flex; align-items: center; gap: 9px; background: rgba(155,90,30,0.08); border: 1px solid rgba(155,90,30,0.15); border-radius: 50px; padding: 8px 18px; font-size: 0.77rem; font-weight: 600; color: var(--brown-mid); margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.8px; }
-    .hours-dot { width: 7px; height: 7px; border-radius: 50%; background: #4caf7d; animation: dotBlink 1.6s ease infinite; }
-    .contact-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; }
-    .contact-item-icon { width: 46px; height: 46px; border-radius: 13px; background: rgba(155,90,30,0.08); border: 1px solid rgba(155,90,30,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--brown-amber); flex-shrink: 0; transition: all 0.35s; }
+    .contact-info p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.78; margin-bottom: 26px; }
+    .hours-badge { display: inline-flex; align-items: center; gap: 9px; background: rgba(155,90,30,0.08); border: 1px solid rgba(155,90,30,0.15); border-radius: 50px; padding: 8px 16px; font-size: 0.75rem; font-weight: 600; color: var(--brown-mid); margin-bottom: 22px; text-transform: uppercase; letter-spacing: 0.8px; }
+    .hours-dot { width: 7px; height: 7px; border-radius: 50%; background: #4caf7d; animation: dotblink 1.6s ease infinite; flex-shrink: 0; }
+    .contact-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+    .contact-item-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(155,90,30,0.08); border: 1px solid rgba(155,90,30,0.15); display: flex; align-items: center; justify-content: center; font-size: 1rem; color: var(--brown-amber); flex-shrink: 0; transition: all 0.35s; }
     .contact-item:hover .contact-item-icon { background: var(--brown-deep); color: var(--brown-pale); border-color: var(--brown-dark); }
-    .contact-item-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-soft); }
-    .contact-item-text { font-size: 0.93rem; color: var(--brown-deep); margin-top: 3px; }
+    .contact-item-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-soft); }
+    .contact-item-text { font-size: 0.91rem; color: var(--brown-deep); margin-top: 3px; }
     .contact-item-text a { color: inherit; text-decoration: none; transition: color 0.3s; }
     .contact-item-text a:hover { color: var(--brown-amber); }
-    .contact-form { display: flex; flex-direction: column; gap: 18px; }
-    .form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--brown-mid); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.6px; }
-    .form-group input,.form-group textarea,.form-group select { width: 100%; background: var(--cream-white); border: 1.5px solid rgba(155,90,30,0.15); border-radius: 13px; padding: 14px 17px; color: var(--brown-deep); font-family: 'Outfit', sans-serif; font-size: 0.93rem; transition: border-color 0.3s, box-shadow 0.3s; outline: none; resize: none; }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-group label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--brown-mid); margin-bottom: 7px; text-transform: uppercase; letter-spacing: 0.6px; }
+    .form-group input,.form-group textarea,.form-group select { width: 100%; background: var(--cream-white); border: 1.5px solid rgba(155,90,30,0.15); border-radius: 13px; padding: 13px 16px; color: var(--brown-deep); font-family: 'Outfit', sans-serif; font-size: 0.91rem; transition: border-color 0.3s, box-shadow 0.3s; outline: none; resize: none; }
     .form-group input::placeholder,.form-group textarea::placeholder { color: var(--text-soft); }
     .form-group input:focus,.form-group textarea:focus,.form-group select:focus { border-color: var(--brown-amber); box-shadow: 0 0 0 4px rgba(196,122,48,0.1); }
     .form-group select option { background: #fff; color: var(--brown-deep); }
-    .form-submit { background: var(--brown-deep); color: var(--brown-glow); border: none; padding: 15px 28px; border-radius: 50px; font-family: 'Outfit', sans-serif; font-size: 0.97rem; font-weight: 600; cursor: pointer; box-shadow: 0 6px 28px rgba(30,16,8,0.3); transition: transform 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
+    .form-submit { background: var(--brown-deep); color: var(--brown-glow); border: none; padding: 14px 26px; border-radius: 50px; font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; box-shadow: 0 6px 28px rgba(30,16,8,0.3); transition: transform 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; display: flex; align-items: center; gap: 10px; }
     .form-submit::before { content: ''; position: absolute; inset: 0; border-radius: 50px; background: linear-gradient(135deg, rgba(196,122,48,0.3), transparent); opacity: 0; transition: opacity 0.35s; }
     .form-submit:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(30,16,8,0.45); }
     .form-submit:hover::before { opacity: 1; }
-    @media(max-width:700px){.contact-wrap{grid-template-columns:1fr;}}
 
     /* ── FOOTER ── */
     footer {
       background: linear-gradient(160deg, #1a0c04 0%, var(--brown-deep) 50%, #0f0804 100%);
-      padding: 70px 5% 34px;
+      padding: clamp(50px, 6vw, 70px) 5% 32px;
       position: relative; overflow: hidden;
     }
-    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 56px; max-width: 1280px; margin: 0 auto; padding-bottom: 44px; border-bottom: 1px solid rgba(255,255,255,0.07); position: relative; z-index: 2; }
-    .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.85rem; font-weight: 700; color: var(--cream-light); letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; max-width: 1280px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.07); position: relative; z-index: 2; }
+    .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 700; color: var(--cream-light); letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
     .footer-brand-name span { color: var(--brown-amber); }
-    .footer-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.96rem; color: var(--brown-light); display: block; margin-bottom: 14px; }
-    .footer-brand p { color: rgba(232,201,160,0.38); font-size: 0.88rem; line-height: 1.72; max-width: 340px; }
-    .footer-contact-quick { margin-top: 20px; display: flex; flex-direction: column; gap: 9px; }
-    .footer-contact-quick a { display: flex; align-items: center; gap: 9px; text-decoration: none; color: rgba(232,201,160,0.44); font-size: 0.84rem; transition: color 0.3s; }
+    .footer-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.93rem; color: var(--brown-light); display: block; margin-bottom: 12px; }
+    .footer-brand p { color: rgba(232,201,160,0.38); font-size: 0.86rem; line-height: 1.72; max-width: 340px; }
+    .footer-contact-quick { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+    .footer-contact-quick a { display: flex; align-items: center; gap: 9px; text-decoration: none; color: rgba(232,201,160,0.44); font-size: 0.83rem; transition: color 0.3s; }
     .footer-contact-quick a:hover { color: var(--brown-light); }
     .footer-contact-quick a i { color: var(--brown-amber); width: 14px; }
-    .footer-social { display: flex; gap: 10px; margin-top: 24px; }
-    .social-btn { width: 40px; height: 40px; border-radius: 11px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); display: flex; align-items: center; justify-content: center; color: rgba(232,201,160,0.5); font-size: 0.95rem; text-decoration: none; transition: all 0.35s; }
+    .footer-social { display: flex; gap: 9px; margin-top: 22px; flex-wrap: wrap; }
+    .social-btn { width: 38px; height: 38px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); display: flex; align-items: center; justify-content: center; color: rgba(232,201,160,0.5); font-size: 0.9rem; text-decoration: none; transition: all 0.35s; }
     .social-btn:hover { background: var(--brown-amber); color: #fff; border-color: var(--brown-amber); transform: translateY(-4px); box-shadow: 0 8px 24px rgba(196,122,48,0.35); }
-    .footer-col h4 { font-size: 0.86rem; font-weight: 700; color: var(--cream-light); margin-bottom: 20px; letter-spacing: 0.5px; text-transform: uppercase; }
-    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer-links a { text-decoration: none; color: rgba(232,201,160,0.38); font-size: 0.87rem; transition: color 0.3s, padding-left 0.3s; display: inline-block; }
-    .footer-links a:hover { color: var(--brown-light); padding-left: 6px; }
-    .footer-bottom { max-width: 1280px; margin: 28px auto 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; position: relative; z-index: 2; }
-    .footer-bottom p { font-size: 0.81rem; color: rgba(232,201,160,0.28); }
+    .footer-col h4 { font-size: 0.84rem; font-weight: 700; color: var(--cream-light); margin-bottom: 18px; letter-spacing: 0.5px; text-transform: uppercase; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-links a { text-decoration: none; color: rgba(232,201,160,0.38); font-size: 0.85rem; transition: color 0.3s, padding-left 0.3s; display: inline-block; }
+    .footer-links a:hover { color: var(--brown-light); padding-left: 5px; }
+    .footer-bottom { max-width: 1280px; margin: 26px auto 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; position: relative; z-index: 2; }
+    .footer-bottom p { font-size: 0.79rem; color: rgba(232,201,160,0.28); }
     .footer-bottom p span { color: var(--brown-amber); }
     .footer-bottom a { color: var(--brown-light); text-decoration: none; }
-    @media(max-width:700px){.footer-top{grid-template-columns:1fr;}}
-
-    /* Footer ambient wave */
-    .footer-waves {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 100px;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .footer-waves svg {
-      position: absolute;
-      top: 0;
-      width: 200%;
-      animation: waveDrift 25s linear infinite;
-      opacity: 0.12;
-    }
-    .footer-waves svg:nth-child(2) {
-      animation: waveDrift 35s linear infinite reverse;
-      opacity: 0.07;
-    }
 
     /* ── WHATSAPP FAB ── */
-    .whatsapp-fab { position: fixed; bottom: 32px; right: 30px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
-    .whatsapp-tooltip { background: var(--cream-white); color: var(--brown-deep); font-size: 0.82rem; font-weight: 600; padding: 9px 15px; border-radius: 9px; box-shadow: 0 4px 20px rgba(30,16,8,0.12); white-space: nowrap; opacity: 0; transform: translateX(12px); transition: all 0.3s; pointer-events: none; border: 1px solid var(--card-border); }
+    .whatsapp-fab { position: fixed; bottom: 28px; right: 26px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+    .whatsapp-tooltip { background: var(--cream-white); color: var(--brown-deep); font-size: 0.8rem; font-weight: 600; padding: 8px 14px; border-radius: 9px; box-shadow: 0 4px 20px rgba(30,16,8,0.12); white-space: nowrap; opacity: 0; transform: translateX(12px); transition: all 0.3s; pointer-events: none; border: 1px solid var(--card-border); }
     .whatsapp-fab:hover .whatsapp-tooltip { opacity: 1; transform: translateX(0); }
-    .whatsapp-btn { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #25D366, #128C7E); display: flex; align-items: center; justify-content: center; text-decoration: none; color: #fff; font-size: 1.9rem; box-shadow: 0 6px 30px rgba(37,211,102,0.45); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s; position: relative; }
-    .whatsapp-btn::before,.whatsapp-btn::after { content: ''; position: absolute; border-radius: 50%; border: 2px solid rgba(37,211,102,0.35); animation: waRipple 2.4s ease-out infinite; }
+    .whatsapp-btn { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #25D366, #128C7E); display: flex; align-items: center; justify-content: center; text-decoration: none; color: #fff; font-size: 1.75rem; box-shadow: 0 6px 30px rgba(37,211,102,0.45); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s; position: relative; }
+    .whatsapp-btn::before,.whatsapp-btn::after { content: ''; position: absolute; border-radius: 50%; border: 2px solid rgba(37,211,102,0.35); animation: waripple 2.4s ease-out infinite; }
     .whatsapp-btn::before { inset: -6px; }
     .whatsapp-btn::after { inset: -14px; animation-delay: 0.6s; border-color: rgba(37,211,102,0.2); }
-    @keyframes waRipple{0%{transform:scale(1);opacity:1;}100%{transform:scale(1.4);opacity:0;}}
-    .whatsapp-fab:hover .whatsapp-btn { transform: scale(1.12); box-shadow: 0 12px 40px rgba(37,211,102,0.6); }
-    .back-to-top { display: none; position: fixed; bottom: 110px; right: 32px; z-index: 9999; width: 46px; height: 46px; border-radius: 50%; background: rgba(155,90,30,0.1); border: 1.5px solid var(--brown-amber); color: var(--brown-amber); font-size: 1rem; cursor: pointer; align-items: center; justify-content: center; transition: all 0.3s; }
+    @keyframes waripple{0%{transform:scale(1);opacity:1;}100%{transform:scale(1.4);opacity:0;}}
+    .whatsapp-fab:hover .whatsapp-btn { transform: scale(1.1); }
+    .back-to-top { display: none; position: fixed; bottom: 104px; right: 28px; z-index: 9999; width: 44px; height: 44px; border-radius: 50%; background: rgba(155,90,30,0.1); border: 1.5px solid var(--brown-amber); color: var(--brown-amber); font-size: 0.95rem; cursor: pointer; align-items: center; justify-content: center; transition: all 0.3s; }
     .back-to-top.show { display: flex; }
     .back-to-top:hover { background: var(--brown-amber); color: #fff; transform: translateY(-3px); }
 
     /* ── SCROLL REVEAL ── */
-    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.72s ease, transform 0.72s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-delay-1{transition-delay:0.1s;} .reveal-delay-2{transition-delay:0.2s;} .reveal-delay-3{transition-delay:0.3s;} .reveal-delay-4{transition-delay:0.4s;}
 
     /* ── PARTICLES ── */
-    .particle { position: absolute; pointer-events: none; border-radius: 50%; opacity: 0; animation: particleFloat linear infinite; }
-    @keyframes particleFloat { 0%{transform:translateY(100vh) rotate(0deg) scale(0);opacity:0;} 5%{opacity:0.6;transform:translateY(95vh) rotate(20deg) scale(1);} 90%{opacity:0.4;} 100%{transform:translateY(-60px) rotate(720deg) scale(0.3);opacity:0;} }
+    .particle { position: absolute; pointer-events: none; border-radius: 50%; opacity: 0; animation: pfloat linear infinite; }
+    @keyframes pfloat { 0%{transform:translateY(100vh)rotate(0deg)scale(0);opacity:0;} 5%{opacity:0.6;transform:translateY(95vh)rotate(20deg)scale(1);} 90%{opacity:0.4;} 100%{transform:translateY(-60px)rotate(720deg)scale(0.3);opacity:0;} }
 
     /* ── GOLD RULE ── */
-    .gold-rule { width: 100%; height: 1px; max-width: 100%; background: linear-gradient(90deg, transparent 0%, rgba(196,122,48,0.3) 30%, rgba(196,122,48,0.6) 50%, rgba(196,122,48,0.3) 70%, transparent 100%); border: none; margin: 0; }
-
+    .gold-rule { width: 100%; height: 1px; background: linear-gradient(90deg, transparent 0%, rgba(196,122,48,0.3) 30%, rgba(196,122,48,0.6) 50%, rgba(196,122,48,0.3) 70%, transparent 100%); border: none; margin: 0; }
     .count-up { display: inline-block; }
+
+    /* ═══════════════════════════════════════════
+       MOBILE RESPONSIVE
+    ═══════════════════════════════════════════ */
+
+    /* Tablets */
+    @media (max-width: 1024px) {
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: span 2; }
+      .about-inner { gap: 50px; }
+    }
+
+    /* Mid screens */
+    @media (max-width: 900px) {
+      /* Hero */
+      .hero-content { grid-template-columns: 1fr; gap: 36px; text-align: center; }
+      .hero-img-wrap { order: -1; max-width: 320px; margin: 0 auto; }
+      .hero-desc { margin: 0 auto 36px; max-width: 100%; }
+      .hero-btns { justify-content: center; }
+      .hero-stats { justify-content: center; gap: 20px; }
+      .hero-tagline { justify-content: center; }
+      .hero-deco-circle { display: none; }
+      .float-badge.b1 { right: -4%; top: -4%; }
+      .float-badge.b2 { left: -4%; bottom: -4%; }
+
+      /* About */
+      .about-inner { grid-template-columns: 1fr; gap: 36px; }
+      .about-visual { display: none; }
+
+      /* Products featured */
+      .product-card.featured { grid-column: span 1; display: block; }
+      .product-card.featured .product-card-img-wrap { height: auto; }
+      .product-card.featured .product-card-img { height: auto; aspect-ratio: 4/3; }
+
+      /* Contact */
+      .contact-wrap { grid-template-columns: 1fr; gap: 36px; }
+
+      /* Footer */
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-brand { grid-column: span 1; }
+    }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      nav { padding: 0 4%; }
+      .nav-logo-text { font-size: 1.5rem; }
+
+      section { padding: 56px 4%; }
+
+      /* Hero */
+      .hero { padding-top: 72px; }
+      .hero-content { padding: 0 4%; }
+      .hero-h1 { letter-spacing: -1px; }
+      .hero-img-wrap { max-width: 280px; }
+      .float-badge { padding: 10px 14px; gap: 8px; }
+      .badge-icon { font-size: 1.2rem; }
+      .hero-stats { gap: 16px; }
+      .stat-num { font-size: 1.9rem; }
+
+      /* Buttons */
+      .btn-primary, .btn-secondary { padding: 13px 24px; font-size: 0.9rem; }
+      .hero-btns { gap: 10px; }
+
+      /* Products */
+      .products-grid { grid-template-columns: 1fr; gap: 16px; }
+
+      /* Mini */
+      .mini-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .mini-card { padding: 22px 14px; }
+      .mini-card-icon { font-size: 1.9rem; }
+
+      /* Showcase */
+      .showcase-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; gap: 12px; }
+      .showcase-item.large { grid-row: span 1; }
+      .showcase-grid > .showcase-item:first-child { grid-column: span 2; height: 200px; }
+
+      /* Why */
+      .why-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .why-card { padding: 22px 16px; }
+
+      /* Testimonials */
+      .testimonial-grid { grid-template-columns: 1fr; }
+
+      /* About highlights */
+      .about-highlights { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+      /* CTA */
+      .cta-btns { flex-direction: column; align-items: center; }
+      .cta-section .btn-primary, .cta-section .btn-secondary { width: 100%; max-width: 280px; justify-content: center; }
+
+      /* Footer */
+      .footer-top { gap: 24px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+
+      /* FAB */
+      .whatsapp-fab { bottom: 20px; right: 18px; }
+      .whatsapp-btn { width: 54px; height: 54px; font-size: 1.55rem; }
+      .back-to-top { bottom: 90px; right: 20px; width: 40px; height: 40px; }
+
+      /* Section eyebrow */
+      .section-eyebrow::before, .section-eyebrow::after { display: none; }
+    }
+
+    /* Very small phones */
+    @media (max-width: 380px) {
+      .mini-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .about-highlights { grid-template-columns: 1fr; }
+      .hero-btns { flex-direction: column; align-items: center; }
+      .hero-btns .btn-primary, .hero-btns .btn-secondary { width: 100%; justify-content: center; }
+      .hero-stats .stat-sep { display: none; }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 <body>
@@ -670,29 +668,32 @@
   <div class="cursor-dot" id="cursorDot"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- PRELOADER with wave -->
+  <!-- ══ PRELOADER ══ -->
   <div id="loader">
-    <div class="loader-wave-bg">
-      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
-        <path d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,120 L0,120 Z" fill="rgba(196,122,48,0.15)"/>
+    <div class="lw">
+      <svg viewBox="0 0 2880 160" preserveAspectRatio="none" style="height:160px;">
+        <path d="M0,80 C360,30 720,130 1080,60 C1440,0 1800,110 2160,50 C2520,0 2760,90 2880,40 L2880,160 L0,160 Z" fill="rgba(196,122,48,0.2)"/>
       </svg>
-      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
-        <path d="M0,80 C360,20 720,100 1080,40 C1260,10 1380,80 1440,60 L1440,120 L0,120 Z" fill="rgba(196,122,48,0.08)"/>
+      <svg viewBox="0 0 2880 160" preserveAspectRatio="none" style="height:160px;">
+        <path d="M0,110 C480,50 960,150 1440,80 C1920,10 2400,130 2880,60 L2880,160 L0,160 Z" fill="rgba(196,122,48,0.12)"/>
+      </svg>
+      <svg viewBox="0 0 2880 160" preserveAspectRatio="none" style="height:160px;">
+        <path d="M0,130 C720,60 1440,150 2160,80 C2520,40 2760,110 2880,70 L2880,160 L0,160 Z" fill="rgba(155,90,30,0.08)"/>
       </svg>
     </div>
-    <div class="loader-inner">
-      <div class="loader-gem">✦ ✦ ✦</div>
-      <div class="loader-logo">Crazee<span>Spot</span></div>
-      <span class="loader-logo-sub">We deliver your ideas as gifts</span>
-      <div class="loader-divider"></div>
-      <div class="loader-progress-wrap">
-        <div class="loader-bar"><div class="loader-fill" id="loaderFill"></div></div>
-        <span class="loader-pct" id="loaderPct">0%</span>
+    <div class="li">
+      <div class="li-gem">✦ ✦ ✦</div>
+      <div class="li-logo">Crazee<span>Spot</span></div>
+      <span class="li-sub">We deliver your ideas as gifts</span>
+      <div class="li-line"></div>
+      <div class="li-prog">
+        <div class="li-bar"><div class="li-fill" id="loaderFill"></div></div>
+        <span class="li-pct" id="loaderPct">0%</span>
       </div>
     </div>
   </div>
 
-  <!-- NAVBAR -->
+  <!-- ══ NAVBAR ══ -->
   <nav id="navbar">
     <a href="#" class="nav-logo">
       <div class="nav-logo-icon">🎁</div>
@@ -706,39 +707,46 @@
       <li><a href="#testimonials">Reviews</a></li>
       <li><a href="#contact" class="nav-cta">Order Now</a></li>
     </ul>
-    <div class="burger" id="burger" onclick="openMenu()"><span></span><span></span><span></span></div>
+    <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
   </nav>
 
-  <!-- MOBILE MENU -->
+  <!-- ══ MOBILE MENU ══ -->
   <div class="mobile-menu" id="mobileMenu">
-    <span class="mobile-close" onclick="closeMenu()">✕</span>
-    <a href="#about" onclick="closeMenu()">About</a>
-    <a href="#products" onclick="closeMenu()">Products</a>
-    <a href="#showcase" onclick="closeMenu()">Gallery</a>
-    <a href="#why-us" onclick="closeMenu()">Why Us</a>
-    <a href="#testimonials" onclick="closeMenu()">Reviews</a>
-    <a href="#contact" onclick="closeMenu()">Order Now</a>
+    <button class="mobile-close" id="mobileClose" aria-label="Close menu">✕</button>
+    <a href="#about" class="mm-link">About</a>
+    <a href="#products" class="mm-link">Products</a>
+    <a href="#showcase" class="mm-link">Gallery</a>
+    <a href="#why-us" class="mm-link">Why Us</a>
+    <a href="#testimonials" class="mm-link">Reviews</a>
+    <a href="#contact" class="mm-link">Order Now</a>
+    <a href="https://wa.me/917397554214" target="_blank" class="mm-link mobile-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
   </div>
 
-  <!-- HERO with animated waves -->
+  <!-- ══ HERO ══ -->
   <section class="hero" id="home">
-    <canvas class="hero-canvas" id="heroCanvas"></canvas>
+    <canvas id="heroCanvas" style="position:absolute;inset:0;pointer-events:none;z-index:0;"></canvas>
     <div class="hero-aurora"></div>
     <div class="hero-deco-circle"></div>
     <div class="hero-deco-circle"></div>
     <div class="hero-deco-circle"></div>
     <div id="heroParticles" style="position:absolute;inset:0;pointer-events:none;z-index:1;"></div>
 
-    <!-- Layered waves at hero bottom -->
-    <div class="hero-waves">
-      <svg class="hero-wave-1" viewBox="0 0 2880 120" preserveAspectRatio="none">
-        <path d="M0,40 C180,90 360,10 540,50 C720,90 900,10 1080,50 C1260,90 1440,20 1620,55 C1800,90 1980,15 2160,50 C2340,85 2520,25 2700,55 C2790,70 2840,80 2880,60 L2880,120 L0,120 Z" fill="rgba(196,122,48,0.2)"/>
+    <!-- 5-layer wave stack at hero bottom -->
+    <div class="hero-wave-stack">
+      <svg class="hw1" viewBox="0 0 2880 140" preserveAspectRatio="none" style="height:140px;">
+        <path d="M0,50 C180,110 360,15 540,60 C720,105 900,20 1080,62 C1260,104 1440,22 1620,66 C1800,108 1980,18 2160,58 C2340,98 2520,22 2700,60 C2790,79 2840,90 2880,70 L2880,140 L0,140 Z" fill="rgba(196,122,48,0.22)"/>
       </svg>
-      <svg class="hero-wave-2" viewBox="0 0 2880 120" preserveAspectRatio="none">
-        <path d="M0,70 C240,20 480,100 720,55 C960,10 1200,90 1440,45 C1680,0 1920,80 2160,40 C2400,0 2640,70 2880,50 L2880,120 L0,120 Z" fill="rgba(155,90,30,0.18)"/>
+      <svg class="hw2" viewBox="0 0 2880 140" preserveAspectRatio="none" style="height:140px;">
+        <path d="M0,80 C240,25 480,110 720,60 C960,12 1200,100 1440,52 C1680,5 1920,90 2160,45 C2400,0 2640,80 2880,55 L2880,140 L0,140 Z" fill="rgba(155,90,30,0.2)"/>
       </svg>
-      <svg class="hero-wave-3" viewBox="0 0 2880 120" preserveAspectRatio="none">
-        <path d="M0,85 C360,40 720,110 1080,60 C1440,10 1800,90 2160,50 C2520,10 2750,75 2880,55 L2880,120 L0,120 Z" fill="rgba(61,34,16,0.35)"/>
+      <svg class="hw3" viewBox="0 0 2880 140" preserveAspectRatio="none" style="height:140px;">
+        <path d="M0,95 C360,45 720,120 1080,68 C1440,16 1800,105 2160,55 C2520,8 2760,88 2880,60 L2880,140 L0,140 Z" fill="rgba(61,34,16,0.3)"/>
+      </svg>
+      <svg class="hw4" viewBox="0 0 2880 140" preserveAspectRatio="none" style="height:140px;">
+        <path d="M0,110 C480,68 960,135 1440,90 C1920,45 2400,122 2880,80 L2880,140 L0,140 Z" fill="rgba(30,16,8,0.4)"/>
+      </svg>
+      <svg class="hw5" viewBox="0 0 2880 140" preserveAspectRatio="none" style="height:140px;">
+        <path d="M0,125 C720,100 1440,140 2160,115 C2520,102 2760,130 2880,118 L2880,140 L0,140 Z" fill="rgba(30,16,8,0.6)"/>
       </svg>
     </div>
 
@@ -752,8 +760,8 @@
         </h1>
         <div class="hero-tagline">
           <span class="tagline-bar">
-            <svg width="44" height="12" viewBox="0 0 44 12">
-              <line x1="0" y1="6" x2="44" y2="6" stroke="#c47a30" stroke-width="1.5" stroke-dasharray="4 3">
+            <svg width="40" height="12" viewBox="0 0 40 12">
+              <line x1="0" y1="6" x2="40" y2="6" stroke="#c47a30" stroke-width="1.5" stroke-dasharray="4 3">
                 <animate attributeName="stroke-dashoffset" from="14" to="0" dur="1.5s" repeatCount="indefinite"/>
               </line>
             </svg>
@@ -775,7 +783,7 @@
       </div>
       <div class="hero-img-wrap">
         <div class="hero-img-arch">
-          <img src="hero_products.png" alt="CrazeeSpot customized gift collection" />
+          <img src="hero_products.png" alt="CrazeeSpot customized gift collection" loading="lazy"/>
         </div>
         <div class="float-badge b1">
           <div class="badge-icon">⭐</div>
@@ -789,14 +797,15 @@
     </div>
   </section>
 
-  <!-- Transition wave: hero (brown) → marquee/about (cream) -->
-  <div class="wave-divider" style="background:var(--brown-deep); line-height:0;">
-    <svg viewBox="0 0 1440 70" preserveAspectRatio="none" style="height:70px;">
-      <path d="M0,0 C360,70 1080,0 1440,50 L1440,70 L0,70 Z" fill="#faf6ef"/>
+  <!-- Wave: hero → cream -->
+  <div class="wave-sep" style="background:var(--brown-deep);">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="height:80px;">
+      <path d="M0,10 C240,80 600,0 900,50 C1140,90 1320,15 1440,55 L1440,80 L0,80 Z" fill="#faf6ef"/>
+      <path d="M0,40 C300,10 700,70 1100,30 C1280,10 1400,60 1440,45 L1440,80 L0,80 Z" fill="rgba(196,122,48,0.08)"/>
     </svg>
   </div>
 
-  <!-- MARQUEE -->
+  <!-- ══ MARQUEE ══ -->
   <div class="marquee-section">
     <div class="marquee-track">
       <span class="marquee-item"><span class="marquee-gem">✦</span> Polaroids</span>
@@ -807,6 +816,8 @@
       <span class="marquee-item"><span class="marquee-gem">✦</span> Birthday Gifts</span>
       <span class="marquee-item"><span class="marquee-gem">✦</span> Caricature Art</span>
       <span class="marquee-item"><span class="marquee-gem">✦</span> Custom Keychains</span>
+      <span class="marquee-item"><span class="marquee-gem">✦</span> Love Gift Kits</span>
+      <span class="marquee-item"><span class="marquee-gem">✦</span> Trophies & Awards</span>
       <span class="marquee-item"><span class="marquee-gem">✦</span> Polaroids</span>
       <span class="marquee-item"><span class="marquee-gem">✦</span> Magic Frames</span>
       <span class="marquee-item"><span class="marquee-gem">✦</span> Mosaic Frames</span>
@@ -815,19 +826,24 @@
       <span class="marquee-item"><span class="marquee-gem">✦</span> Birthday Gifts</span>
       <span class="marquee-item"><span class="marquee-gem">✦</span> Caricature Art</span>
       <span class="marquee-item"><span class="marquee-gem">✦</span> Custom Keychains</span>
+      <span class="marquee-item"><span class="marquee-gem">✦</span> Love Gift Kits</span>
+      <span class="marquee-item"><span class="marquee-gem">✦</span> Trophies & Awards</span>
     </div>
   </div>
-  <hr class="gold-rule" />
+  <hr class="gold-rule"/>
 
-  <!-- ABOUT with wave bg -->
+  <!-- ══ ABOUT ══ -->
   <section class="about" id="about">
-    <!-- subtle floating waves in cream section -->
-    <div class="section-wave-bg">
-      <svg viewBox="0 0 2880 200" preserveAspectRatio="none" style="height:200px;">
-        <path d="M0,120 C480,60 960,180 1440,100 C1920,20 2400,160 2880,100 L2880,200 L0,200 Z" fill="rgba(196,122,48,0.04)"/>
+    <!-- Ambient wave bg -->
+    <div class="wave-ambient">
+      <svg class="wave-ambient__layer wave-ambient__layer--1" viewBox="0 0 4320 200" preserveAspectRatio="none" style="height:200px;">
+        <path d="M0,120 C720,60 1440,180 2160,100 C2880,20 3600,160 4320,100 L4320,200 L0,200 Z" fill="rgba(196,122,48,0.07)"/>
       </svg>
-      <svg viewBox="0 0 2880 200" preserveAspectRatio="none" style="height:200px;">
-        <path d="M0,150 C360,80 720,180 1080,110 C1440,40 1800,160 2160,90 C2520,20 2760,140 2880,80 L2880,200 L0,200 Z" fill="rgba(155,90,30,0.03)"/>
+      <svg class="wave-ambient__layer wave-ambient__layer--2" viewBox="0 0 4320 200" preserveAspectRatio="none" style="height:200px;">
+        <path d="M0,150 C540,80 1080,180 1620,110 C2160,40 2700,160 3240,90 C3780,20 4050,140 4320,80 L4320,200 L0,200 Z" fill="rgba(155,90,30,0.05)"/>
+      </svg>
+      <svg class="wave-ambient__layer wave-ambient__layer--3" viewBox="0 0 4320 200" preserveAspectRatio="none" style="height:200px;">
+        <path d="M0,170 C1080,100 2160,190 3240,120 C3780,85 4050,160 4320,130 L4320,200 L0,200 Z" fill="rgba(196,122,48,0.03)"/>
       </svg>
     </div>
     <div class="about-inner">
@@ -844,7 +860,7 @@
         <h2>Where <em>Ideas Become</em><br/>Unforgettable Gifts</h2>
         <blockquote class="about-quote">"We deliver your ideas as gifts to your loved ones"</blockquote>
         <p>CrazeeSpot was born from one simple belief — every memory deserves to be celebrated in a form that lasts forever. We started as a small creative studio and have since grown into a beloved gifting brand trusted by over 5,000 customers across India.</p>
-        <p>From custom polaroids and hand-painted caricatures to premium magic frames and personalized wallets, every product is made with intention, care, and a touch of magic. We don't just sell gifts — we craft experiences that bring smiles, tears of joy, and memories that last a lifetime.</p>
+        <p>From custom polaroids and hand-painted caricatures to premium magic frames and personalized wallets, every product is made with intention, care, and a touch of magic.</p>
         <div class="about-highlights">
           <div class="about-highlight"><span class="about-highlight-icon">🎨</span><div class="about-highlight-text">Fully Handcrafted</div></div>
           <div class="about-highlight"><span class="about-highlight-icon">📦</span><div class="about-highlight-text">50+ Unique Gift Types</div></div>
@@ -855,22 +871,22 @@
     </div>
   </section>
 
-  <!-- Wave divider: cream about → cream-warm products -->
-  <div style="background:var(--cream-white);line-height:0;overflow:hidden;">
-    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block;width:100%;height:60px;">
-      <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,10 1440,35 L1440,60 L0,60 Z" fill="#f0e8d8"/>
+  <!-- Wave: cream → warm cream -->
+  <div class="wave-sep" style="background:var(--cream-white);">
+    <svg viewBox="0 0 1440 70" preserveAspectRatio="none" style="height:70px;">
+      <path d="M0,25 C200,70 500,5 800,40 C1050,68 1280,10 1440,38 L1440,70 L0,70 Z" fill="#f0e8d8"/>
+      <path d="M0,50 C400,20 850,65 1200,30 C1340,10 1420,55 1440,42 L1440,70 L0,70 Z" fill="rgba(196,122,48,0.06)"/>
     </svg>
   </div>
 
-  <!-- PRODUCTS -->
+  <!-- ══ PRODUCTS ══ -->
   <section class="products" id="products">
-    <!-- Wave background in products section -->
-    <div class="section-wave-bg">
-      <svg viewBox="0 0 2880 180" preserveAspectRatio="none" style="height:180px;">
-        <path d="M0,100 C480,40 960,160 1440,80 C1920,0 2400,140 2880,70 L2880,180 L0,180 Z" fill="rgba(155,90,30,0.06)"/>
+    <div class="wave-ambient">
+      <svg class="wave-ambient__layer wave-ambient__layer--1" viewBox="0 0 4320 180" preserveAspectRatio="none" style="height:180px;">
+        <path d="M0,100 C720,40 1440,160 2160,80 C2880,0 3600,140 4320,70 L4320,180 L0,180 Z" fill="rgba(155,90,30,0.07)"/>
       </svg>
-      <svg viewBox="0 0 2880 180" preserveAspectRatio="none" style="height:180px;">
-        <path d="M0,140 C360,70 720,160 1080,90 C1440,20 1800,150 2160,80 C2520,10 2760,120 2880,60 L2880,180 L0,180 Z" fill="rgba(196,122,48,0.04)"/>
+      <svg class="wave-ambient__layer wave-ambient__layer--2" viewBox="0 0 4320 180" preserveAspectRatio="none" style="height:180px;">
+        <path d="M0,140 C540,70 1080,160 1620,90 C2160,20 2700,150 3240,80 C3780,10 4050,130 4320,60 L4320,180 L0,180 Z" fill="rgba(196,122,48,0.05)"/>
       </svg>
     </div>
     <div class="section-header reveal">
@@ -882,7 +898,7 @@
     <div class="products-grid">
       <div class="product-card featured reveal">
         <div class="product-card-img-wrap">
-          <img src="polaroid_product.png" alt="Custom Polaroids" class="product-card-img" />
+          <img src="polaroid_product.png" alt="Custom Polaroids" class="product-card-img" loading="lazy"/>
           <div class="product-overlay"></div>
           <div class="product-badge">⭐ Best Seller</div>
         </div>
@@ -895,7 +911,7 @@
       </div>
       <div class="product-card reveal reveal-delay-1">
         <div class="product-card-img-wrap">
-          <img src="magic_frame_wallet.png" alt="Magic Frames" class="product-card-img" />
+          <img src="magic_frame_wallet.png" alt="Magic Frames" class="product-card-img" loading="lazy"/>
           <div class="product-overlay"></div>
           <div class="product-badge">✨ Trending</div>
         </div>
@@ -908,7 +924,7 @@
       </div>
       <div class="product-card reveal reveal-delay-2">
         <div class="product-card-img-wrap">
-          <img src="mosaic_keychain_penstand.png" alt="Mosaic Frames" class="product-card-img" />
+          <img src="mosaic_keychain_penstand.png" alt="Mosaic Frames" class="product-card-img" loading="lazy"/>
           <div class="product-overlay"></div>
           <div class="product-badge">🎨 Premium</div>
         </div>
@@ -921,7 +937,7 @@
       </div>
       <div class="product-card reveal reveal-delay-1">
         <div class="product-card-img-wrap">
-          <img src="birthday_gifts_caricature.png" alt="Caricature" class="product-card-img" />
+          <img src="birthday_gifts_caricature.png" alt="Caricature" class="product-card-img" loading="lazy"/>
           <div class="product-overlay"></div>
           <div class="product-badge">🎉 Unique</div>
         </div>
@@ -934,7 +950,7 @@
       </div>
       <div class="product-card reveal reveal-delay-2">
         <div class="product-card-img-wrap">
-          <img src="magic_frame_wallet.png" alt="Customized Wallet" class="product-card-img" />
+          <img src="magic_frame_wallet.png" alt="Customized Wallet" class="product-card-img" loading="lazy"/>
           <div class="product-overlay"></div>
           <div class="product-badge">👜 Popular</div>
         </div>
@@ -948,21 +964,22 @@
     </div>
   </section>
 
-  <!-- Wave: products → mini-products -->
-  <div style="background:linear-gradient(180deg,var(--cream-light) 0%,#f0e8d8 100%);line-height:0;overflow:hidden;">
-    <svg viewBox="0 0 1440 55" preserveAspectRatio="none" style="display:block;width:100%;height:55px;">
-      <path d="M0,20 C480,55 960,0 1440,30 L1440,55 L0,55 Z" fill="#ddd0bc"/>
+  <!-- Wave: warm cream → deeper cream -->
+  <div class="wave-sep" style="background:linear-gradient(180deg,var(--cream-light) 0%,#f0e8d8 100%);">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="height:60px;">
+      <path d="M0,15 C300,60 700,5 1100,40 C1280,55 1400,20 1440,35 L1440,60 L0,60 Z" fill="#ddd0bc"/>
+      <path d="M0,35 C500,10 1000,55 1440,25 L1440,60 L0,60 Z" fill="rgba(155,90,30,0.06)"/>
     </svg>
   </div>
 
-  <!-- MINI PRODUCTS with wave bg -->
+  <!-- ══ MINI PRODUCTS ══ -->
   <section class="mini-products" id="more-products">
-    <div class="section-wave-bg">
-      <svg viewBox="0 0 2880 160" preserveAspectRatio="none" style="height:160px;">
-        <path d="M0,90 C720,30 1440,130 2160,60 C2520,25 2760,100 2880,70 L2880,160 L0,160 Z" fill="rgba(155,90,30,0.07)"/>
+    <div class="wave-ambient">
+      <svg class="wave-ambient__layer wave-ambient__layer--1" viewBox="0 0 4320 160" preserveAspectRatio="none" style="height:160px;">
+        <path d="M0,90 C1080,30 2160,130 3240,60 C3780,25 4050,110 4320,70 L4320,160 L0,160 Z" fill="rgba(155,90,30,0.08)"/>
       </svg>
-      <svg viewBox="0 0 2880 160" preserveAspectRatio="none" style="height:160px;">
-        <path d="M0,120 C480,60 960,150 1440,80 C1920,10 2400,130 2880,50 L2880,160 L0,160 Z" fill="rgba(196,122,48,0.04)"/>
+      <svg class="wave-ambient__layer wave-ambient__layer--2" viewBox="0 0 4320 160" preserveAspectRatio="none" style="height:160px;">
+        <path d="M0,120 C720,60 1440,150 2160,80 C2880,10 3600,130 4320,50 L4320,160 L0,160 Z" fill="rgba(196,122,48,0.05)"/>
       </svg>
     </div>
     <div class="section-header reveal">
@@ -971,27 +988,28 @@
       <div class="divider"></div>
     </div>
     <div class="mini-grid">
-      <div class="mini-card reveal"><span class="mini-card-icon">🖊️</span><div class="mini-card-name">Table Pen Stand</div><div class="mini-card-desc">Wooden pen stands with your name beautifully engraved. Perfect desk gift.</div></div>
-      <div class="mini-card reveal reveal-delay-1"><span class="mini-card-icon">🎂</span><div class="mini-card-name">Birthday Gift Sets</div><div class="mini-card-desc">Curated gift combos filled with personalized surprises for birthdays.</div></div>
-      <div class="mini-card reveal reveal-delay-2"><span class="mini-card-icon">🔑</span><div class="mini-card-name">Custom Keychains</div><div class="mini-card-desc">Cute acrylic, wooden or metal custom keychains with names and icons.</div></div>
-      <div class="mini-card reveal reveal-delay-3"><span class="mini-card-icon">💌</span><div class="mini-card-name">Love Gift Kits</div><div class="mini-card-desc">Romantic gift combos for anniversaries, Valentine's day, and more.</div></div>
-      <div class="mini-card reveal reveal-delay-1"><span class="mini-card-icon">🏆</span><div class="mini-card-name">Trophy & Awards</div><div class="mini-card-desc">Personalized trophies and award plaques for achievements and appreciation.</div></div>
-      <div class="mini-card reveal reveal-delay-2"><span class="mini-card-icon">🧸</span><div class="mini-card-name">Customized Cushions</div><div class="mini-card-desc">Photo-printed cushions that add warmth and memories to any space.</div></div>
+      <div class="mini-card reveal"><span class="mini-card-icon">🖊️</span><div class="mini-card-name">Table Pen Stand</div><div class="mini-card-desc">Wooden pen stands with your name beautifully engraved.</div></div>
+      <div class="mini-card reveal reveal-delay-1"><span class="mini-card-icon">🎂</span><div class="mini-card-name">Birthday Gift Sets</div><div class="mini-card-desc">Curated gift combos filled with personalized surprises.</div></div>
+      <div class="mini-card reveal reveal-delay-2"><span class="mini-card-icon">🔑</span><div class="mini-card-name">Custom Keychains</div><div class="mini-card-desc">Acrylic, wooden or metal keychains with names and icons.</div></div>
+      <div class="mini-card reveal reveal-delay-3"><span class="mini-card-icon">💌</span><div class="mini-card-name">Love Gift Kits</div><div class="mini-card-desc">Romantic combos for anniversaries and Valentine's Day.</div></div>
+      <div class="mini-card reveal reveal-delay-1"><span class="mini-card-icon">🏆</span><div class="mini-card-name">Trophy & Awards</div><div class="mini-card-desc">Personalized trophies for achievements and appreciation.</div></div>
+      <div class="mini-card reveal reveal-delay-2"><span class="mini-card-icon">🧸</span><div class="mini-card-name">Customized Cushions</div><div class="mini-card-desc">Photo-printed cushions that add warmth to any space.</div></div>
     </div>
   </section>
 
-  <!-- Wave: cream → white showcase -->
-  <div style="background:#ddd0bc;line-height:0;overflow:hidden;">
-    <svg viewBox="0 0 1440 55" preserveAspectRatio="none" style="display:block;width:100%;height:55px;">
-      <path d="M0,15 C360,55 900,0 1440,40 L1440,55 L0,55 Z" fill="var(--cream-white)"/>
+  <!-- Wave: deeper cream → white showcase -->
+  <div class="wave-sep" style="background:#ddd0bc;">
+    <svg viewBox="0 0 1440 65" preserveAspectRatio="none" style="height:65px;">
+      <path d="M0,20 C400,65 900,5 1200,40 C1340,58 1420,18 1440,32 L1440,65 L0,65 Z" fill="var(--cream-white)"/>
+      <path d="M0,45 C600,15 1050,60 1440,30 L1440,65 L0,65 Z" fill="rgba(196,122,48,0.04)"/>
     </svg>
   </div>
 
-  <!-- SHOWCASE -->
+  <!-- ══ SHOWCASE ══ -->
   <section class="showcase" id="showcase">
-    <div class="section-wave-bg">
-      <svg viewBox="0 0 2880 150" preserveAspectRatio="none" style="height:150px;">
-        <path d="M0,80 C600,20 1200,140 1800,70 C2200,20 2600,110 2880,60 L2880,150 L0,150 Z" fill="rgba(196,122,48,0.04)"/>
+    <div class="wave-ambient">
+      <svg class="wave-ambient__layer wave-ambient__layer--1" viewBox="0 0 4320 150" preserveAspectRatio="none" style="height:150px;">
+        <path d="M0,80 C900,20 1800,140 2700,70 C3300,20 3900,110 4320,60 L4320,150 L0,150 Z" fill="rgba(196,122,48,0.05)"/>
       </svg>
     </div>
     <div class="section-header reveal">
@@ -1001,34 +1019,45 @@
       <div class="divider"></div>
     </div>
     <div class="showcase-grid">
-      <div class="showcase-item large reveal"><img src="hero_products.png" alt="Gift collection" /><div class="showcase-caption"><h3>Gift Collections</h3><p>Handcrafted with love</p></div></div>
-      <div class="showcase-item reveal reveal-delay-1"><img src="polaroid_product.png" alt="Polaroids" /><div class="showcase-caption"><h3>Polaroids</h3><p>Timeless memories</p></div></div>
-      <div class="showcase-item reveal reveal-delay-2"><img src="magic_frame_wallet.png" alt="Magic Frames" /><div class="showcase-caption"><h3>Magic Frames</h3><p>Glow with magic</p></div></div>
-      <div class="showcase-item reveal reveal-delay-1"><img src="birthday_gifts_caricature.png" alt="Birthday Gifts" /><div class="showcase-caption"><h3>Birthday Gifts</h3><p>Make every birthday special</p></div></div>
-      <div class="showcase-item reveal reveal-delay-2"><img src="mosaic_keychain_penstand.png" alt="Mosaic" /><div class="showcase-caption"><h3>Mosaic & More</h3><p>Premium customizations</p></div></div>
+      <div class="showcase-item large reveal"><img src="hero_products.png" alt="Gift collection" loading="lazy"/><div class="showcase-caption"><h3>Gift Collections</h3><p>Handcrafted with love</p></div></div>
+      <div class="showcase-item reveal reveal-delay-1"><img src="polaroid_product.png" alt="Polaroids" loading="lazy"/><div class="showcase-caption"><h3>Polaroids</h3><p>Timeless memories</p></div></div>
+      <div class="showcase-item reveal reveal-delay-2"><img src="magic_frame_wallet.png" alt="Magic Frames" loading="lazy"/><div class="showcase-caption"><h3>Magic Frames</h3><p>Glow with magic</p></div></div>
+      <div class="showcase-item reveal reveal-delay-1"><img src="birthday_gifts_caricature.png" alt="Birthday Gifts" loading="lazy"/><div class="showcase-caption"><h3>Birthday Gifts</h3><p>Make every birthday special</p></div></div>
+      <div class="showcase-item reveal reveal-delay-2"><img src="mosaic_keychain_penstand.png" alt="Mosaic" loading="lazy"/><div class="showcase-caption"><h3>Mosaic & More</h3><p>Premium customizations</p></div></div>
     </div>
   </section>
 
-  <!-- Wave: white → dark brown why-us -->
-  <div style="background:var(--cream-white);line-height:0;overflow:hidden;">
-    <svg viewBox="0 0 1440 70" preserveAspectRatio="none" style="display:block;width:100%;height:70px;">
-      <path d="M0,0 C360,70 1080,0 1440,50 L1440,70 L0,70 Z" fill="#2a1508"/>
+  <!-- Wave: white → deep dark brown -->
+  <div class="wave-sep" style="background:var(--cream-white);">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="height:80px;">
+      <path d="M0,5 C200,80 600,0 900,50 C1100,85 1300,10 1440,45 L1440,80 L0,80 Z" fill="#2a1508"/>
+      <path d="M0,30 C350,5 800,75 1200,30 C1360,8 1430,60 1440,48 L1440,80 L0,80 Z" fill="rgba(196,122,48,0.1)"/>
     </svg>
   </div>
 
-  <!-- WHY US with double wave borders -->
+  <!-- ══ WHY US ══ -->
   <section class="why-us" id="why-us">
     <div class="why-us-bg"></div>
     <div class="why-orb"></div>
     <div class="why-orb"></div>
 
-    <!-- Top internal wave accent (amber on dark) -->
-    <div class="why-waves-top">
-      <svg viewBox="0 0 2880 100" preserveAspectRatio="none" style="height:100px;">
-        <path d="M0,50 C480,10 960,90 1440,40 C1920,0 2400,80 2880,30 L2880,0 L0,0 Z" fill="rgba(196,122,48,0.06)"/>
+    <!-- Top wave decor (amber on dark brown) -->
+    <div class="wave-top-decor" style="height:90px;">
+      <svg class="wa" viewBox="0 0 2880 90" preserveAspectRatio="none" style="height:90px;">
+        <path d="M0,45 C480,10 960,80 1440,35 C1920,0 2400,75 2880,25 L2880,0 L0,0 Z" fill="rgba(196,122,48,0.08)"/>
       </svg>
-      <svg viewBox="0 0 2880 100" preserveAspectRatio="none" style="height:100px;">
-        <path d="M0,70 C360,20 720,90 1080,50 C1440,10 1800,80 2160,35 C2520,0 2760,60 2880,25 L2880,0 L0,0 Z" fill="rgba(155,90,30,0.04)"/>
+      <svg class="wb" viewBox="0 0 2880 90" preserveAspectRatio="none" style="height:90px;margin-top:-50px;">
+        <path d="M0,60 C360,20 720,85 1080,45 C1440,8 1800,78 2160,38 C2520,0 2760,62 2880,28 L2880,0 L0,0 Z" fill="rgba(155,90,30,0.05)"/>
+      </svg>
+    </div>
+
+    <!-- Ambient wave layers for the dark section -->
+    <div class="wave-ambient">
+      <svg class="wave-ambient__layer wave-ambient__layer--1" viewBox="0 0 4320 180" preserveAspectRatio="none" style="height:180px;">
+        <path d="M0,100 C720,40 1440,160 2160,80 C2880,0 3600,140 4320,70 L4320,180 L0,180 Z" fill="rgba(196,122,48,0.05)"/>
+      </svg>
+      <svg class="wave-ambient__layer wave-ambient__layer--2" viewBox="0 0 4320 180" preserveAspectRatio="none" style="height:180px;">
+        <path d="M0,140 C1080,60 2160,160 3240,80 C3780,38 4050,130 4320,60 L4320,180 L0,180 Z" fill="rgba(155,90,30,0.04)"/>
       </svg>
     </div>
 
@@ -1047,25 +1076,26 @@
       <div class="why-card reveal reveal-delay-2"><div class="why-icon">❤️</div><h3 class="why-title">Made With Love</h3><p class="why-desc">Each gift is crafted with passion and care, because your loved ones deserve the very best.</p></div>
     </div>
 
-    <!-- Bottom wave in why-us section -->
-    <div class="why-waves-bottom">
-      <svg viewBox="0 0 2880 100" preserveAspectRatio="none" style="height:100px;">
-        <path d="M0,50 C480,90 960,10 1440,60 C1920,100 2400,20 2880,70 L2880,100 L0,100 Z" fill="rgba(196,122,48,0.07)"/>
+    <!-- Bottom wave decor -->
+    <div class="wave-bottom-decor" style="height:90px;">
+      <svg class="wa" viewBox="0 0 2880 90" preserveAspectRatio="none" style="height:90px;">
+        <path d="M0,45 C480,85 960,10 1440,60 C1920,100 2400,15 2880,65 L2880,90 L0,90 Z" fill="rgba(196,122,48,0.07)"/>
       </svg>
-      <svg viewBox="0 0 2880 100" preserveAspectRatio="none" style="height:100px;">
-        <path d="M0,70 C720,20 1440,100 2160,40 C2520,10 2760,80 2880,50 L2880,100 L0,100 Z" fill="rgba(155,90,30,0.04)"/>
+      <svg class="wb" viewBox="0 0 2880 90" preserveAspectRatio="none" style="height:90px;">
+        <path d="M0,65 C720,20 1440,90 2160,40 C2520,10 2760,80 2880,50 L2880,90 L0,90 Z" fill="rgba(155,90,30,0.05)"/>
       </svg>
     </div>
   </section>
 
-  <!-- Wave: dark brown CTA -->
+  <!-- ══ CTA ══ -->
   <div class="cta-section reveal" style="position:relative;">
-    <div class="cta-waves">
-      <svg viewBox="0 0 2880 90" preserveAspectRatio="none" style="height:90px;">
-        <path d="M0,45 C480,90 960,10 1440,55 C1920,95 2400,15 2880,50 L2880,90 L0,90 Z" fill="rgba(196,122,48,0.12)"/>
+    <!-- Wave layers inside CTA -->
+    <div class="wave-ambient">
+      <svg class="wave-ambient__layer wave-ambient__layer--1" viewBox="0 0 4320 160" preserveAspectRatio="none" style="height:160px;">
+        <path d="M0,80 C720,30 1440,130 2160,60 C2880,0 3600,110 4320,50 L4320,160 L0,160 Z" fill="rgba(196,122,48,0.08)"/>
       </svg>
-      <svg viewBox="0 0 2880 90" preserveAspectRatio="none" style="height:90px;">
-        <path d="M0,70 C360,20 720,90 1080,45 C1440,0 1800,80 2160,35 C2520,0 2760,70 2880,30 L2880,90 L0,90 Z" fill="rgba(155,90,30,0.08)"/>
+      <svg class="wave-ambient__layer wave-ambient__layer--2" viewBox="0 0 4320 160" preserveAspectRatio="none" style="height:160px;">
+        <path d="M0,110 C540,50 1080,140 1620,80 C2160,20 2700,130 3240,60 C3780,0 4050,100 4320,40 L4320,160 L0,160 Z" fill="rgba(155,90,30,0.06)"/>
       </svg>
     </div>
     <h2>Ready to Create <em>Something Special?</em></h2>
@@ -1076,21 +1106,22 @@
     </div>
   </div>
 
-  <!-- Wave: dark CTA → cream testimonials -->
-  <div style="background:linear-gradient(135deg,var(--brown-dark),#1a0c04);line-height:0;overflow:hidden;">
-    <svg viewBox="0 0 1440 65" preserveAspectRatio="none" style="display:block;width:100%;height:65px;">
-      <path d="M0,0 C480,65 960,10 1440,50 L1440,65 L0,65 Z" fill="var(--cream-light)"/>
+  <!-- Wave: dark → cream testimonials -->
+  <div class="wave-sep" style="background:linear-gradient(135deg,var(--brown-dark),#1a0c04);">
+    <svg viewBox="0 0 1440 75" preserveAspectRatio="none" style="height:75px;">
+      <path d="M0,5 C300,75 750,0 1100,45 C1280,65 1400,15 1440,38 L1440,75 L0,75 Z" fill="var(--cream-light)"/>
+      <path d="M0,35 C450,8 900,70 1350,25 C1420,10 1440,45 1440,40 L1440,75 L0,75 Z" fill="rgba(196,122,48,0.05)"/>
     </svg>
   </div>
 
-  <!-- TESTIMONIALS -->
+  <!-- ══ TESTIMONIALS ══ -->
   <section class="testimonials" id="testimonials">
-    <div class="section-wave-bg">
-      <svg viewBox="0 0 2880 160" preserveAspectRatio="none" style="height:160px;">
-        <path d="M0,100 C720,40 1440,150 2160,70 C2520,30 2760,120 2880,60 L2880,160 L0,160 Z" fill="rgba(196,122,48,0.05)"/>
+    <div class="wave-ambient">
+      <svg class="wave-ambient__layer wave-ambient__layer--1" viewBox="0 0 4320 160" preserveAspectRatio="none" style="height:160px;">
+        <path d="M0,100 C1080,40 2160,150 3240,70 C3780,30 4050,120 4320,60 L4320,160 L0,160 Z" fill="rgba(196,122,48,0.06)"/>
       </svg>
-      <svg viewBox="0 0 2880 160" preserveAspectRatio="none" style="height:160px;">
-        <path d="M0,130 C480,60 960,150 1440,80 C1920,10 2400,130 2880,50 L2880,160 L0,160 Z" fill="rgba(155,90,30,0.03)"/>
+      <svg class="wave-ambient__layer wave-ambient__layer--2" viewBox="0 0 4320 160" preserveAspectRatio="none" style="height:160px;">
+        <path d="M0,130 C720,60 1440,150 2160,80 C2880,10 3600,130 4320,50 L4320,160 L0,160 Z" fill="rgba(155,90,30,0.04)"/>
       </svg>
     </div>
     <div class="section-header reveal">
@@ -1104,22 +1135,23 @@
       <div class="testimonial-card reveal reveal-delay-2"><div class="stars">★★★★★</div><p class="testimonial-text">Got a custom wallet for my husband with his initials engraved. He uses it every single day! CrazeeSpot has the best quality customized gifts I've ever seen.</p><div class="testimonial-author"><div class="author-avatar">A</div><div><div class="author-name">Aisha Khan</div><div class="author-loc">📍 Hyderabad</div></div></div></div>
       <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p class="testimonial-text">Magic frame with our wedding photos is absolutely stunning. The LED lighting makes it look so premium. Everyone who visits asks where we got it from!</p><div class="testimonial-author"><div class="author-avatar">S</div><div><div class="author-name">Suresh & Deepa</div><div class="author-loc">📍 Coimbatore</div></div></div></div>
       <div class="testimonial-card reveal reveal-delay-1"><div class="stars">★★★★★</div><p class="testimonial-text">Ordered polaroids for our college farewell gifts. All 30+ students loved theirs! The prints were sharp, vibrant and the captions were exactly as requested.</p><div class="testimonial-author"><div class="author-avatar">N</div><div><div class="author-name">Neha Iyer</div><div class="author-loc">📍 Mumbai</div></div></div></div>
-      <div class="testimonial-card reveal reveal-delay-2"><div class="stars">★★★★★</div><p class="testimonial-text">The pen stand with my name is placed right on my desk. Such a thoughtful and functional gift! Excellent craftsmanship and the team was very helpful with customization.</p><div class="testimonial-author"><div class="author-avatar">K</div><div><div class="author-name">Karthik Rajan</div><div class="author-loc">📍 Madurai</div></div></div></div>
+      <div class="testimonial-card reveal reveal-delay-2"><div class="stars">★★★★★</div><p class="testimonial-text">The pen stand with my name is placed right on my desk. Such a thoughtful and functional gift! Excellent craftsmanship and the team was very helpful.</p><div class="testimonial-author"><div class="author-avatar">K</div><div><div class="author-name">Karthik Rajan</div><div class="author-loc">📍 Madurai</div></div></div></div>
     </div>
   </section>
 
-  <!-- Wave: cream → cream-deep contact -->
-  <div style="background:linear-gradient(180deg,var(--cream-light) 0%,#ede5d5 100%);line-height:0;overflow:hidden;">
-    <svg viewBox="0 0 1440 55" preserveAspectRatio="none" style="display:block;width:100%;height:55px;">
-      <path d="M0,10 C360,55 900,5 1440,40 L1440,55 L0,55 Z" fill="var(--cream-deep)"/>
+  <!-- Wave: cream → deeper cream contact -->
+  <div class="wave-sep" style="background:linear-gradient(180deg,var(--cream-light) 0%,#ede5d5 100%);">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="height:60px;">
+      <path d="M0,10 C350,60 800,5 1150,38 C1320,55 1420,15 1440,28 L1440,60 L0,60 Z" fill="var(--cream-deep)"/>
+      <path d="M0,35 C600,10 1100,55 1440,25 L1440,60 L0,60 Z" fill="rgba(155,90,30,0.04)"/>
     </svg>
   </div>
 
-  <!-- CONTACT -->
+  <!-- ══ CONTACT ══ -->
   <section class="contact" id="contact">
-    <div class="section-wave-bg">
-      <svg viewBox="0 0 2880 140" preserveAspectRatio="none" style="height:140px;">
-        <path d="M0,80 C720,20 1440,120 2160,50 C2520,15 2760,90 2880,40 L2880,140 L0,140 Z" fill="rgba(196,122,48,0.05)"/>
+    <div class="wave-ambient">
+      <svg class="wave-ambient__layer wave-ambient__layer--1" viewBox="0 0 4320 140" preserveAspectRatio="none" style="height:140px;">
+        <path d="M0,80 C1080,20 2160,120 3240,50 C3780,15 4050,90 4320,40 L4320,140 L0,140 Z" fill="rgba(196,122,48,0.06)"/>
       </svg>
     </div>
     <div class="section-header reveal">
@@ -1132,18 +1164,18 @@
         <h3>Talk To <em>CrazeeSpot</em></h3>
         <p>Tell us about the gift you have in mind and we'll make it happen! Reach us on WhatsApp for the fastest response, or fill out the enquiry form.</p>
         <div class="hours-badge"><span class="hours-dot"></span>Mon–Sat &nbsp;·&nbsp; 10 AM – 8 PM</div>
-        <div class="contact-item"><div class="contact-item-icon"><i class="fab fa-whatsapp"></i></div><div><div class="contact-item-label">WhatsApp / Call</div><div class="contact-item-text">+91 73975 54214</div></div></div>
+        <div class="contact-item"><div class="contact-item-icon"><i class="fab fa-whatsapp"></i></div><div><div class="contact-item-label">WhatsApp / Call</div><div class="contact-item-text"><a href="tel:+917397554214">+91 73975 54214</a></div></div></div>
         <div class="contact-item"><div class="contact-item-icon"><i class="fas fa-envelope"></i></div><div><div class="contact-item-label">Email Us</div><div class="contact-item-text"><a href="mailto:beecrazee05@gmail.com">beecrazee05@gmail.com</a></div></div></div>
         <div class="contact-item"><div class="contact-item-icon"><i class="fas fa-clock"></i></div><div><div class="contact-item-label">Working Hours</div><div class="contact-item-text">Mon–Sat: 10 AM – 8 PM</div></div></div>
         <div class="contact-item"><div class="contact-item-icon"><i class="fas fa-shipping-fast"></i></div><div><div class="contact-item-label">Delivery</div><div class="contact-item-text">Pan India Delivery Available</div></div></div>
-        <a href="https://wa.me/917397554214?text=Hi%20CrazeeSpot!%20I%20want%20to%20order%20a%20custom%20gift." target="_blank" class="btn-primary" style="margin-top:24px;display:inline-flex;">
+        <a href="https://wa.me/917397554214?text=Hi%20CrazeeSpot!%20I%20want%20to%20order%20a%20custom%20gift." target="_blank" class="btn-primary" style="margin-top:22px;display:inline-flex;">
           <i class="fab fa-whatsapp"></i> Chat on WhatsApp
         </a>
       </div>
       <form class="contact-form reveal reveal-delay-1" id="contactForm" onsubmit="submitForm(event)">
-        <div class="form-group"><label for="name">Your Name *</label><input type="text" id="name" placeholder="Enter your full name" required /></div>
-        <div class="form-group"><label for="phone">Mobile Number *</label><input type="tel" id="phone" placeholder="Enter your mobile number" required /></div>
-        <div class="form-group"><label for="email-field">Email Address</label><input type="email" id="email-field" placeholder="Your email (optional)" /></div>
+        <div class="form-group"><label for="name">Your Name *</label><input type="text" id="name" placeholder="Enter your full name" required autocomplete="name"/></div>
+        <div class="form-group"><label for="phone">Mobile Number *</label><input type="tel" id="phone" placeholder="Enter your mobile number" required autocomplete="tel"/></div>
+        <div class="form-group"><label for="email-field">Email Address</label><input type="email" id="email-field" placeholder="Your email (optional)" autocomplete="email"/></div>
         <div class="form-group">
           <label for="product">Product Interested In</label>
           <select id="product">
@@ -1165,21 +1197,23 @@
     </div>
   </section>
 
-  <!-- Wave: cream contact → dark footer -->
-  <div style="background:var(--cream-deep);line-height:0;overflow:hidden;">
-    <svg viewBox="0 0 1440 70" preserveAspectRatio="none" style="display:block;width:100%;height:70px;">
-      <path d="M0,20 C480,70 960,5 1440,45 L1440,70 L0,70 Z" fill="#1a0c04"/>
+  <!-- Wave: cream → dark footer -->
+  <div class="wave-sep" style="background:var(--cream-deep);">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="height:80px;">
+      <path d="M0,15 C300,80 750,5 1100,45 C1280,65 1400,12 1440,30 L1440,80 L0,80 Z" fill="#1a0c04"/>
+      <path d="M0,45 C500,10 1000,70 1440,28 L1440,80 L0,80 Z" fill="rgba(196,122,48,0.08)"/>
     </svg>
   </div>
 
-  <!-- FOOTER with ambient waves -->
+  <!-- ══ FOOTER ══ -->
   <footer>
-    <div class="footer-waves">
-      <svg viewBox="0 0 2880 100" preserveAspectRatio="none" style="height:100px;">
-        <path d="M0,50 C720,10 1440,90 2160,30 C2520,0 2760,70 2880,40 L2880,100 L0,100 Z" fill="rgba(196,122,48,0.15)"/>
+    <!-- Top ambient wave in dark footer -->
+    <div class="wave-top-decor" style="height:80px;">
+      <svg class="wa" viewBox="0 0 2880 80" preserveAspectRatio="none" style="height:80px;">
+        <path d="M0,40 C720,10 1440,70 2160,30 C2520,0 2760,60 2880,35 L2880,80 L0,80 Z" fill="rgba(196,122,48,0.1)"/>
       </svg>
-      <svg viewBox="0 0 2880 100" preserveAspectRatio="none" style="height:100px;">
-        <path d="M0,70 C480,20 960,100 1440,50 C1920,0 2400,90 2880,35 L2880,100 L0,100 Z" fill="rgba(196,122,48,0.08)"/>
+      <svg class="wb" viewBox="0 0 2880 80" preserveAspectRatio="none" style="height:80px;margin-top:-40px;">
+        <path d="M0,55 C480,20 960,70 1440,40 C1920,10 2400,65 2880,30 L2880,80 L0,80 Z" fill="rgba(196,122,48,0.06)"/>
       </svg>
     </div>
     <div class="footer-top">
@@ -1239,12 +1273,12 @@
       <i class="fab fa-whatsapp"></i>
     </a>
   </div>
-  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
     <i class="fas fa-chevron-up"></i>
   </button>
 
   <script>
-    // ── PRELOADER ──
+    /* ── PRELOADER ── */
     (function() {
       const loader = document.getElementById('loader');
       const pct    = document.getElementById('loaderPct');
@@ -1253,127 +1287,144 @@
       const tick = setInterval(() => {
         count += Math.floor(Math.random() * 6) + 2;
         if (count >= 100) { count = 100; clearInterval(tick); }
-        if (pct) pct.textContent = count + '%';
+        if (pct)  pct.textContent  = count + '%';
         if (fill) fill.style.width = count + '%';
-        if (count === 100) {
-          setTimeout(() => { loader.classList.add('hide'); }, 320);
-        }
+        if (count === 100) setTimeout(() => { loader.classList.add('hide'); }, 320);
       }, 28);
     })();
 
-    // ── CUSTOM CURSOR ──
-    const dot = document.getElementById('cursorDot');
+    /* ── CUSTOM CURSOR (desktop only) ── */
+    const dot  = document.getElementById('cursorDot');
     const ring = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
-    function animRing() { rx += (mx-rx)*0.15; ry += (my-ry)*0.15; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(animRing); }
-    animRing();
-    document.querySelectorAll('a,button,.product-card,.mini-card,.why-card,.testimonial-card').forEach(el => {
-      el.addEventListener('mouseenter', () => { ring.style.width='50px'; ring.style.height='50px'; ring.style.borderColor='rgba(196,122,48,0.8)'; dot.style.opacity='0'; });
-      el.addEventListener('mouseleave', () => { ring.style.width='32px'; ring.style.height='32px'; ring.style.borderColor='rgba(196,122,48,0.5)'; dot.style.opacity='1'; });
-    });
-
-    // ── HERO CANVAS (ambient grain) ──
-    const canvas = document.getElementById('heroCanvas');
-    const ctx = canvas.getContext('2d');
-    function resizeCanvas() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    const cdots = Array.from({length: 60}, () => ({
-      x: Math.random(), y: Math.random(),
-      r: Math.random()*1.5+0.5, a: Math.random()*Math.PI*2,
-      sp: Math.random()*0.002+0.001, op: Math.random()*0.3+0.1
-    }));
-    function drawCanvas() {
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      cdots.forEach(d => {
-        d.a += d.sp;
-        const x = (d.x + Math.cos(d.a)*0.04)*canvas.width;
-        const y = (d.y + Math.sin(d.a)*0.04)*canvas.height;
-        ctx.beginPath(); ctx.arc(x,y,d.r,0,Math.PI*2);
-        ctx.fillStyle = `rgba(196,122,48,${d.op})`; ctx.fill();
+    if (window.matchMedia('(hover: hover)').matches && dot && ring) {
+      let mx = 0, my = 0, rx = 0, ry = 0;
+      document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        dot.style.left = mx + 'px'; dot.style.top = my + 'px';
       });
-      requestAnimationFrame(drawCanvas);
+      (function animRing() {
+        rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15;
+        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+        requestAnimationFrame(animRing);
+      })();
+      document.querySelectorAll('a,button,.product-card,.mini-card,.why-card,.testimonial-card').forEach(el => {
+        el.addEventListener('mouseenter', () => { ring.style.width='50px'; ring.style.height='50px'; ring.style.borderColor='rgba(196,122,48,0.8)'; dot.style.opacity='0'; });
+        el.addEventListener('mouseleave', () => { ring.style.width='32px'; ring.style.height='32px'; ring.style.borderColor='rgba(196,122,48,0.5)'; dot.style.opacity='1'; });
+      });
     }
-    drawCanvas();
 
-    // ── FLOATING PARTICLES ──
+    /* ── HERO CANVAS (ambient particles) ── */
+    const canvas = document.getElementById('heroCanvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      function resizeCanvas() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+      resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+      const cdots = Array.from({length: 50}, () => ({
+        x: Math.random(), y: Math.random(), r: Math.random()*1.4+0.4,
+        a: Math.random()*Math.PI*2, sp: Math.random()*0.002+0.001, op: Math.random()*0.25+0.08
+      }));
+      (function drawCanvas() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        cdots.forEach(d => {
+          d.a += d.sp;
+          const x = (d.x + Math.cos(d.a)*0.04)*canvas.width;
+          const y = (d.y + Math.sin(d.a)*0.04)*canvas.height;
+          ctx.beginPath(); ctx.arc(x,y,d.r,0,Math.PI*2);
+          ctx.fillStyle = `rgba(196,122,48,${d.op})`; ctx.fill();
+        });
+        requestAnimationFrame(drawCanvas);
+      })();
+    }
+
+    /* ── HERO PARTICLES ── */
     const pCon = document.getElementById('heroParticles');
-    const cols = ['#c47a30','#9a5a1e','#6b3d1e','#e8c9a0','#d4a06a'];
-    for(let i=0;i<18;i++){
-      const p = document.createElement('div');
-      p.className = 'particle';
-      const s = Math.random()*4+2;
-      p.style.cssText = `left:${Math.random()*100}%;width:${s}px;height:${s}px;background:${cols[Math.floor(Math.random()*cols.length)]};animation-duration:${Math.random()*15+12}s;animation-delay:${Math.random()*12}s;`;
-      pCon.appendChild(p);
+    if (pCon) {
+      const cols = ['#c47a30','#9a5a1e','#6b3d1e','#e8c9a0','#d4a06a'];
+      for(let i=0;i<15;i++){
+        const p = document.createElement('div'); p.className = 'particle';
+        const s = Math.random()*3+2;
+        p.style.cssText = `left:${Math.random()*100}%;width:${s}px;height:${s}px;background:${cols[Math.floor(Math.random()*cols.length)]};animation-duration:${Math.random()*14+10}s;animation-delay:${Math.random()*10}s;`;
+        pCon.appendChild(p);
+      }
     }
 
-    // ── SCROLL REVEAL ──
+    /* ── SCROLL REVEAL ── */
     const reveals = document.querySelectorAll('.reveal');
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.08 });
     reveals.forEach(r => obs.observe(r));
 
-    // ── SCROLL EFFECTS ──
-    const backBtn = document.getElementById('backToTop');
-    const navbar = document.getElementById('navbar');
+    /* ── NAVBAR SCROLL ── */
+    const navbar   = document.getElementById('navbar');
+    const backBtn  = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
-      backBtn.classList.toggle('show', window.scrollY > 400);
-      navbar.classList.toggle('scrolled', window.scrollY > 60);
-    });
+      if (navbar)  navbar.classList.toggle('scrolled', window.scrollY > 60);
+      if (backBtn) backBtn.classList.toggle('show', window.scrollY > 400);
+    }, { passive: true });
 
-    // ── MOBILE MENU ──
-    function openMenu() { document.getElementById('mobileMenu').classList.add('open'); }
-    function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+    /* ── MOBILE MENU ── */
+    const burger      = document.getElementById('burger');
+    const mobileMenu  = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
 
-    // ── FORM → WHATSAPP ──
+    function openMenu()  { mobileMenu.classList.add('open');  burger.classList.add('open');  document.body.style.overflow='hidden'; }
+    function closeMenu() { mobileMenu.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow=''; }
+
+    if (burger) burger.addEventListener('click', () => mobileMenu.classList.contains('open') ? closeMenu() : openMenu());
+    if (mobileClose) mobileClose.addEventListener('click', closeMenu);
+    document.querySelectorAll('.mm-link').forEach(link => link.addEventListener('click', closeMenu));
+
+    /* ── FORM → WHATSAPP ── */
     function submitForm(e) {
       e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const emailVal = document.getElementById('email-field').value.trim();
+      const name    = document.getElementById('name').value.trim();
+      const phone   = document.getElementById('phone').value.trim();
+      const emailV  = document.getElementById('email-field').value.trim();
       const product = document.getElementById('product').value;
       const message = document.getElementById('message').value.trim();
-      if(!name||!phone){alert('Please enter your name and mobile number.');return;}
+      if(!name || !phone) { alert('Please enter your name and mobile number.'); return; }
       let text = `Hi CrazeeSpot! 🎁\n\nName: ${name}\nMobile: ${phone}`;
-      if(emailVal) text += `\nEmail: ${emailVal}`;
+      if(emailV)   text += `\nEmail: ${emailV}`;
       text += `\nProduct: ${product||'Not specified'}\nMessage: ${message||'No additional details'}`;
       window.open(`https://wa.me/917397554214?text=${encodeURIComponent(text)}`, '_blank');
     }
 
-    // ── COUNTER ANIMATION ──
+    /* ── COUNTER ANIMATION ── */
     function animateCounter(el) {
       const target = parseInt(el.getAttribute('data-target'));
       if(!target) return;
-      let current = 0;
-      const inc = target/60;
+      let current = 0; const inc = target / 60;
       const timer = setInterval(() => {
         current += inc;
-        if(current >= target){ el.textContent = target.toLocaleString()+'+'; clearInterval(timer); }
+        if(current >= target) { el.textContent = target.toLocaleString()+'+'; clearInterval(timer); }
         else el.textContent = Math.floor(current).toLocaleString()+'+';
       }, 22);
     }
-    const statsObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if(e.isIntersecting){ document.querySelectorAll('.count-up').forEach(animateCounter); statsObs.disconnect(); } });
-    }, { threshold: 0.5 });
     const statsEl = document.querySelector('.hero-stats');
-    if(statsEl) statsObs.observe(statsEl);
+    if(statsEl) {
+      const statsObs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if(e.isIntersecting){ document.querySelectorAll('.count-up').forEach(animateCounter); statsObs.disconnect(); } });
+      }, { threshold: 0.5 });
+      statsObs.observe(statsEl);
+    }
 
-    // ── CARD MAGNETIC TILT ──
-    document.querySelectorAll('.product-card, .why-card, .testimonial-card').forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - 0.5;
-        const y = (e.clientY - r.top) / r.height - 0.5;
-        card.style.transform = `translateY(-10px) scale(1.01) rotateX(${-y*6}deg) rotateY(${x*6}deg)`;
-        card.style.transition = 'transform 0.1s ease';
+    /* ── CARD TILT (desktop only) ── */
+    if (window.matchMedia('(hover: hover)').matches) {
+      document.querySelectorAll('.product-card, .why-card, .testimonial-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5;
+          const y = (e.clientY - r.top)  / r.height - 0.5;
+          card.style.transform = `translateY(-10px) scale(1.01) rotateX(${-y*5}deg) rotateY(${x*5}deg)`;
+          card.style.transition = 'transform 0.1s ease';
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = '';
+          card.style.transition = 'transform 0.4s cubic-bezier(0.34,1.4,0.64,1)';
+        });
       });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-        card.style.transition = 'transform 0.4s cubic-bezier(0.34,1.4,0.64,1)';
-      });
-    });
+    }
   </script>
 </body>
 </html>
