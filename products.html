@@ -1,0 +1,2283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Keychains – CrazeeSpot | Choose from 22+ Handcrafted Models @ ₹149</title>
+  <meta name="description" content="Shop 22+ custom personalized keychains at just ₹149. Metal, wooden, acrylic, Spotify & photo keychains with your name, photo or message. Pan India delivery." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Outfit:wght@300;400;500;600;700;800&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --brown-deep:   #1e1008;
+      --brown-dark:   #3d2210;
+      --brown-mid:    #6b3d1e;
+      --brown-warm:   #9a5a1e;
+      --brown-amber:  #c47a30;
+      --brown-light:  #d4a06a;
+      --brown-pale:   #e8c9a0;
+      --brown-glow:   #f2dfc0;
+      --cream-deep:   #ece3d6;
+      --cream-mid:    #f5efe6;
+      --cream-light:  #faf6ef;
+      --cream-white:  #fefcf8;
+      --white:        #ffffff;
+      --text-main:    #1e1008;
+      --text-muted:   #6b4a2a;
+      --text-soft:    #9a7850;
+      --card-bg:      #ffffff;
+      --card-border:  rgba(100, 60, 20, 0.12);
+      --nav-bg:       rgba(254, 252, 248, 0.95);
+      --radius:       18px;
+      --radius-sm:    10px;
+      --glow-warm:    0 8px 48px rgba(155, 90, 30, 0.22);
+      --shadow-card:  0 4px 40px rgba(30, 16, 8, 0.09);
+      --shadow-lift:  0 20px 60px rgba(30, 16, 8, 0.16);
+      --whatsapp-green: #25D366;
+      --whatsapp-dark:  #128C7E;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--cream-light);
+      color: var(--text-main);
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--cream-light); }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(var(--brown-amber), var(--brown-mid)); border-radius: 3px; }
+
+    /* ── CURSOR TRAIL ── */
+    .cursor-dot {
+      position: fixed; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--brown-amber); pointer-events: none; z-index: 99999;
+      transform: translate(-50%, -50%); transition: transform 0.05s; mix-blend-mode: multiply;
+    }
+    .cursor-ring {
+      position: fixed; width: 32px; height: 32px; border-radius: 50%;
+      border: 1.5px solid rgba(196, 122, 48, 0.5); pointer-events: none; z-index: 99998;
+      transform: translate(-50%, -50%); transition: transform 0.12s ease, width 0.2s, height 0.2s;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 0 5%; display: flex; align-items: center; justify-content: space-between;
+      height: 80px; background: var(--nav-bg); backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px); border-bottom: 1px solid rgba(155, 90, 30, 0.1);
+      transition: all 0.4s;
+    }
+    nav.scrolled { height: 70px; background: rgba(254,252,248,0.98); border-bottom-color: rgba(155,90,30,0.2); box-shadow: 0 4px 40px rgba(30,16,8,0.1); }
+
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--brown-amber); flex-shrink: 0; }
+    .logo-content { display: flex; flex-direction: column; justify-content: center; }
+    .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--brown-deep); letter-spacing: -0.5px; line-height: 1; margin-bottom: 2px; }
+    .nav-logo-text span { color: var(--brown-amber); }
+    .tagline { font-family: 'Outfit', sans-serif; font-size: 0.65rem; font-weight: 700; color: var(--brown-amber); letter-spacing: 1px; text-transform: uppercase; line-height: 1; white-space: nowrap; }
+
+    .nav-right-group { display: flex; align-items: center; gap: 24px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; font-size: 0.92rem; letter-spacing: 0.3px; position: relative; transition: color 0.3s; }
+    .nav-links a::before { content: ''; position: absolute; bottom: -3px; left: 50%; right: 50%; height: 1.5px; background: var(--brown-amber); transition: left 0.3s, right 0.3s; border-radius: 2px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--brown-deep); }
+    .nav-links a:hover::before, .nav-links a.active::before { left: 0; right: 0; }
+
+    /* Cart Button */
+    .cart-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--brown-deep);
+      color: var(--brown-glow);
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(30,16,8,0.25);
+    }
+    .cart-btn:hover {
+      background: var(--brown-mid);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 26px rgba(30,16,8,0.35);
+    }
+    .cart-count-badge {
+      background: var(--brown-amber);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      min-width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      padding: 0 4px;
+    }
+
+    .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; z-index: 1001; }
+    .burger span { display: block; width: 26px; height: 2px; background: var(--brown-warm); border-radius: 2px; transition: all 0.3s; }
+    .burger.toggle span:nth-child(1) { transform: rotate(-45deg) translate(-5px,5px); background: var(--brown-deep); }
+    .burger.toggle span:nth-child(2) { opacity: 0; }
+    .burger.toggle span:nth-child(3) { transform: rotate(45deg) translate(-5px,-5px); background: var(--brown-deep); }
+
+    .mobile-menu { display: none; position: fixed; inset: 0; background: rgba(254,252,248,0.98); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 26px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 700; color: var(--brown-deep); text-decoration: none; transition: color 0.3s; }
+    .mobile-menu a:hover { color: var(--brown-amber); }
+
+    @media (max-width: 960px) {
+      .nav-links { display: none; }
+      .burger { display: flex; }
+    }
+    @media (max-width: 480px) {
+      .logo-img { width: 40px; height: 40px; }
+      .nav-logo-text { font-size: 1.25rem; }
+      .tagline { font-size: 0.52rem; }
+      .cart-btn span.cart-btn-label { display: none; }
+      .cart-btn { padding: 9px 14px; }
+    }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding-top: 80px;
+      background: linear-gradient(160deg, #2a1508 0%, #3d2210 40%, #1e1008 100%);
+      position: relative; overflow: hidden;
+    }
+    .page-hero-inner {
+      max-width: 1280px; margin: 0 auto; padding: 60px 5% 75px;
+      display: flex; align-items: center; justify-content: space-between; gap: 40px;
+      position: relative; z-index: 2;
+    }
+    .page-hero-aurora {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 80% at 10% 50%, rgba(155,90,30,0.15) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 90% 30%, rgba(196,122,48,0.12) 0%, transparent 60%);
+    }
+    .page-hero-left { max-width: 580px; }
+    .page-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: rgba(232,201,160,0.6); margin-bottom: 20px; }
+    .page-breadcrumb a { color: var(--brown-light); text-decoration: none; transition: color 0.3s; }
+    .page-breadcrumb a:hover { color: var(--brown-glow); }
+    .page-breadcrumb span { color: rgba(196,122,48,0.5); }
+    .page-eyebrow { display: inline-flex; align-items: center; gap: 10px; background: rgba(196,122,48,0.14); border: 1px solid rgba(196,122,48,0.35); color: var(--brown-light); padding: 8px 20px; border-radius: 50px; font-size: 0.76rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px; }
+    .eyebrow-dot { width: 7px; height: 7px; background: var(--brown-amber); border-radius: 50%; animation: dotBlink 1.6s ease-in-out infinite; }
+    @keyframes dotBlink { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.3;transform:scale(1.6);} }
+    .page-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.6rem, 5.2vw, 4.4rem); font-weight: 700; line-height: 1.08; letter-spacing: -2px; color: var(--brown-glow); margin-bottom: 14px; }
+    .page-hero h1 em { font-style: italic; color: var(--brown-amber); }
+    .page-hero h1 .script { font-family: 'Dancing Script', cursive; font-size: 1.05em; color: var(--brown-pale); display: block; }
+    .page-hero p { font-size: 1rem; color: rgba(232,201,160,0.7); line-height: 1.8; margin-bottom: 28px; max-width: 500px; }
+
+    .price-callout {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(196,122,48,0.15);
+      border: 1px solid rgba(196,122,48,0.4);
+      border-radius: 12px;
+      padding: 10px 18px;
+      margin-bottom: 28px;
+    }
+    .price-callout .curr-price { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 700; color: #f2dfc0; line-height: 1; }
+    .price-callout .orig-price { font-size: 1rem; color: rgba(232,201,160,0.5); text-decoration: line-through; }
+    .price-callout .save-tag { background: #4caf7d; color: #fff; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 50px; text-transform: uppercase; }
+
+    .hero-stats-row { display: flex; gap: 26px; flex-wrap: wrap; }
+    .hero-stat { text-align: center; }
+    .hero-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--brown-amber); display: block; line-height: 1; }
+    .hero-stat-label { font-size: 0.7rem; color: var(--text-soft); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 3px; display: block; }
+    .hero-stat-sep { width: 1px; background: rgba(155,90,30,0.25); align-self: stretch; margin: 4px 0; }
+
+    .page-hero-badges { display: flex; flex-direction: column; gap: 14px; }
+    .hero-badge { background: rgba(255,255,255,0.06); border: 1px solid rgba(196,122,48,0.22); border-radius: 14px; padding: 15px 20px; display: flex; align-items: center; gap: 14px; backdrop-filter: blur(8px); transition: all 0.3s; }
+    .hero-badge:hover { background: rgba(196,122,48,0.12); border-color: rgba(196,122,48,0.45); transform: translateX(-4px); }
+    .hero-badge-icon { font-size: 1.6rem; }
+    .hero-badge-title { font-size: 0.92rem; font-weight: 700; color: var(--brown-pale); }
+    .hero-badge-sub { font-size: 0.75rem; color: rgba(232,201,160,0.55); margin-top: 2px; }
+
+    /* Hero waves */
+    .page-hero-waves { position: absolute; bottom: 0; left: 0; right: 0; height: 50px; overflow: hidden; pointer-events: none; z-index: 1; }
+    .page-hero-waves svg { position: absolute; bottom: 0; width: 200%; animation: waveDrift 20s linear infinite; }
+    @keyframes waveDrift { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+
+    @media (max-width: 860px) {
+      .page-hero-inner { flex-direction: column; text-align: center; }
+      .page-hero-left { max-width: 100%; }
+      .page-hero-badges { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+      .hero-badge { flex: 1; min-width: 160px; }
+      .hero-stats-row { justify-content: center; }
+      .page-breadcrumb { justify-content: center; }
+      .page-hero p { margin: 0 auto 24px; }
+    }
+
+    /* ── E-COMMERCE TOOLBAR & FILTER SECTION ── */
+    .toolbar-section {
+      background: var(--cream-white);
+      padding: 24px 5% 18px;
+      border-bottom: 1px solid rgba(155,90,30,0.12);
+      position: sticky; top: 80px; z-index: 100;
+      box-shadow: 0 4px 24px rgba(30,16,8,0.06);
+    }
+    .toolbar-wrap {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .toolbar-top {
+      display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap;
+    }
+    /* Search Input */
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 260px;
+      max-width: 480px;
+    }
+    .search-box i {
+      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+      color: var(--text-soft); font-size: 0.95rem;
+    }
+    .search-box input {
+      width: 100%;
+      background: var(--cream-mid);
+      border: 1.5px solid rgba(155,90,30,0.16);
+      border-radius: 50px;
+      padding: 11px 18px 11px 44px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      color: var(--brown-deep);
+      outline: none;
+      transition: all 0.3s;
+    }
+    .search-box input:focus {
+      border-color: var(--brown-amber);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(196,122,48,0.12);
+    }
+
+    .toolbar-controls {
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    }
+    .sort-select {
+      background: var(--cream-mid);
+      border: 1.5px solid rgba(155,90,30,0.16);
+      border-radius: 50px;
+      padding: 9px 18px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      color: var(--brown-deep);
+      outline: none;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .results-count {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      font-weight: 500;
+    }
+    .results-count strong { color: var(--brown-amber); font-weight: 700; }
+
+    /* Category Filter Tabs */
+    .filter-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+    .filter-tabs::-webkit-scrollbar { display: none; }
+    .filter-tab {
+      padding: 8px 18px;
+      border-radius: 50px;
+      border: 1.5px solid rgba(155,90,30,0.15);
+      background: transparent;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.3s;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .filter-tab:hover {
+      border-color: var(--brown-amber);
+      color: var(--brown-amber);
+      background: rgba(196,122,48,0.06);
+    }
+    .filter-tab.active {
+      background: var(--brown-deep);
+      border-color: var(--brown-deep);
+      color: var(--brown-glow);
+      box-shadow: 0 4px 16px rgba(30,16,8,0.18);
+    }
+
+    /* ── PRODUCTS GRID SECTION ── */
+    .products-section {
+      padding: 50px 5% 90px;
+      background: linear-gradient(180deg, var(--cream-light) 0%, #ede3d2 100%);
+      min-height: 500px;
+    }
+    .products-wrap { max-width: 1280px; margin: 0 auto; }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 24px;
+    }
+
+    /* ── PRODUCT CARD ── */
+    .product-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.35s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.35s, border-color 0.3s;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lift);
+      border-color: rgba(196,122,48,0.3);
+    }
+
+    /* Card Image Area */
+    .pc-img-wrap {
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/3;
+      background: #1e1008;
+      cursor: pointer;
+    }
+    .pc-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .product-card:hover .pc-img { transform: scale(1.08); }
+    .pc-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 45%, rgba(30,16,8,0.5) 100%);
+      pointer-events: none;
+    }
+
+    /* Badges */
+    .pc-model-badge {
+      position: absolute; top: 12px; left: 12px;
+      background: var(--brown-deep);
+      color: var(--brown-glow);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 5px 11px;
+      border-radius: 50px;
+      letter-spacing: 0.8px;
+      z-index: 2;
+      border: 1px solid rgba(196,122,48,0.3);
+    }
+    .pc-tag-badge {
+      position: absolute; top: 12px; right: 12px;
+      background: rgba(255,255,255,0.92);
+      color: var(--brown-mid);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 5px 11px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      z-index: 2;
+      border: 1px solid rgba(155,90,30,0.15);
+    }
+    .pc-wishlist-btn {
+      position: absolute; bottom: 12px; right: 12px;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+      transition: all 0.25s;
+      z-index: 2;
+      box-shadow: 0 2px 10px rgba(30,16,8,0.15);
+    }
+    .pc-wishlist-btn:hover, .pc-wishlist-btn.active {
+      color: #e05; background: #fff; transform: scale(1.15);
+    }
+
+    /* Card Body */
+    .pc-body {
+      padding: 20px 20px 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .pc-category-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--brown-amber);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .pc-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--brown-deep);
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .pc-desc {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+    .pc-custom-hint {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.76rem;
+      color: var(--brown-mid);
+      font-weight: 600;
+      padding: 7px 12px;
+      background: rgba(196,122,48,0.08);
+      border-radius: 8px;
+      border-left: 3px solid var(--brown-amber);
+      margin-bottom: 16px;
+    }
+    .pc-custom-hint i { color: var(--brown-amber); font-size: 0.8rem; }
+
+    /* Card Price & Action Footer */
+    .pc-footer {
+      padding: 14px 20px 18px;
+      border-top: 1px solid rgba(155,90,30,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .pc-price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    .pc-price-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .pc-price-now {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--brown-amber);
+      line-height: 1;
+    }
+    .pc-price-now sup { font-size: 0.95rem; vertical-align: super; }
+    .pc-price-old {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      text-decoration: line-through;
+    }
+    .pc-stock-badge {
+      font-size: 0.7rem;
+      color: #4caf7d;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .pc-stock-badge i { font-size: 0.6rem; }
+
+    .pc-btn-group {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 8px;
+    }
+    .btn-customize {
+      padding: 10px 12px;
+      border-radius: 50px;
+      border: 1.5px solid var(--brown-deep);
+      background: transparent;
+      color: var(--brown-deep);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.25s;
+    }
+    .btn-customize:hover {
+      background: var(--brown-deep);
+      color: var(--brown-glow);
+    }
+    .btn-order-wa {
+      padding: 10px 12px;
+      border-radius: 50px;
+      border: none;
+      background: var(--whatsapp-green);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 3px 14px rgba(37,211,102,0.28);
+      transition: all 0.25s;
+    }
+    .btn-order-wa:hover {
+      background: var(--whatsapp-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37,211,102,0.35);
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 70px 20px;
+      grid-column: 1/-1;
+    }
+    .empty-state.show { display: block; }
+    .empty-state i { font-size: 3.5rem; color: var(--brown-pale); margin-bottom: 16px; }
+    .empty-state h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--brown-mid); margin-bottom: 8px; }
+    .empty-state p { font-size: 0.92rem; color: var(--text-soft); }
+
+    /* ── CUSTOMIZATION & MODEL SELECTOR MODAL ── */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(30,16,8,0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: modalFadeIn 0.3s ease;
+    }
+    .modal-backdrop.open { display: flex; }
+    @keyframes modalFadeIn { from{opacity:0;} to{opacity:1;} }
+
+    .modal-card {
+      background: var(--cream-white);
+      border-radius: 20px;
+      max-width: 860px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.4);
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      position: relative;
+      border: 1px solid rgba(196,122,48,0.2);
+    }
+    .modal-close-btn {
+      position: absolute; top: 16px; right: 16px;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(30,16,8,0.08);
+      border: none;
+      font-size: 1.1rem;
+      color: var(--brown-deep);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.25s;
+      z-index: 10;
+    }
+    .modal-close-btn:hover {
+      background: var(--brown-deep);
+      color: #fff;
+    }
+
+    .modal-img-col {
+      background: #180d06;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      position: relative;
+    }
+    .modal-img-col img {
+      max-width: 100%;
+      max-height: 380px;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      transition: transform 0.3s;
+    }
+    .modal-img-col img:hover { transform: scale(1.03); }
+    .modal-img-caption {
+      margin-top: 14px;
+      font-size: 0.78rem;
+      color: rgba(232,201,160,0.7);
+      text-align: center;
+    }
+
+    .modal-info-col {
+      padding: 36px 32px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .modal-model-tag {
+      display: inline-block;
+      align-self: flex-start;
+      background: var(--brown-amber);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 50px;
+      letter-spacing: 1px;
+    }
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--brown-deep);
+      line-height: 1.15;
+    }
+    .modal-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .modal-price-now {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--brown-amber);
+      line-height: 1;
+    }
+    .modal-price-old {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      text-decoration: line-through;
+    }
+    .modal-discount-tag {
+      background: #e8f5e9;
+      color: #2e7d32;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    /* Model Switcher Dropdown */
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--brown-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-select, .form-input, .form-textarea {
+      width: 100%;
+      background: var(--cream-mid);
+      border: 1.5px solid rgba(155,90,30,0.18);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
+      color: var(--brown-deep);
+      outline: none;
+      transition: border-color 0.25s;
+    }
+    .form-select:focus, .form-input:focus, .form-textarea:focus {
+      border-color: var(--brown-amber);
+      background: #fff;
+    }
+    .form-textarea { resize: vertical; min-height: 55px; }
+
+    /* Quantity & Total Row */
+    .qty-total-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 16px;
+      background: rgba(196,122,48,0.06);
+      border-radius: 12px;
+      border: 1px solid rgba(196,122,48,0.15);
+    }
+    .qty-picker {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .qty-btn {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid var(--brown-mid);
+      background: transparent;
+      color: var(--brown-deep);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .qty-btn:hover {
+      background: var(--brown-deep);
+      color: #fff;
+    }
+    .qty-input {
+      width: 40px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      background: transparent;
+      color: var(--brown-deep);
+    }
+    .total-calc-wrap {
+      text-align: right;
+    }
+    .total-calc-label { font-size: 0.72rem; color: var(--text-soft); text-transform: uppercase; }
+    .total-calc-price { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--brown-amber); line-height: 1; }
+
+    /* Action buttons inside modal */
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 6px;
+    }
+    .modal-add-cart-btn {
+      padding: 13px 18px;
+      border-radius: 50px;
+      border: 1.5px solid var(--brown-deep);
+      background: transparent;
+      color: var(--brown-deep);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.25s;
+    }
+    .modal-add-cart-btn:hover {
+      background: var(--brown-deep);
+      color: var(--brown-glow);
+    }
+    .modal-order-wa-btn {
+      padding: 13px 18px;
+      border-radius: 50px;
+      border: none;
+      background: var(--whatsapp-green);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 18px rgba(37,211,102,0.3);
+      transition: all 0.25s;
+      text-decoration: none;
+    }
+    .modal-order-wa-btn:hover {
+      background: var(--whatsapp-dark);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .modal-card { grid-template-columns: 1fr; max-height: 92vh; }
+      .modal-img-col { padding: 20px; }
+      .modal-img-col img { max-height: 220px; }
+      .modal-info-col { padding: 22px 20px 24px; }
+      .modal-actions { grid-template-columns: 1fr; }
+    }
+
+    /* ── SHOPPING CART DRAWER ── */
+    .cart-drawer-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(30,16,8,0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 10001;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .cart-drawer-backdrop.open {
+      display: block; opacity: 1;
+    }
+    .cart-drawer {
+      position: fixed; top: 0; right: -420px; bottom: 0;
+      width: 100%; max-width: 420px;
+      background: var(--cream-white);
+      z-index: 10002;
+      box-shadow: -10px 0 50px rgba(0,0,0,0.25);
+      display: flex;
+      flex-direction: column;
+      transition: right 0.35s cubic-bezier(0.34,1.2,0.64,1);
+    }
+    .cart-drawer.open { right: 0; }
+
+    .cart-drawer-header {
+      padding: 24px 24px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(155,90,30,0.12);
+    }
+    .cart-drawer-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--brown-deep);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .cart-drawer-close {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(30,16,8,0.08);
+      color: var(--brown-deep);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .cart-drawer-close:hover { background: var(--brown-deep); color: #fff; }
+
+    /* Free Shipping Tracker */
+    .free-ship-banner {
+      background: rgba(196,122,48,0.09);
+      padding: 12px 24px;
+      border-bottom: 1px solid rgba(196,122,48,0.15);
+      font-size: 0.8rem;
+      color: var(--brown-mid);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .free-ship-banner i { color: #4caf7d; font-size: 1rem; }
+
+    /* Cart Items List */
+    .cart-items-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .cart-empty-msg {
+      text-align: center;
+      padding: 60px 10px;
+      color: var(--text-soft);
+    }
+    .cart-empty-msg i { font-size: 3rem; color: var(--brown-pale); margin-bottom: 14px; }
+    .cart-empty-msg p { font-size: 0.95rem; margin-bottom: 16px; }
+
+    .cart-item {
+      display: flex;
+      gap: 14px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(155,90,30,0.08);
+      position: relative;
+    }
+    .cart-item-img {
+      width: 70px; height: 70px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: #180d06;
+      flex-shrink: 0;
+    }
+    .cart-item-details { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+    .cart-item-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--brown-deep);
+      line-height: 1.2;
+    }
+    .cart-item-model { font-size: 0.7rem; color: var(--brown-amber); font-weight: 700; }
+    .cart-item-custom { font-size: 0.75rem; color: var(--text-soft); }
+    .cart-item-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 6px;
+    }
+    .cart-item-price { font-weight: 700; color: var(--brown-amber); font-size: 0.95rem; }
+    .cart-item-qty {
+      display: flex; align-items: center; gap: 6px;
+    }
+    .cart-qty-btn {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 1px solid var(--brown-mid);
+      background: transparent;
+      color: var(--brown-deep);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+    }
+    .cart-qty-val { font-size: 0.85rem; font-weight: 700; min-width: 16px; text-align: center; }
+    .cart-item-remove {
+      color: #999;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .cart-item-remove:hover { color: #d32f2f; }
+
+    /* Cart Drawer Footer */
+    .cart-drawer-footer {
+      padding: 20px 24px;
+      background: var(--cream-mid);
+      border-top: 1px solid rgba(155,90,30,0.12);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .cart-subtotal-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .cart-subtotal-label { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }
+    .cart-subtotal-val { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; color: var(--brown-amber); }
+    .cart-checkout-wa-btn {
+      width: 100%;
+      background: var(--whatsapp-green);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 20px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+      transition: all 0.25s;
+      text-decoration: none;
+    }
+    .cart-checkout-wa-btn:hover {
+      background: var(--whatsapp-dark);
+      transform: translateY(-2px);
+    }
+
+    /* ── TRUST FEATURES ── */
+    .trust-features {
+      padding: 60px 5%;
+      background: var(--cream-white);
+      border-top: 1px solid rgba(155,90,30,0.1);
+      border-bottom: 1px solid rgba(155,90,30,0.1);
+    }
+    .trust-grid {
+      max-width: 1280px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .trust-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: rgba(196,122,48,0.1);
+      border: 1px solid rgba(196,122,48,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      color: var(--brown-amber);
+      flex-shrink: 0;
+    }
+    .trust-title { font-weight: 700; font-size: 0.96rem; color: var(--brown-deep); margin-bottom: 3px; }
+    .trust-desc { font-size: 0.8rem; color: var(--text-soft); line-height: 1.5; }
+
+    /* ── FAQ SECTION ── */
+    .faq-section {
+      padding: 80px 5%;
+      background: var(--cream-mid);
+    }
+    .faq-wrap { max-width: 820px; margin: 0 auto; }
+    .faq-title {
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--brown-deep);
+      margin-bottom: 12px;
+    }
+    .faq-sub { text-align: center; color: var(--text-muted); font-size: 0.95rem; margin-bottom: 40px; }
+    .faq-item {
+      background: #fff;
+      border: 1px solid rgba(155,90,30,0.12);
+      border-radius: 14px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 18px 24px;
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--brown-deep);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+    .faq-question i { color: var(--brown-amber); transition: transform 0.3s; }
+    .faq-item.open .faq-question i { transform: rotate(180deg); }
+    .faq-answer {
+      display: none;
+      padding: 0 24px 20px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-answer { display: block; }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      padding: 90px 5%; text-align: center; position: relative; overflow: hidden;
+      background: linear-gradient(135deg, var(--brown-dark) 0%, #1a0c04 50%, var(--brown-deep) 100%);
+    }
+    .cta-section::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 700px; height: 350px; border-radius: 50%; background: rgba(196,122,48,0.08); pointer-events: none; }
+    .cta-section h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem,4vw,3.2rem); font-weight: 700; margin-bottom: 14px; color: var(--cream-light); position: relative; z-index: 1; }
+    .cta-section h2 em { font-style: italic; color: var(--brown-light); }
+    .cta-section p { color: rgba(232,201,160,0.6); font-size: 1rem; margin-bottom: 36px; position: relative; z-index: 1; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.8; }
+    .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+    .btn-wa-cta { display: inline-flex; align-items: center; gap: 10px; background: #25D366; color: #fff; padding: 15px 34px; border-radius: 50px; font-weight: 700; font-size: 0.96rem; text-decoration: none; box-shadow: 0 6px 28px rgba(37,211,102,0.3); transition: all 0.3s; }
+    .btn-wa-cta:hover { background: #128C7E; transform: translateY(-3px); box-shadow: 0 12px 40px rgba(37,211,102,0.4); }
+    .btn-outline-cta { display: inline-flex; align-items: center; gap: 10px; background: transparent; color: var(--brown-pale); padding: 15px 34px; border-radius: 50px; font-weight: 600; font-size: 0.96rem; text-decoration: none; border: 1.5px solid rgba(196,122,48,0.35); transition: all 0.3s; }
+    .btn-outline-cta:hover { border-color: var(--brown-light); color: var(--brown-light); background: rgba(196,122,48,0.08); transform: translateY(-3px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--brown-deep); padding: 60px 5% 30px;
+      border-top: 1px solid rgba(196,122,48,0.12);
+    }
+    .footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; margin-bottom: 40px; }
+    .footer-brand .nav-logo-text { font-size: 1.8rem; color: var(--brown-glow); }
+    .footer-brand .tagline { margin-top: 4px; }
+    .footer-brand p { font-size: 0.88rem; color: rgba(232,201,160,0.5); line-height: 1.75; margin-top: 16px; max-width: 320px; }
+    .footer-socials { display: flex; gap: 10px; margin-top: 20px; }
+    .footer-social { width: 38px; height: 38px; border-radius: 10px; border: 1px solid rgba(196,122,48,0.2); display: flex; align-items: center; justify-content: center; color: rgba(232,201,160,0.5); font-size: 0.95rem; text-decoration: none; transition: all 0.3s; }
+    .footer-social:hover { background: rgba(196,122,48,0.12); border-color: rgba(196,122,48,0.4); color: var(--brown-amber); transform: translateY(-3px); }
+    .footer-col h4 { font-size: 0.78rem; font-weight: 700; color: var(--brown-amber); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 18px; }
+    .footer-col a { display: block; font-size: 0.88rem; color: rgba(232,201,160,0.5); text-decoration: none; margin-bottom: 10px; transition: color 0.3s; }
+    .footer-col a:hover { color: var(--brown-pale); }
+    .footer-bottom { max-width: 1280px; margin: 0 auto; padding-top: 26px; border-top: 1px solid rgba(196,122,48,0.08); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 0.8rem; color: rgba(232,201,160,0.35); }
+    .footer-bottom span { color: var(--brown-amber); }
+
+    /* ── FLOATING WHATSAPP BUTTON ── */
+    .floating-wa-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--whatsapp-green);
+      color: #fff;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 0 8px 30px rgba(37,211,102,0.45);
+      z-index: 999;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .floating-wa-btn:hover {
+      background: var(--whatsapp-dark);
+      transform: scale(1.1) rotate(6deg);
+    }
+
+    /* ── TOAST NOTIFICATION ── */
+    .toast {
+      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: var(--brown-deep); color: var(--brown-pale);
+      padding: 12px 24px; border-radius: 50px; font-size: 0.88rem; font-weight: 600;
+      z-index: 10005; opacity: 0; transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      pointer-events: none; display: flex; align-items: center; gap: 10px;
+      border: 1px solid rgba(196,122,48,0.3); box-shadow: 0 8px 40px rgba(30,16,8,0.3);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast i { color: var(--brown-amber); }
+
+    @media (max-width: 640px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .pc-btn-group { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ── NAVBAR ── -->
+  <nav id="navbar">
+    <a href="index.html" class="nav-logo">
+      <img src="https://res.cloudinary.com/djmgorf8l/image/upload/f_auto,q_auto/ChatGPT_Image_Jun_18_2026_04_15_42_PM_gheeyf" alt="CrazeeSpot Logo" class="logo-img" />
+      <div class="logo-content">
+        <span class="nav-logo-text">Crazee<span>Spot</span></span>
+        <span class="tagline">WHERE IDEAS GETS CRAZEE!</span>
+      </div>
+    </a>
+    <div class="nav-right-group">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html" class="active">Keychains</a></li>
+        <li><a href="index.html#showcase">Gallery</a></li>
+        <li><a href="index.html#why-us">Why Us</a></li>
+        <li><a href="index.html#testimonials">Reviews</a></li>
+      </ul>
+      <button class="cart-btn" onclick="openCart()" title="View your shopping cart">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-btn-label">Cart</span>
+        <span class="cart-count-badge" id="cartCountBadge">0</span>
+      </button>
+      <div class="burger" id="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- ── MOBILE MENU ── -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="toggleMenu()">Home</a>
+    <a href="products.html" onclick="toggleMenu()">Keychains (22+ Models)</a>
+    <a href="index.html#showcase" onclick="toggleMenu()">Gallery</a>
+    <a href="index.html#why-us" onclick="toggleMenu()">Why Us</a>
+    <a href="index.html#contact" onclick="toggleMenu()">Contact</a>
+  </div>
+
+  <!-- ── PAGE HERO ── -->
+  <section class="page-hero">
+    <div class="page-hero-aurora"></div>
+    <div class="page-hero-inner">
+      <div class="page-hero-left">
+        <div class="page-breadcrumb">
+          <a href="index.html"><i class="fas fa-home"></i> Home</a>
+          <span>›</span>
+          <span style="color:var(--brown-glow)">Keychains Catalog</span>
+        </div>
+        <div class="page-eyebrow"><span class="eyebrow-dot"></span> Premium Handcrafted Collection</div>
+        <h1>
+          Our <em>Keychains</em><br/>
+          <span class="script">Every Style, Your Story</span>
+        </h1>
+        <p>Personalized keepsakes crafted with love — metal, wooden, acrylic, Spotify & photo lockets. Choose from 22 distinct models customized with your name, photo, or message.</p>
+
+        <div class="price-callout">
+          <span class="curr-price">₹149</span>
+          <span class="orig-price">₹299</span>
+          <span class="save-tag">Flat 50% Off</span>
+          <span style="font-size:0.75rem;color:rgba(232,201,160,0.8);margin-left:4px;">· Pan India Delivery</span>
+        </div>
+
+        <div class="hero-stats-row">
+          <div class="hero-stat">
+            <span class="hero-stat-num">22+</span>
+            <span class="hero-stat-label">Models</span>
+          </div>
+          <div class="hero-stat-sep"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">₹149</span>
+            <span class="hero-stat-label">Flat Price</span>
+          </div>
+          <div class="hero-stat-sep"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">100%</span>
+            <span class="hero-stat-label">Customized</span>
+          </div>
+          <div class="hero-stat-sep"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">🚚 PAN</span>
+            <span class="hero-stat-label">India Shipping</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-hero-badges">
+        <div class="hero-badge">
+          <div class="hero-badge-icon">🔑</div>
+          <div>
+            <div class="hero-badge-title">22 Unique Models Available</div>
+            <div class="hero-badge-sub">Jersey, CA, Spotify, Car, Lockets & more</div>
+          </div>
+        </div>
+        <div class="hero-badge">
+          <div class="hero-badge-icon">✏️</div>
+          <div>
+            <div class="hero-badge-title">Free Custom Laser Engraving</div>
+            <div class="hero-badge-sub">Your exact name, photo, logo or number</div>
+          </div>
+        </div>
+        <div class="hero-badge">
+          <div class="hero-badge-icon">⚡</div>
+          <div>
+            <div class="hero-badge-title">Quick WhatsApp Ordering</div>
+            <div class="hero-badge-sub">Pick your model & checkout in 1-click</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-hero-waves">
+      <svg viewBox="0 0 2880 50" preserveAspectRatio="none">
+        <path d="M0,25 C480,50 960,0 1440,25 C1920,50 2400,0 2880,25 L2880,50 L0,50 Z" fill="#faf6ef"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ── E-COMMERCE TOOLBAR (SEARCH, SORT, CATEGORIES) ── -->
+  <div class="toolbar-section">
+    <div class="toolbar-wrap">
+      <div class="toolbar-top">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="searchInput" placeholder="Search models (e.g. Spotify, Jersey, Wood, CA, Doctor, Locket)..." oninput="handleSearch()" />
+        </div>
+        <div class="toolbar-controls">
+          <select class="sort-select" id="sortSelect" onchange="handleSort()">
+            <option value="featured">Sort: Featured</option>
+            <option value="name-asc">Name: A to Z</option>
+            <option value="name-desc">Name: Z to A</option>
+            <option value="model-asc">Model No: Ascending</option>
+          </select>
+          <div class="results-count">Showing <strong id="resultsCount">22</strong> models</div>
+        </div>
+      </div>
+
+      <div class="filter-tabs" id="filterTabs">
+        <button class="filter-tab active" data-filter="all"><i class="fas fa-th-large"></i> All Models (22)</button>
+        <button class="filter-tab" data-filter="metal"><i class="fas fa-cog"></i> Metal (8)</button>
+        <button class="filter-tab" data-filter="wooden"><i class="fas fa-tree"></i> Wooden (2)</button>
+        <button class="filter-tab" data-filter="acrylic"><i class="fas fa-gem"></i> Acrylic & PVC (6)</button>
+        <button class="filter-tab" data-filter="photo"><i class="fas fa-camera"></i> Photo & Lockets (4)</button>
+        <button class="filter-tab" data-filter="special"><i class="fas fa-star"></i> Multi-Functional (2)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PRODUCTS GRID ── -->
+  <section class="products-section">
+    <div class="products-wrap">
+      <div class="products-grid" id="productsGrid">
+        <!-- Rendered by JavaScript -->
+        <div class="empty-state" id="emptyState">
+          <i class="fas fa-search"></i>
+          <h3>No matching keychain models found</h3>
+          <p>Try searching for a different keyword or clear your category filter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TRUST HIGHLIGHTS ── -->
+  <section class="trust-features">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon"><i class="fas fa-medal"></i></div>
+        <div>
+          <div class="trust-title">Premium Quality Finish</div>
+          <div class="trust-desc">High-grade steel, acrylic & seasoned natural wood with lasting durability.</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><i class="fas fa-pen-nib"></i></div>
+        <div>
+          <div class="trust-title">Precision Laser Engraving</div>
+          <div class="trust-desc">Crisp, razor-sharp lettering and detailed artwork tailored to your ideas.</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><i class="fas fa-truck-fast"></i></div>
+        <div>
+          <div class="trust-title">Fast Pan India Delivery</div>
+          <div class="trust-desc">Secure bubble-wrapped packaging delivered right to your doorstep.</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><i class="fab fa-whatsapp"></i></div>
+        <div>
+          <div class="trust-title">Dedicated WhatsApp Support</div>
+          <div class="trust-desc">Instant customer assistance for design approvals and tracking updates.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ SECTION ── -->
+  <section class="faq-section">
+    <div class="faq-wrap">
+      <h2 class="faq-title">Frequently Asked <em>Questions</em></h2>
+      <p class="faq-sub">Everything you need to know about customizing and ordering your keychains.</p>
+
+      <div class="faq-item open">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>How do I send my photo or custom name for the keychain?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          You can either enter your custom name right on this page before ordering, or click "Order Now" to chat on WhatsApp (+91 73975 54214) and send your photos, song link, or names directly! We share a preview for approval before crafting.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Can I choose a specific model out of the 22 available?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Yes! Every keychain has a specific model code (Model #KC-01 to #KC-22). You can click "Customize Model" on any card or switch models inside the customization popup to choose exactly which style you want.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>How long does shipping take?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Customization takes 1–2 business days, and delivery takes 3–5 days across India via reliable courier partners. Express delivery options are also available upon request.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Can I place bulk orders for birthdays, weddings, or corporate events?</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Absolutely! We specialize in bulk return gifts for birthdays, weddings, farewells, college batches, and corporate events with special discounted bulk rates. Reach out on WhatsApp for a quick quote!
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA SECTION ── -->
+  <section class="cta-section">
+    <h2>Have a Unique Keychain Idea <em>in Mind?</em></h2>
+    <p>Want a shape or design you don't see here? We create fully bespoke custom shapes, logos, and couple gifts on request!</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/917397554214?text=Hi%20CrazeeSpot!%20I%20have%20a%20custom%20keychain%20design%20idea.%20Can%20you%20help%20me%20craft%20it%3F" target="_blank" class="btn-wa-cta">
+        <i class="fab fa-whatsapp"></i> Chat with Designer on WhatsApp
+      </a>
+      <a href="index.html" class="btn-outline-cta">
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="nav-logo-text">Crazee<span style="color:var(--brown-amber)">Spot</span></div>
+        <div class="tagline">WHERE IDEAS GETS CRAZEE!</div>
+        <p>We deliver your ideas as gifts to your loved ones — handcrafted with passion, customized with care, made to cherish forever.</p>
+        <div class="footer-socials">
+          <a href="https://wa.me/917397554214" target="_blank" class="footer-social"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.instagram.com/crazeespot" target="_blank" class="footer-social"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.facebook.com/crazeespot" target="_blank" class="footer-social"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.youtube.com/crazeespot" target="_blank" class="footer-social"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Keychain Models</h4>
+        <a href="#filterTabs" onclick="setCategory('metal')">Metal Keychains (8 Models)</a>
+        <a href="#filterTabs" onclick="setCategory('wooden')">Wooden Keychains (2 Models)</a>
+        <a href="#filterTabs" onclick="setCategory('photo')">Photo & Lockets (4 Models)</a>
+        <a href="#filterTabs" onclick="setCategory('acrylic')">Acrylic & PVC (6 Models)</a>
+        <a href="#filterTabs" onclick="setCategory('special')">Multi-Functional (2 Models)</a>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Care</h4>
+        <a href="https://wa.me/917397554214" target="_blank"><i class="fab fa-whatsapp"></i> +91 73975 54214</a>
+        <a href="index.html#contact">Send a Message</a>
+        <a href="index.html">Back to Main Home</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 <span>CrazeeSpot</span>. All rights reserved.</p>
+      <p>Crafted with <span>♥</span> for gifting your loved ones</p>
+    </div>
+  </footer>
+
+  <!-- ── FLOATING WHATSAPP BUTTON ── -->
+  <a href="https://wa.me/917397554214?text=Hi%20CrazeeSpot!%20I'm%20interested%20in%20custom%20keychains%20at%20%E2%82%B9149.%20Please%20guide%20me!" target="_blank" class="floating-wa-btn" title="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- ── CUSTOMIZATION & MODEL SELECTOR MODAL ── -->
+  <div class="modal-backdrop" id="customModal" onclick="handleBackdropClick(event)">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal()" title="Close"><i class="fas fa-times"></i></button>
+      <div class="modal-img-col">
+        <img id="modalImg" src="" alt="Selected Keychain Model" />
+        <div class="modal-img-caption" id="modalImgCaption">Model Preview · Actual Finished Quality</div>
+      </div>
+      <div class="modal-info-col">
+        <span class="modal-model-tag" id="modalModelCode">Model #KC-01</span>
+        <h2 class="modal-title" id="modalTitle">Keychain Model</h2>
+        <div class="modal-price-row">
+          <span class="modal-price-now">₹149</span>
+          <span class="modal-price-old">₹299</span>
+          <span class="modal-discount-tag">50% OFF</span>
+          <span style="font-size:0.75rem;color:#4caf7d;font-weight:700;"><i class="fas fa-check-circle"></i> In Stock</span>
+        </div>
+
+        <!-- Model Switcher Dropdown -->
+        <div class="form-field">
+          <label class="form-label" for="modalModelSelect"><i class="fas fa-list-check"></i> Choose Model Variant:</label>
+          <select class="form-select" id="modalModelSelect" onchange="onModelDropdownChange(this.value)">
+            <!-- Populated via JS with all 22 models -->
+          </select>
+        </div>
+
+        <!-- Dynamic Customization Input -->
+        <div class="form-field">
+          <label class="form-label" id="modalCustomLabel" for="modalCustomInput"><i class="fas fa-pen-fancy"></i> Custom Text / Name to Engrave:</label>
+          <input type="text" class="form-input" id="modalCustomInput" placeholder="e.g. Rahul, 07, Song name, etc." />
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="modalNotesInput"><i class="fas fa-comment-dots"></i> Special Note / Instructions (Optional):</label>
+          <input type="text" class="form-input" id="modalNotesInput" placeholder="e.g. Add heart symbol, fast delivery needed, etc." />
+        </div>
+
+        <!-- Quantity & Total -->
+        <div class="qty-total-row">
+          <div class="qty-picker">
+            <button class="qty-btn" onclick="changeModalQty(-1)">-</button>
+            <span class="qty-input" id="modalQtyVal">1</span>
+            <button class="qty-btn" onclick="changeModalQty(1)">+</button>
+          </div>
+          <div class="total-calc-wrap">
+            <div class="total-calc-label">Total Amount</div>
+            <div class="total-calc-price" id="modalTotalPrice">₹149</div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="modal-add-cart-btn" onclick="addCurrentModalToCart()">
+            <i class="fas fa-shopping-bag"></i> Add to Cart
+          </button>
+          <a href="#" class="modal-order-wa-btn" id="modalWaBtn" target="_blank" onclick="trackModalOrder()">
+            <i class="fab fa-whatsapp"></i> Order on WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SHOPPING CART DRAWER ── -->
+  <div class="cart-drawer-backdrop" id="cartBackdrop" onclick="closeCart()"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+      <div class="cart-drawer-title">
+        <i class="fas fa-shopping-bag" style="color:var(--brown-amber)"></i> Your Cart (<span id="cartHeaderCount">0</span>)
+      </div>
+      <button class="cart-drawer-close" onclick="closeCart()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="free-ship-banner">
+      <i class="fas fa-shield-alt"></i>
+      <span>Free Customization & Secure Pan India Delivery!</span>
+    </div>
+    <div class="cart-items-list" id="cartItemsList">
+      <!-- Injected by JavaScript -->
+    </div>
+    <div class="cart-drawer-footer" id="cartFooter">
+      <div class="cart-subtotal-row">
+        <span class="cart-subtotal-label">Subtotal:</span>
+        <span class="cart-subtotal-val" id="cartSubtotal">₹0</span>
+      </div>
+      <button class="cart-checkout-wa-btn" onclick="checkoutCartViaWhatsApp()">
+        <i class="fab fa-whatsapp"></i> Checkout via WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- ── TOAST NOTIFICATION ── -->
+  <div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg"></span>
+  </div>
+
+  <!-- ── APPLICATION JAVASCRIPT ── -->
+  <script>
+    /* ─────────────────────────────────────────────────────────────
+       COMPLETE 22 KEYCHAIN MODELS DATABASE
+    ───────────────────────────────────────────────────────────── */
+    const products = [
+      {
+        id: 1,
+        code: "KC-01",
+        name: "Jersey Name & Number Keychain",
+        desc: "Custom sports jersey-shaped polished metal keychain engraved with your name and favorite jersey number.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.25 PM.jpeg",
+        category: "metal",
+        badge: "⭐ Best Seller",
+        material: "Stainless Metal",
+        customizable: "Name + Jersey Number",
+        placeholder: "e.g. Dhoni 07 or Azhar 10",
+        price: 149
+      },
+      {
+        id: 2,
+        code: "KC-02",
+        name: "CA Logo Name Tag Keychain",
+        desc: "Classy Chartered Accountant emblem keychain with your full name laser-engraved. The perfect milestone gift!",
+        image: "WhatsApp Image 2026-10-03 at 4.42.26 PM.jpeg",
+        category: "metal",
+        badge: "🏆 CA Special",
+        material: "Premium Metal",
+        customizable: "Full Name",
+        placeholder: "e.g. CA Syed Azhar",
+        price: 149
+      },
+      {
+        id: 3,
+        code: "KC-03",
+        name: "Pocketable Mini Photo Album",
+        desc: "A portable 4.5×4.5 cm mini photo album keychain to carry your favorite cherished memories everywhere.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.27 PM.jpeg",
+        category: "photo",
+        badge: "🔥 Viral Pick",
+        material: "Clear Acrylic Album",
+        customizable: "Send Photos on WhatsApp",
+        placeholder: "e.g. Couple / Friends Memory Photos",
+        price: 149
+      },
+      {
+        id: 4,
+        code: "KC-04",
+        name: "Foldable Phone Stand Keychain",
+        desc: "2-in-1 multi-functional gadget! Folds out into a sturdy desk phone holder and clips onto your keys.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.28 PM.jpeg",
+        category: "special",
+        badge: "💡 2-in-1 Gadget",
+        material: "Durable Metal & Polymer",
+        customizable: "Initials or Name",
+        placeholder: "e.g. RK or Azhar",
+        price: 149
+      },
+      {
+        id: 5,
+        code: "KC-05",
+        name: "Round Badge Printed Keychain",
+        desc: "High-definition printed round keychain with custom logo, college badge, batch name, or birthday crest.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.28 PM (1).jpeg",
+        category: "acrylic",
+        badge: "🎓 Bulk Favorite",
+        material: "Glossy Acrylic",
+        customizable: "Text + Logo / Batch",
+        placeholder: "e.g. 1970-72 PDC Batch or Team Name",
+        price: 149
+      },
+      {
+        id: 6,
+        code: "KC-06",
+        name: "Tree of Life Wooden Keychain",
+        desc: "Natural solid wood keychain with detailed laser-etched family tree artwork and inspirational family quote.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.28 PM (2).jpeg",
+        category: "wooden",
+        badge: "🌿 Eco Wood",
+        material: "Natural Birch Wood",
+        customizable: "Family Name / Quote",
+        placeholder: "e.g. The Hussain Family or Custom Quote",
+        price: 149
+      },
+      {
+        id: 7,
+        code: "KC-07",
+        name: "Car Brand Logo Wooden Keychain",
+        desc: "Precision engraved wooden emblem keychain featuring your favorite car brand or custom vehicle emblem.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.29 PM.jpeg",
+        category: "wooden",
+        badge: "🚗 Car Enthusiast",
+        material: "Hardwood",
+        customizable: "Car Brand / Custom Logo",
+        placeholder: "e.g. Mazda, BMW, Hyundai, etc.",
+        price: 149
+      },
+      {
+        id: 8,
+        code: "KC-08",
+        name: "Matte Black Metal Dog Tag",
+        desc: "Sleek tactical black stainless steel dog tag with silver laser engraving. Ideal for contact info or team gifts.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.30 PM.jpeg",
+        category: "metal",
+        badge: "⚡ Tactical",
+        material: "Black Coated Steel",
+        customizable: "Business / Personal Text",
+        placeholder: "e.g. Company Name, Phone, Blood Group",
+        price: 149
+      },
+      {
+        id: 9,
+        code: "KC-09",
+        name: "House Shape Milestone Keychain",
+        desc: "Cute house-silhouette metal keychain. The sweetest housewarming gift for new homeowners or rental keys.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.30 PM (1).jpeg",
+        category: "metal",
+        badge: "🏡 New Home",
+        material: "Silver Chrome Metal",
+        customizable: "House Name / Number",
+        placeholder: "e.g. Our Sweet Home 2026 or Flat 402",
+        price: 149
+      },
+      {
+        id: 10,
+        code: "KC-10",
+        name: "Custom Car Cutout with Number Plate",
+        desc: "Custom car model silhouette with exact vehicle registration number engraved. The dream gift for any driver!",
+        image: "WhatsApp Image 2026-10-03 at 4.42.30 PM (2).jpeg",
+        category: "acrylic",
+        badge: "🚘 Top Rated",
+        material: "Acrylic Cutout",
+        customizable: "Car Model + Number Plate",
+        placeholder: "e.g. Innova - OD 02 CC 3665",
+        price: 149
+      },
+      {
+        id: 11,
+        code: "KC-11",
+        name: "Vibrant Cursive PVC Name Keychain",
+        desc: "Bold neon-blue embossed script letters on black background. Flexible, lightweight, water-resistant & shockproof.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.31 PM.jpeg",
+        category: "acrylic",
+        badge: "🎨 Colorful",
+        material: "Flexible Rubber PVC",
+        customizable: "Your First Name",
+        placeholder: "e.g. Kathira or Sneha",
+        price: 149
+      },
+      {
+        id: 12,
+        code: "KC-12",
+        name: "Heart Locket with Secret Photo",
+        desc: "Gleaming silver heart locket with gold bow ornament. Flips open to reveal your high-resolution couple portrait.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.31 PM (1).jpeg",
+        category: "photo",
+        badge: "💖 Romantic",
+        material: "Metal Locket",
+        customizable: "Inside Photos + Name",
+        placeholder: "Send 2 photos on WhatsApp after order",
+        price: 149
+      },
+      {
+        id: 13,
+        code: "KC-13",
+        name: "Spotify Scannable Code Keychain",
+        desc: "Interactive acrylic keychain featuring scannable Spotify code, your special song title, artist & photo.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.31 PM (2).jpeg",
+        category: "photo",
+        badge: "🎵 Music Lover",
+        material: "Crystal Acrylic",
+        customizable: "Song Title + Artist + Photo",
+        placeholder: "e.g. Kesariya - Arijit Singh",
+        price: 149
+      },
+      {
+        id: 14,
+        code: "KC-14",
+        name: "Biker Number Plate Keychain",
+        desc: "Bespoke motorcycle registration plate keychain with rider portrait and bike number plate graphics.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.32 PM.jpeg",
+        category: "acrylic",
+        badge: "🏍️ Biker Life",
+        material: "Laminated Acrylic",
+        customizable: "Rider Name + Plate Number",
+        placeholder: "e.g. NITESH - MH 35 P 4173",
+        price: 149
+      },
+      {
+        id: 15,
+        code: "KC-15",
+        name: "Stainless Bar Portrait Etched Tag",
+        desc: "Sleek vertical stainless steel bar with custom hand-drawn sketch or photo portrait etched with fine detail.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.32 PM (1).jpeg",
+        category: "photo",
+        badge: "✨ Minimalist",
+        material: "Stainless Steel Bar",
+        customizable: "Portrait Sketch / Eyes",
+        placeholder: "Send portrait photo via WhatsApp",
+        price: 149
+      },
+      {
+        id: 16,
+        code: "KC-16",
+        name: "Double-Sided Spotify Bar Keychain",
+        desc: "Solid metallic bar with scannable Spotify track code on side A and personal quote/name on side B.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.32 PM (2).jpeg",
+        category: "special",
+        badge: "🎶 Scannable",
+        material: "Polished Stainless Steel",
+        customizable: "Song Name + Side B Quote",
+        placeholder: "e.g. Fortis Fortuna Adiuvat",
+        price: 149
+      },
+      {
+        id: 17,
+        code: "KC-17",
+        name: "Cutout CA Emblem Key Ring",
+        desc: "Intricately hollow-cut CA emblem in brushed steel with a solid bottom bar engraved with recipient's name.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.32 PM (3).jpeg",
+        category: "metal",
+        badge: "👔 Professional",
+        material: "Laser-Cut Steel",
+        customizable: "Name of CA",
+        placeholder: "e.g. ANKIT DUTT",
+        price: 149
+      },
+      {
+        id: 18,
+        code: "KC-18",
+        name: "Round Officer Badge Charm",
+        desc: "Polished circular chrome medal keychain with miniature handcuffs charm and custom officer badge wording.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.33 PM.jpeg",
+        category: "metal",
+        badge: "🎖️ Profession",
+        material: "Zinc Alloy Chrome",
+        customizable: "Role / Special Title",
+        placeholder: "e.g. Best Officer Ever or Super Dad",
+        price: 149
+      },
+      {
+        id: 19,
+        code: "KC-19",
+        name: "Doctor Caduceus Symbol Keychain",
+        desc: "Medical Caduceus serpent symbol cut into gleaming stainless metal with custom Doctor title and name.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.33 PM (1).jpeg",
+        category: "metal",
+        badge: "🩺 Med Graduation",
+        material: "Surgical Stainless Steel",
+        customizable: "Doctor's Name",
+        placeholder: "e.g. Dr. Trisha MBBS",
+        price: 149
+      },
+      {
+        id: 20,
+        code: "KC-20",
+        name: "Cricket Legend Dhoni Fan Tag",
+        desc: "Double-sided tribute keychain featuring Dhoni 'Definitely Not' artwork on front and iconic #7 jersey on back.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.33 PM (2).jpeg",
+        category: "acrylic",
+        badge: "🏏 Fan Edition",
+        material: "Double-Sided Acrylic",
+        customizable: "Player Name / Fan Message",
+        placeholder: "e.g. Dhoni 7 or Kohli 18",
+        price: 149
+      },
+      {
+        id: 21,
+        code: "KC-21",
+        name: "Cut-Out 3D Acrylic Name Keychain",
+        desc: "Laser-cut 3D script name in crystal-clear and white dual layer acrylic. Modern, chic, and delightfully lightweight.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.34 PM.jpeg",
+        category: "acrylic",
+        badge: "💎 3D Acrylic",
+        material: "Dual Layer Acrylic",
+        customizable: "Any Name / Nickname",
+        placeholder: "e.g. Maddy or Tanya",
+        price: 149
+      },
+      {
+        id: 22,
+        code: "KC-22",
+        name: "Couples Engraved Heart Locket",
+        desc: "Luxury metallic heart locket engraved with both partner names and a mini crystal bow. The ultimate anniversary keepsake.",
+        image: "WhatsApp Image 2026-10-03 at 4.42.34 PM (1).jpeg",
+        category: "photo",
+        badge: "💍 Anniversary",
+        material: "Rose-Gold & Silver Metal",
+        customizable: "Both Names + Date",
+        placeholder: "e.g. Vikas ♥ Jethi",
+        price: 149
+      }
+    ];
+
+    const WHATSAPP_PHONE = '917397554214';
+
+    /* ── STATE ── */
+    let currentCategory = 'all';
+    let currentSearch = '';
+    let currentSort = 'featured';
+    let currentModalProduct = products[0];
+    let modalQuantity = 1;
+    let cart = [];
+    let wishlist = [];
+
+    // Load Cart & Wishlist from localStorage
+    try {
+      const savedCart = localStorage.getItem('cs_cart');
+      if (savedCart) cart = JSON.parse(savedCart);
+      const savedWish = localStorage.getItem('cs_wish');
+      if (savedWish) wishlist = JSON.parse(savedWish);
+    } catch(e) {
+      console.warn("Storage not available");
+    }
+
+    /* ── INIT ── */
+    window.addEventListener('DOMContentLoaded', () => {
+      populateModelDropdown();
+      renderProducts();
+      updateCartUI();
+    });
+
+    /* ── POPULATE MODEL DROPDOWN ── */
+    function populateModelDropdown() {
+      const sel = document.getElementById('modalModelSelect');
+      sel.innerHTML = '';
+      products.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.id;
+        opt.textContent = `${p.code} - ${p.name} (₹${p.price})`;
+        sel.appendChild(opt);
+      });
+    }
+
+    /* ── RENDER PRODUCTS ── */
+    function renderProducts() {
+      const grid = document.getElementById('productsGrid');
+      const empty = document.getElementById('emptyState');
+      const countEl = document.getElementById('resultsCount');
+
+      // Filter
+      let list = products.filter(p => {
+        const matchesCat = (currentCategory === 'all') || (p.category === currentCategory);
+        const q = currentSearch.toLowerCase().trim();
+        const matchesSearch = !q ||
+          p.name.toLowerCase().includes(q) ||
+          p.desc.toLowerCase().includes(q) ||
+          p.material.toLowerCase().includes(q) ||
+          p.code.toLowerCase().includes(q) ||
+          p.customizable.toLowerCase().includes(q);
+        return matchesCat && matchesSearch;
+      });
+
+      // Sort
+      if (currentSort === 'name-asc') {
+        list.sort((a,b) => a.name.localeCompare(b.name));
+      } else if (currentSort === 'name-desc') {
+        list.sort((a,b) => b.name.localeCompare(a.name));
+      } else if (currentSort === 'model-asc') {
+        list.sort((a,b) => a.id - b.id);
+      }
+
+      countEl.textContent = list.length;
+
+      // Clear existing product cards (keep empty-state element)
+      grid.querySelectorAll('.product-card').forEach(c => c.remove());
+
+      if (list.length === 0) {
+        empty.classList.add('show');
+        return;
+      }
+      empty.classList.remove('show');
+
+      list.forEach((p, idx) => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        const isWished = wishlist.includes(p.id);
+
+        card.innerHTML = `
+          <div class="pc-img-wrap" onclick="openModal(${p.id})">
+            <img class="pc-img" src="${p.image}" alt="${p.name}" loading="lazy" />
+            <div class="pc-img-overlay"></div>
+            <span class="pc-model-badge">${p.code}</span>
+            <span class="pc-tag-badge">${p.badge}</span>
+            <button class="pc-wishlist-btn ${isWished ? 'active' : ''}" onclick="toggleWish(${p.id}, event)" title="Save to Wishlist">
+              <i class="${isWished ? 'fas fa-heart' : 'far fa-heart'}"></i>
+            </button>
+          </div>
+          <div class="pc-body">
+            <div class="pc-category-tag">${p.material}</div>
+            <h3 class="pc-title">${p.name}</h3>
+            <p class="pc-desc">${p.desc}</p>
+            <div class="pc-custom-hint">
+              <i class="fas fa-pen-nib"></i>
+              <span>Customise: ${p.customizable}</span>
+            </div>
+          </div>
+          <div class="pc-footer">
+            <div class="pc-price-row">
+              <div class="pc-price-wrap">
+                <span class="pc-price-now"><sup>₹</sup>${p.price}</span>
+                <span class="pc-price-old">₹299</span>
+              </div>
+              <span class="pc-stock-badge"><i class="fas fa-circle"></i> Ready to ship</span>
+            </div>
+            <div class="pc-btn-group">
+              <button class="btn-customize" onclick="openModal(${p.id})">
+                <i class="fas fa-sliders-h"></i> Customize
+              </button>
+              <a href="${buildWhatsAppLink(p, 'Default', 1)}" target="_blank" class="btn-order-wa">
+                <i class="fab fa-whatsapp"></i> Order
+              </a>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    /* ── FILTER & SEARCH HANDLERS ── */
+    document.getElementById('filterTabs').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-tab');
+      if (!btn) return;
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      currentCategory = btn.dataset.filter;
+      renderProducts();
+    });
+
+    function setCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.filter-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.filter === cat);
+      });
+      renderProducts();
+      document.getElementById('filterTabs').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function handleSearch() {
+      currentSearch = document.getElementById('searchInput').value;
+      renderProducts();
+    }
+
+    function handleSort() {
+      currentSort = document.getElementById('sortSelect').value;
+      renderProducts();
+    }
+
+    /* ── MODAL LOGIC ── */
+    function openModal(productId) {
+      const prod = products.find(p => p.id === productId) || products[0];
+      currentModalProduct = prod;
+      modalQuantity = 1;
+
+      document.getElementById('modalImg').src = prod.image;
+      document.getElementById('modalModelCode').textContent = `Model #${prod.code}`;
+      document.getElementById('modalTitle').textContent = prod.name;
+      document.getElementById('modalCustomLabel').innerHTML = `<i class="fas fa-pen-fancy"></i> Custom Details (${prod.customizable}):`;
+      document.getElementById('modalCustomInput').placeholder = prod.placeholder || 'Enter your custom name/details';
+      document.getElementById('modalCustomInput').value = '';
+      document.getElementById('modalNotesInput').value = '';
+      document.getElementById('modalModelSelect').value = prod.id;
+
+      updateModalPrice();
+      updateModalWhatsAppBtn();
+
+      document.getElementById('customModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('customModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleBackdropClick(e) {
+      if (e.target.id === 'customModal') closeModal();
+    }
+
+    function onModelDropdownChange(newId) {
+      const prod = products.find(p => p.id == newId);
+      if (!prod) return;
+      currentModalProduct = prod;
+
+      document.getElementById('modalImg').src = prod.image;
+      document.getElementById('modalModelCode').textContent = `Model #${prod.code}`;
+      document.getElementById('modalTitle').textContent = prod.name;
+      document.getElementById('modalCustomLabel').innerHTML = `<i class="fas fa-pen-fancy"></i> Custom Details (${prod.customizable}):`;
+      document.getElementById('modalCustomInput').placeholder = prod.placeholder || 'Enter custom text';
+
+      updateModalPrice();
+      updateModalWhatsAppBtn();
+    }
+
+    function changeModalQty(delta) {
+      modalQuantity = Math.max(1, modalQuantity + delta);
+      document.getElementById('modalQtyVal').textContent = modalQuantity;
+      updateModalPrice();
+      updateModalWhatsAppBtn();
+    }
+
+    function updateModalPrice() {
+      const total = currentModalProduct.price * modalQuantity;
+      document.getElementById('modalTotalPrice').textContent = `₹${total}`;
+    }
+
+    function buildWhatsAppLink(prod, customText, qty, notes = '') {
+      let msg = `Hi CrazeeSpot! 👋\nI would like to order a Custom Keychain:\n\n` +
+        `• Model: ${prod.name} (${prod.code})\n` +
+        `• Material: ${prod.material}\n` +
+        `• Quantity: ${qty}\n` +
+        `• Price: ₹${prod.price * qty} (₹${prod.price} each)\n`;
+
+      if (customText && customText !== 'Default') {
+        msg += `• Custom Text/Details: ${customText}\n`;
+      }
+      if (notes) {
+        msg += `• Notes: ${notes}\n`;
+      }
+      msg += `\nPlease confirm my order and let me know how to share my photos/payment details! ✨`;
+
+      return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`;
+    }
+
+    function updateModalWhatsAppBtn() {
+      const customVal = document.getElementById('modalCustomInput').value.trim();
+      const notesVal = document.getElementById('modalNotesInput').value.trim();
+      const link = buildWhatsAppLink(currentModalProduct, customVal, modalQuantity, notesVal);
+      document.getElementById('modalWaBtn').href = link;
+    }
+
+    document.getElementById('modalCustomInput').addEventListener('input', updateModalWhatsAppBtn);
+    document.getElementById('modalNotesInput').addEventListener('input', updateModalWhatsAppBtn);
+
+    function trackModalOrder() {
+      showToast('Redirecting to WhatsApp to complete your order! 🚀');
+    }
+
+    /* ── CART FUNCTIONALITY ── */
+    function addCurrentModalToCart() {
+      const customVal = document.getElementById('modalCustomInput').value.trim() || 'Custom Details Shared on WhatsApp';
+      const notesVal = document.getElementById('modalNotesInput').value.trim();
+
+      const existingIndex = cart.findIndex(item =>
+        item.productId === currentModalProduct.id &&
+        item.customText === customVal
+      );
+
+      if (existingIndex > -1) {
+        cart[existingIndex].quantity += modalQuantity;
+      } else {
+        cart.push({
+          productId: currentModalProduct.id,
+          name: currentModalProduct.name,
+          code: currentModalProduct.code,
+          image: currentModalProduct.image,
+          price: currentModalProduct.price,
+          customText: customVal,
+          notes: notesVal,
+          quantity: modalQuantity
+        });
+      }
+
+      saveCart();
+      updateCartUI();
+      closeModal();
+      showToast(`Added ${currentModalProduct.name} to cart! 🛒`);
+      openCart();
+    }
+
+    function saveCart() {
+      try {
+        localStorage.setItem('cs_cart', JSON.stringify(cart));
+      } catch(e) {}
+    }
+
+    function openCart() {
+      document.getElementById('cartBackdrop').classList.add('open');
+      document.getElementById('cartDrawer').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCart() {
+      document.getElementById('cartBackdrop').classList.remove('open');
+      document.getElementById('cartDrawer').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function updateCartUI() {
+      const count = cart.reduce((acc, item) => acc + item.quantity, 0);
+      document.getElementById('cartCountBadge').textContent = count;
+      document.getElementById('cartHeaderCount').textContent = count;
+
+      const listEl = document.getElementById('cartItemsList');
+      listEl.innerHTML = '';
+
+      if (cart.length === 0) {
+        listEl.innerHTML = `
+          <div class="cart-empty-msg">
+            <i class="fas fa-shopping-bag"></i>
+            <p>Your shopping cart is empty.</p>
+            <button class="btn-customize" style="margin:0 auto;" onclick="closeCart()">Browse Keychain Models</button>
+          </div>
+        `;
+        document.getElementById('cartSubtotal').textContent = '₹0';
+        return;
+      }
+
+      let subtotal = 0;
+      cart.forEach((item, idx) => {
+        subtotal += item.price * item.quantity;
+        const itemEl = document.createElement('div');
+        itemEl.className = 'cart-item';
+        itemEl.innerHTML = `
+          <img class="cart-item-img" src="${item.image}" alt="${item.name}" />
+          <div class="cart-item-details">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-model">Model: ${item.code}</div>
+            <div class="cart-item-custom"><i class="fas fa-pen-nib" style="font-size:0.65rem"></i> ${item.customText}</div>
+            <div class="cart-item-price-row">
+              <span class="cart-item-price">₹${item.price * item.quantity}</span>
+              <div class="cart-item-qty">
+                <button class="cart-qty-btn" onclick="updateCartItemQty(${idx}, -1)">-</button>
+                <span class="cart-qty-val">${item.quantity}</span>
+                <button class="cart-qty-btn" onclick="updateCartItemQty(${idx}, 1)">+</button>
+              </div>
+              <button class="cart-item-remove" onclick="removeCartItem(${idx})" title="Remove item">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+        `;
+        listEl.appendChild(itemEl);
+      });
+
+      document.getElementById('cartSubtotal').textContent = `₹${subtotal}`;
+    }
+
+    function updateCartItemQty(index, delta) {
+      if (!cart[index]) return;
+      cart[index].quantity += delta;
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+      }
+      saveCart();
+      updateCartUI();
+    }
+
+    function removeCartItem(index) {
+      cart.splice(index, 1);
+      saveCart();
+      updateCartUI();
+      showToast('Item removed from cart');
+    }
+
+    function checkoutCartViaWhatsApp() {
+      if (cart.length === 0) {
+        showToast('Your cart is empty! Please add a keychain model.');
+        return;
+      }
+
+      let msg = `Hi CrazeeSpot! 🎁\nI would like to order the following items from my cart:\n\n`;
+      let total = 0;
+      cart.forEach((item, i) => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        msg += `${i + 1}. *${item.name}* (${item.code})\n`;
+        msg += `   • Custom Text: ${item.customText}\n`;
+        if (item.notes) msg += `   • Note: ${item.notes}\n`;
+        msg += `   • Qty: ${item.quantity} × ₹${item.price} = ₹${itemTotal}\n\n`;
+      });
+
+      msg += `─────────────────────\n`;
+      msg += `*Total Items:* ${cart.reduce((a,c) => a + c.quantity, 0)}\n`;
+      msg += `*Total Amount:* ₹${total}\n\n`;
+      msg += `Please confirm my order and share payment instructions! Thank you ✨`;
+
+      const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+      showToast('Opening WhatsApp with your complete order! 🚀');
+    }
+
+    /* ── WISHLIST TOGGLE ── */
+    function toggleWish(id, e) {
+      e.stopPropagation();
+      const idx = wishlist.indexOf(id);
+      if (idx > -1) {
+        wishlist.splice(idx, 1);
+        showToast('Removed from Wishlist');
+      } else {
+        wishlist.push(id);
+        showToast('Added to Wishlist! ❤️');
+      }
+      try {
+        localStorage.setItem('cs_wish', JSON.stringify(wishlist));
+      } catch(e) {}
+      renderProducts();
+    }
+
+    /* ── FAQ ACCORDION ── */
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      item.classList.toggle('open');
+    }
+
+    /* ── TOAST ── */
+    let toastTimer;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    /* ── NAVBAR SCROLL ── */
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    /* ── MOBILE MENU ── */
+    function toggleMenu() {
+      document.getElementById('burger').classList.toggle('toggle');
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    /* ── CURSOR TRAIL ── */
+    (function() {
+      const dot = document.getElementById('cursorDot');
+      const ring = document.getElementById('cursorRing');
+      if (!dot || !ring) return;
+      let rx = 0, ry = 0;
+      document.addEventListener('mousemove', e => {
+        dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
+        rx += (e.clientX - rx) * 0.12; ry += (e.clientY - ry) * 0.12;
+        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      });
+    })();
+  </script>
+</body>
+</html>
