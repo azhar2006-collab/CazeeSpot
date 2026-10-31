@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Policies & Terms – CrazeeSpot | Privacy, Terms, Refunds & Shipping</title>
+  <meta name="description" content="Read CrazeeSpot's official store policies: Privacy Policy, Terms & Conditions, Refund & Cancellation Policy, and Shipping & Delivery details for customized personalized gifts across India." />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Outfit:wght@300;400;500;600;700;800&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --brown-deep:   #1e1008;
+      --brown-dark:   #3d2210;
+      --brown-mid:    #6b3d1e;
+      --brown-warm:   #9a5a1e;
+      --brown-amber:  #c47a30;
+      --brown-light:  #d4a06a;
+      --brown-pale:   #e8c9a0;
+      --brown-glow:   #f2dfc0;
+      --cream-deep:   #ece3d6;
+      --cream-mid:    #f5efe6;
+      --cream-light:  #faf6ef;
+      --cream-white:  #fefcf8;
+      --white:        #ffffff;
+      --text-main:    #1e1008;
+      --text-muted:   #6b4a2a;
+      --text-soft:    #9a7850;
+      --card-bg:      #ffffff;
+      --card-border:  rgba(100, 60, 20, 0.12);
+      --nav-bg:       rgba(254, 252, 248, 0.95);
+      --radius:       18px;
+      --radius-sm:    10px;
+      --glow-warm:    0 8px 48px rgba(155, 90, 30, 0.22);
+      --shadow-card:  0 6px 36px rgba(30, 16, 8, 0.08);
+      --shadow-hover: 0 16px 44px rgba(30, 16, 8, 0.13);
+    }
+
+    body {
+      background: var(--cream-white);
+      color: var(--text-main);
+      font-family: 'Outfit', sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 76px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(155, 90, 30, 0.12);
+      transition: all 0.3s;
+    }
+    nav.scrolled {
+      height: 68px;
+      background: rgba(254, 252, 248, 0.98);
+      box-shadow: 0 4px 30px rgba(30, 16, 8, 0.08);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo-img {
+      height: 48px;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+    .nav-logo:hover .logo-img {
+      transform: scale(1.03);
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.92rem;
+      letter-spacing: 0.3px;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 50%;
+      right: 50%;
+      height: 2px;
+      background: var(--brown-amber);
+      transition: left 0.3s, right 0.3s;
+      border-radius: 2px;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--brown-deep);
+    }
+    .nav-links a:hover::before, .nav-links a.active::before {
+      left: 0;
+      right: 0;
+    }
+    .nav-cta {
+      background: var(--brown-deep) !important;
+      color: var(--brown-glow) !important;
+      padding: 9px 22px;
+      border-radius: 50px;
+      font-weight: 600 !important;
+      font-size: 0.88rem !important;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 18px rgba(30, 16, 8, 0.25);
+      transition: transform 0.25s, box-shadow 0.25s !important;
+    }
+    .nav-cta::before { display: none !important; }
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(30, 16, 8, 0.35);
+    }
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      z-index: 1001;
+    }
+    .burger span {
+      width: 24px;
+      height: 2px;
+      background: var(--brown-warm);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .burger.toggle span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 5px); }
+    .burger.toggle span:nth-child(2) { opacity: 0; }
+    .burger.toggle span:nth-child(3) { transform: rotate(45deg) translate(-5px, -5px); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(30, 16, 8, 0.98);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--brown-glow);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .mobile-menu a:hover { color: var(--brown-amber); }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .burger { display: flex; }
+    }
+
+    /* ── PAGE HERO ── */
+    .policy-hero {
+      padding: 130px 5% 60px;
+      background:
+        radial-gradient(ellipse 70% 50% at 15% 40%, rgba(61,34,16,0.92) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 60% at 85% 30%, rgba(30,16,8,0.85) 0%, transparent 60%),
+        linear-gradient(160deg, #2a1508 0%, #3d2210 45%, #1e1008 100%);
+      color: var(--brown-glow);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(196, 122, 48, 0.15);
+      border: 1px solid rgba(196, 122, 48, 0.3);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--brown-pale);
+      margin-bottom: 18px;
+    }
+    .policy-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+      color: var(--cream-white);
+    }
+    .policy-hero h1 span {
+      color: var(--brown-amber);
+    }
+    .policy-hero p {
+      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+      color: rgba(232, 201, 160, 0.82);
+      max-width: 720px;
+      margin: 0 auto 30px;
+      line-height: 1.8;
+    }
+    .policy-meta-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: 0.82rem;
+      color: rgba(232, 201, 160, 0.6);
+      padding: 10px 22px;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .policy-meta-bar span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .policy-meta-bar i { color: var(--brown-amber); }
+
+    /* ── STICKY POLICY NAV PILLS ── */
+    .policy-nav-sticky {
+      position: sticky;
+      top: 76px;
+      z-index: 100;
+      background: rgba(254, 252, 248, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(155, 90, 30, 0.15);
+      padding: 14px 5%;
+      box-shadow: 0 4px 20px rgba(30, 16, 8, 0.04);
+    }
+    .policy-pills-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 2px;
+    }
+    .policy-pills-wrap::-webkit-scrollbar { display: none; }
+    .policy-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--cream-light);
+      border: 1px solid rgba(155, 90, 30, 0.18);
+      border-radius: 50px;
+      text-decoration: none;
+      color: var(--brown-dark);
+      font-size: 0.88rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: all 0.25s ease;
+    }
+    .policy-pill i {
+      color: var(--brown-amber);
+      font-size: 0.95rem;
+      transition: transform 0.25s;
+    }
+    .policy-pill:hover, .policy-pill.active {
+      background: var(--brown-deep);
+      border-color: var(--brown-deep);
+      color: var(--brown-glow);
+      box-shadow: 0 4px 16px rgba(30, 16, 8, 0.2);
+    }
+    .policy-pill:hover i, .policy-pill.active i {
+      color: var(--brown-pale);
+      transform: scale(1.1);
+    }
+
+    /* ── MAIN CONTENT CONTAINER ── */
+    .policy-content-wrap {
+      max-width: 1160px;
+      margin: 50px auto 90px;
+      padding: 0 5%;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+    }
+
+    /* ── POLICY CARD / SECTION ── */
+    .policy-section {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      scroll-margin-top: 160px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .policy-section:hover {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .section-header {
+      padding: 36px 40px 28px;
+      background: linear-gradient(135deg, rgba(245, 239, 230, 0.6) 0%, #ffffff 100%);
+      border-bottom: 1px solid rgba(155, 90, 30, 0.1);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .section-header-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .section-icon-badge {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--brown-amber), var(--brown-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      box-shadow: 0 6px 20px rgba(196, 122, 48, 0.28);
+    }
+    .section-title-wrap h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3vw, 2.3rem);
+      font-weight: 700;
+      color: var(--brown-deep);
+      line-height: 1.15;
+    }
+    .section-title-wrap p {
+      font-size: 0.88rem;
+      color: var(--text-soft);
+      margin-top: 4px;
+    }
+    .section-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--brown-amber);
+      background: rgba(196, 122, 48, 0.1);
+      padding: 6px 14px;
+      border-radius: 50px;
+      border: 1px solid rgba(196, 122, 48, 0.2);
+    }
+
+    /* Key Guarantee Callout inside section */
+    .guarantee-callout {
+      margin: 30px 40px 0;
+      padding: 18px 24px;
+      background: linear-gradient(135deg, rgba(196, 122, 48, 0.08) 0%, rgba(245, 239, 230, 0.5) 100%);
+      border-left: 4px solid var(--brown-amber);
+      border-radius: 0 12px 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .guarantee-callout i {
+      font-size: 1.6rem;
+      color: var(--brown-amber);
+      flex-shrink: 0;
+    }
+    .guarantee-callout-text h4 {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--brown-deep);
+      margin-bottom: 2px;
+    }
+    .guarantee-callout-text p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Section Body & Subsections */
+    .section-body {
+      padding: 36px 40px 40px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .policy-item {
+      padding-bottom: 28px;
+      border-bottom: 1px dashed rgba(155, 90, 30, 0.15);
+    }
+    .policy-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .policy-item-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .item-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--cream-mid);
+      color: var(--brown-warm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .policy-item-head h3 {
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: var(--brown-deep);
+      letter-spacing: -0.2px;
+    }
+    .policy-item-content {
+      padding-left: 40px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+    .policy-item-content p {
+      margin-bottom: 12px;
+    }
+    .policy-item-content ul {
+      margin: 10px 0 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .policy-item-content li {
+      position: relative;
+      list-style-type: none;
+    }
+    .policy-item-content li::before {
+      content: '✔';
+      position: absolute;
+      left: -20px;
+      color: var(--brown-amber);
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+    .highlight-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(196, 122, 48, 0.12);
+      color: var(--brown-deep);
+      font-weight: 600;
+      font-size: 0.82rem;
+      border-radius: 6px;
+      margin-right: 6px;
+    }
+    .note-box {
+      margin-top: 14px;
+      padding: 14px 18px;
+      background: var(--cream-light);
+      border-radius: 10px;
+      border: 1px solid rgba(155, 90, 30, 0.1);
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .note-box i {
+      color: var(--brown-amber);
+      font-size: 1rem;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    /* ── QUICK HELP & WHATSAPP BANNER ── */
+    .support-banner {
+      background: linear-gradient(135deg, var(--brown-deep) 0%, var(--brown-dark) 100%);
+      color: var(--brown-glow);
+      border-radius: var(--radius);
+      padding: 50px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 14px 44px rgba(30, 16, 8, 0.25);
+    }
+    .support-banner h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 2.7rem);
+      font-weight: 700;
+      color: var(--cream-white);
+      margin-bottom: 12px;
+    }
+    .support-banner p {
+      color: rgba(232, 201, 160, 0.85);
+      font-size: 1rem;
+      max-width: 620px;
+      margin: 0 auto 30px;
+      line-height: 1.7;
+    }
+    .support-actions {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .btn-wa-support {
+      background: #25d366;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 28px;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 6px 24px rgba(37, 211, 102, 0.35);
+      transition: all 0.3s;
+    }
+    .btn-wa-support:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
+    }
+    .btn-email-support {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--cream-white);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 14px 28px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s;
+    }
+    .btn-email-support:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: linear-gradient(160deg, #1a0c04 0%, var(--brown-deep) 50%, #0f0804 100%);
+      padding: 70px 5% 34px;
+      position: relative;
+      overflow: hidden;
+      color: var(--brown-pale);
+    }
+    .footer-waves {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 100px;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .footer-waves svg {
+      position: absolute;
+      top: 0;
+      width: 200%;
+      opacity: 0.12;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1.1fr 1.1fr 1.3fr;
+      gap: 40px;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding-bottom: 44px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      z-index: 2;
+    }
+    .footer-brand-name {
+      margin-bottom: 8px;
+    }
+    .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.96rem;
+      color: var(--brown-light);
+      display: block;
+      margin-bottom: 14px;
+    }
+    .footer-brand p {
+      color: rgba(232, 201, 160, 0.45);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      max-width: 330px;
+    }
+    .footer-contact-quick {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .footer-contact-quick a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: rgba(232, 201, 160, 0.55);
+      font-size: 0.84rem;
+      transition: color 0.3s;
+    }
+    .footer-contact-quick a:hover { color: var(--brown-light); }
+    .footer-contact-quick a i { color: var(--brown-amber); width: 14px; }
+    .footer-social {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+    }
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(232, 201, 160, 0.6);
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .social-btn:hover {
+      background: var(--brown-amber);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+    .footer-col h4 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--cream-light);
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(232, 201, 160, 0.45);
+      font-size: 0.86rem;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+    }
+    .footer-links a:hover {
+      color: var(--brown-pale);
+      padding-left: 5px;
+    }
+    .footer-bottom {
+      max-width: 1280px;
+      margin: 28px auto 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      position: relative;
+      z-index: 2;
+      font-size: 0.81rem;
+      color: rgba(232, 201, 160, 0.35);
+    }
+    .footer-bottom span { color: var(--brown-amber); }
+    .footer-bottom a {
+      color: var(--brown-light);
+      text-decoration: none;
+    }
+
+    /* ── WHATSAPP FAB ── */
+    .whatsapp-fab {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .whatsapp-btn {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #25d366;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      text-decoration: none;
+      box-shadow: 0 6px 26px rgba(37, 211, 102, 0.45);
+      transition: transform 0.3s;
+    }
+    .whatsapp-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
+    }
+    @media (max-width: 768px) {
+      .section-header { padding: 26px 24px; }
+      .section-body { padding: 26px 24px 30px; }
+      .guarantee-callout { margin: 20px 24px 0; }
+      .policy-item-content { padding-left: 0; margin-top: 10px; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .policy-hero { padding: 110px 4% 45px; }
+      .logo-img { height: 40px; }
+      .support-banner { padding: 36px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav id="navbar">
+    <a href="index.html" class="nav-logo" aria-label="CrazeeSpot - Where Ideas Get Crazee">
+      <img src="logo.png" alt="CrazeeSpot - Where Ideas Get Crazee" class="logo-img" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="index.html#showcase">Gallery</a></li>
+      <li><a href="index.html#why-us">Why Us</a></li>
+      <li><a href="policies.html" class="active">Policies</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="https://wa.me/917397554214?text=Hi%20CrazeeSpot!%20I%20have%20a%20question%20about%20your%20products%20and%20policies." target="_blank" class="nav-cta">
+        <i class="fab fa-whatsapp"></i> Chat with Us
+      </a>
+      <div class="burger" id="burgerBtn" onclick="toggleMenu()" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="toggleMenu()">Home</a>
+    <a href="products.html" onclick="toggleMenu()">All Products</a>
+    <a href="index.html#showcase" onclick="toggleMenu()">Gallery</a>
+    <a href="policies.html" onclick="toggleMenu()" style="color:var(--brown-amber);">Store Policies</a>
+    <a href="index.html#contact" onclick="toggleMenu()">Contact Us</a>
+    <a href="https://wa.me/917397554214" target="_blank" style="font-size:1.3rem;color:#25d366;"><i class="fab fa-whatsapp"></i> WhatsApp: +91 73975 54214</a>
+  </div>
+
+  <!-- ── PAGE HERO ── -->
+  <section class="policy-hero">
+    <div class="hero-badge">
+      <i class="fas fa-balance-scale"></i> Official Store Policies & Terms
+    </div>
+    <h1>Customer Trust & <span>Legal Terms</span></h1>
+    <p>We believe in 100% transparency. Please review our complete guidelines regarding privacy, custom handcrafting, secure payments, order cancellations, transit damage protection, and Pan-India delivery.</p>
+    <div class="policy-meta-bar">
+      <span><i class="fas fa-calendar-check"></i> Last Updated: November 2026</span>
+      <span>•</span>
+      <span><i class="fas fa-shield-alt"></i> 100% Photo Privacy Guaranteed</span>
+      <span>•</span>
+      <span><i class="fas fa-box-open"></i> Free Damage Replacement</span>
+      <span>•</span>
+      <span><i class="fas fa-truck"></i> Pan-India Coverage</span>
+    </div>
+  </section>
+
+  <!-- ── STICKY POLICY PILLS ── -->
+  <div class="policy-nav-sticky">
+    <div class="policy-pills-wrap">
+      <a href="#privacy" class="policy-pill active" onclick="setActivePill(this)">
+        <i class="fas fa-user-shield"></i> A. Privacy Policy
+      </a>
+      <a href="#terms" class="policy-pill" onclick="setActivePill(this)">
+        <i class="fas fa-file-contract"></i> B. Terms & Conditions
+      </a>
+      <a href="#refunds" class="policy-pill" onclick="setActivePill(this)">
+        <i class="fas fa-rotate-left"></i> C. Refund & Cancellation
+      </a>
+      <a href="#shipping" class="policy-pill" onclick="setActivePill(this)">
+        <i class="fas fa-shipping-fast"></i> D. Shipping & Delivery
+      </a>
+    </div>
+  </div>
+
+  <!-- ── MAIN POLICIES CONTAINER ── -->
+  <main class="policy-content-wrap">
+
+    <!-- ═════════════════════════════════════════════════════════════════
+         A. PRIVACY POLICY
+         ═════════════════════════════════════════════════════════════════ -->
+    <article class="policy-section" id="privacy">
+      <div class="section-header">
+        <div class="section-header-left">
+          <div class="section-icon-badge">
+            <i class="fas fa-user-shield"></i>
+          </div>
+          <div class="section-title-wrap">
+            <h2>A. Privacy Policy</h2>
+            <p>Your personal data and family memories are sacred to us.</p>
+          </div>
+        </div>
+        <span class="section-tag">Strict Photo Privacy</span>
+      </div>
+
+      <div class="guarantee-callout">
+        <i class="fas fa-lock"></i>
+        <div class="guarantee-callout-text">
+          <h4>Zero Selling Guarantee</h4>
+          <p>CrazeeSpot never sells, rents, leases, or trades customer personal information or photos to third-party marketing agencies or advertisers under any circumstances.</p>
+        </div>
+      </div>
+
+      <div class="section-body">
+
+        <!-- 1. Customer information collection -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">1</span>
+            <h3>Customer Information Collection</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>To craft, customize, and deliver bespoke gifts to your doorstep, CrazeeSpot collects only essential customer details provided voluntarily when placing an order or making an inquiry:</p>
+            <ul>
+              <li><span class="highlight-badge">Contact Details:</span> Full Name, WhatsApp phone number, and Email address for order status, artwork approvals, and dispatch notifications.</li>
+              <li><span class="highlight-badge">Shipping & Delivery Details:</span> Complete recipient address, nearest landmark, town/city, state, and 6-digit postal PIN code for accurate courier routing.</li>
+              <li><span class="highlight-badge">Customization Assets:</span> Personal photographs, couple/family portraits, custom text, names, dates, quotes, corporate logos, or specific audio/video clips (for QR soundwave or video frames).</li>
+              <li><span class="highlight-badge">Device & Browsing Data:</span> Non-identifiable technical data such as IP address, browser type, and cookies used solely to maintain shopping cart items and improve browsing speed.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2. How customer data is used -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">2</span>
+            <h3>How Customer Data Is Used</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>Your information is utilized strictly to fulfill your gifting experience:</p>
+            <ul>
+              <li><span class="highlight-badge">Handcrafting & Personalization:</span> Designing caricatures, setting photo mosaics, precision laser engraving names, and formatting print layouts.</li>
+              <li><span class="highlight-badge">Digital Artwork Approval:</span> Sharing high-resolution previews and artwork mockups on WhatsApp for your feedback and confirmation prior to final manufacturing.</li>
+              <li><span class="highlight-badge">Shipping & Logistics:</span> Generating automated courier airway bills (AWB), coordinating delivery with courier partners, and sending live tracking links.</li>
+              <li><span class="highlight-badge">Customer Support:</span> Assisting you with questions, special date deadlines, and order inquiries.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 3. Data protection -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">3</span>
+            <h3>Data Protection & Photo Confidentiality</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>We respect the sensitive and intimate nature of personal photographs:</p>
+            <ul>
+              <li><span class="highlight-badge">Encrypted Access:</span> All customer files and photos are stored on secure, access-restricted internal design workstations accessible only by authorized production artists.</li>
+              <li><span class="highlight-badge">Strict Photo Purging:</span> Once an order is delivered and the 7-day replacement window has lapsed, customer photographs are automatically purged or archived securely.</li>
+              <li><span class="highlight-badge">No Public Showcasing Without Consent:</span> We never post customer photos, couple portraits, or newborn pictures on our social media channels (Instagram, Facebook) or website showcase without explicit written consent from the customer.</li>
+            </ul>
+            <div class="note-box">
+              <i class="fas fa-info-circle"></i>
+              <span>If you wish for your photos or design files to be erased immediately upon parcel delivery, simply notify us on WhatsApp (+91 73975 54214), and our team will erase all source media instantly.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Third-party payment processing -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">4</span>
+            <h3>Third-Party Payment Processing</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>All financial transactions are conducted through certified, RBI-compliant banking networks and payment providers:</p>
+            <ul>
+              <li><span class="highlight-badge">Direct UPI & Gateways:</span> We accept payments via official UPI channels (Google Pay, PhonePe, Paytm, BHIM), Net Banking, and Bank Transfers.</li>
+              <li><span class="highlight-badge">Zero Financial Storage:</span> CrazeeSpot does <strong>NOT</strong> collect, view, or store debit/credit card numbers, CVV codes, UPI PINs, or banking passwords.</li>
+              <li><span class="highlight-badge">SSL 256-Bit Encryption:</span> All digital interactions and payment gateways utilize military-grade 256-bit SSL encryption to guarantee complete transaction security.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ═════════════════════════════════════════════════════════════════
+         B. TERMS & CONDITIONS
+         ═════════════════════════════════════════════════════════════════ -->
+    <article class="policy-section" id="terms">
+      <div class="section-header">
+        <div class="section-header-left">
+          <div class="section-icon-badge">
+            <i class="fas fa-file-contract"></i>
+          </div>
+          <div class="section-title-wrap">
+            <h2>B. Terms & Conditions</h2>
+            <p>Guidelines governing orders, bespoke craftsmanship, and customer commitments.</p>
+          </div>
+        </div>
+        <span class="section-tag">Custom Craftsmanship</span>
+      </div>
+
+      <div class="guarantee-callout">
+        <i class="fas fa-handshake"></i>
+        <div class="guarantee-callout-text">
+          <h4>Custom Made Exclusively for You</h4>
+          <p>Every item at CrazeeSpot is individually manufactured based on your unique specifications. By placing an order, you agree to these operational terms.</p>
+        </div>
+      </div>
+
+      <div class="section-body">
+
+        <!-- 1. Ordering process -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">1</span>
+            <h3>Ordering Process</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>Placing an order with CrazeeSpot is smooth and personalized:</p>
+            <ul>
+              <li><span class="highlight-badge">Order Placement:</span> Orders can be initiated via our website product catalog, cart checkout, or directly through our official WhatsApp business desk (+91 73975 54214).</li>
+              <li><span class="highlight-badge">Customization Submission:</span> After submitting your order, you will be prompted to share your desired photos, custom names, quotes, or theme preferences via WhatsApp or Email.</li>
+              <li><span class="highlight-badge">Order Confirmation:</span> An order is considered officially confirmed and queued for production once advance payment is verified and required customization materials are received.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2. Payment terms -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">2</span>
+            <h3>Payment Terms</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>Our payment policies reflect the customized nature of our products:</p>
+            <ul>
+              <li><span class="highlight-badge">100% Advance Payment:</span> Because personalized gifts cannot be re-purposed or resold to any other recipient, 100% advance payment is required before design and fabrication begin.</li>
+              <li><span class="highlight-badge">No Cash On Delivery (COD):</span> Cash on Delivery is strictly unavailable for customized or photo-engraved gifts.</li>
+              <li><span class="highlight-badge">Currency & Taxes:</span> All prices displayed across the website and catalog are in Indian National Rupees (INR ₹) and are inclusive of standard GST/taxes.</li>
+              <li><span class="highlight-badge">Corporate Bulk Orders:</span> For bulk corporate mementos, trophies, or event gift sets exceeding ₹15,000, a 60% advance deposit with the remaining 40% balance payable prior to dispatch may be approved upon request.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 3. Product customization -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">3</span>
+            <h3>Product Customization Guidelines & Proofs</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>To achieve the finest finish, we adhere to high production standards:</p>
+            <ul>
+              <li><span class="highlight-badge">Image Resolution:</span> Customers are requested to provide clear, high-resolution original photos (avoid screenshots or heavily compressed social media forwards where possible). CrazeeSpot is not liable for blurriness resulting from poor-quality source images provided by the buyer.</li>
+              <li><span class="highlight-badge">Digital Proof Approval:</span> For applicable products (such as caricature stands, photo mosaics, LED light frames, and wooden nameboards), our design artists share a digital mock-up preview on WhatsApp. Once the preview is approved by the customer, production commences and further design modifications cannot be accommodated.</li>
+              <li><span class="highlight-badge">Natural Material Variations:</span> Handcrafted products using natural wood, pine MDF, acrylic, or hand-poured resin may exhibit minor natural variations in wood grain, knot patterns, or subtle color depth. These natural nuances are the hallmark of genuine artisan gifts.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 4. Customer responsibilities -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">4</span>
+            <h3>Customer Responsibilities</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>When ordering with us, customers agree to:</p>
+            <ul>
+              <li><span class="highlight-badge">Address Accuracy:</span> Double-check the recipient's complete postal address, door number, street, pincode, and an active mobile number. Additional courier re-dispatch fees caused by wrong pincodes or unreachable recipient phones are the customer's responsibility.</li>
+              <li><span class="highlight-badge">Content Legitimacy:</span> Ensure that any photos, brand logos, or quotes submitted do not violate intellectual property, copyright, or contain unlawful or offensive materials.</li>
+              <li><span class="highlight-badge">Prompt Preview Feedback:</span> Review and approve digital WhatsApp previews promptly so your custom gift can be dispatched within your desired timeline.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ═════════════════════════════════════════════════════════════════
+         C. REFUND & CANCELLATION POLICY
+         ═════════════════════════════════════════════════════════════════ -->
+    <article class="policy-section" id="refunds">
+      <div class="section-header">
+        <div class="section-header-left">
+          <div class="section-icon-badge">
+            <i class="fas fa-rotate-left"></i>
+          </div>
+          <div class="section-title-wrap">
+            <h2>C. Refund & Cancellation Policy</h2>
+            <p>Clear rules on order cancellations, customized products, and free transit damage replacements.</p>
+          </div>
+        </div>
+        <span class="section-tag" id="replacement">100% Free Damage Replacement</span>
+      </div>
+
+      <div class="guarantee-callout">
+        <i class="fas fa-shield-heart"></i>
+        <div class="guarantee-callout-text">
+          <h4>Zero-Risk Transit Guarantee</h4>
+          <p>If your personalized gift arrives broken or damaged during shipping, we provide a <strong>100% FREE REPLACEMENT</strong> expedited immediately at zero extra cost.</p>
+        </div>
+      </div>
+
+      <div class="section-body">
+
+        <!-- 1. Cancellation eligibility -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">1</span>
+            <h3>Cancellation Eligibility</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>Due to the customized nature of personalized items, cancellation windows are time-sensitive:</p>
+            <ul>
+              <li><span class="highlight-badge">Within 2 Hours:</span> You may cancel your order within <strong>2 hours</strong> of placing it or before our design team has begun work on your artwork/photo editing, whichever occurs first.</li>
+              <li><span class="highlight-badge">Non-Cancellable Once In Production:</span> Once laser engraving, photo printing, acrylic cutting, resin casting, or frame fabrication has started, the order enters active production and cannot be cancelled or retracted.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2. Refund conditions -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">2</span>
+            <h3>Refund Conditions & Timelines</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>When a refund is approved under our cancellation or store guidelines:</p>
+            <ul>
+              <li><span class="highlight-badge">Original Payment Method:</span> Approved refunds are credited directly back to the original source account (UPI, Google Pay, Net Banking, or Debit/Credit card).</li>
+              <li><span class="highlight-badge">Timeline:</span> The refund will reflect in your account within <strong>5 to 7 business banking days</strong>, in accordance with standard bank clearing cycles.</li>
+              <li><span class="highlight-badge">Duplicate Transactions:</span> In the event of an accidental double debit or payment processing error, excess funds are refunded within 24–48 hours upon transaction verification.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 3. Damaged product replacement -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">3</span>
+            <h3>Damaged Product Replacement (100% Free)</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>We use robust 4-layer shockproof packing (air bubble wrap, corner foam protectors, and rigid corrugated boxes). In the rare instance of rough courier transit damage, we have your back:</p>
+            <ul>
+              <li><span class="highlight-badge">Mandatory Unboxing Video:</span> To claim a free damage replacement, a clear <strong>unboxing video is mandatory</strong>. The video must start before opening the outer sealed courier parcel, showing the shipping label, and continuing without cuts or pauses until the damage is clearly visible.</li>
+              <li><span class="highlight-badge">24-Hour Reporting Window:</span> The unboxing video must be submitted to our WhatsApp (+91 73975 54214) or email (<a href="mailto:beecrazee05@gmail.com" style="color:var(--brown-amber);text-decoration:none;">beecrazee05@gmail.com</a>) within <strong>24 hours of delivery</strong>.</li>
+              <li><span class="highlight-badge">Priority Dispatch:</span> Once the damage is verified, our team fabricates a brand new replacement piece and dispatches it with priority express courier at absolutely zero cost to you.</li>
+            </ul>
+            <div class="note-box">
+              <i class="fas fa-video"></i>
+              <span><strong>Why an unboxing video?</strong> As a custom handcraft studio, an uncut unboxing video helps us immediately hold logistics partners accountable and expedites your replacement without bureaucratic paperwork.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Customized product refund conditions -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">4</span>
+            <h3>Customized Product Refund Conditions</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>Important clarity regarding customized gifts:</p>
+            <ul>
+              <li><span class="highlight-badge">No Returns for Change of Mind:</span> Because personalized gifts carry personal names, personal photos, and intimate messages, returns or cash refunds cannot be provided if the customer changes their mind, orders the wrong size, or dislikes an approved design post-delivery.</li>
+              <li><span class="highlight-badge">CrazeeSpot Error Guarantee:</span> If an error is caused solely by our production team (e.g., spelling differs from the text approved by the customer, or an incorrect photo was used), CrazeeSpot will replace the item immediately free of charge or provide a full 100% refund without question.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ═════════════════════════════════════════════════════════════════
+         D. SHIPPING & DELIVERY POLICY
+         ═════════════════════════════════════════════════════════════════ -->
+    <article class="policy-section" id="shipping">
+      <div class="section-header">
+        <div class="section-header-left">
+          <div class="section-icon-badge">
+            <i class="fas fa-shipping-fast"></i>
+          </div>
+          <div class="section-title-wrap">
+            <h2>D. Shipping & Delivery Policy</h2>
+            <p>Pan-India courier network, turnaround times, tracking, and delivery timelines.</p>
+          </div>
+        </div>
+        <span class="section-tag">Pan-India Delivery</span>
+      </div>
+
+      <div class="guarantee-callout">
+        <i class="fas fa-map-marked-alt"></i>
+        <div class="guarantee-callout-text">
+          <h4>Delivering to Every Corner of India</h4>
+          <p>From bustling metros to scenic rural pin codes, we partner with premier courier networks (Delhivery, BlueDart, DTDC, and India Post Speed Post) to deliver your gifts safely.</p>
+        </div>
+      </div>
+
+      <div class="section-body">
+
+        <!-- 1. Pan-India delivery -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">1</span>
+            <h3>Pan-India Delivery Coverage</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>CrazeeSpot delivers across all 28 states and 8 Union Territories in India:</p>
+            <ul>
+              <li><span class="highlight-badge">Full Pin-Code Reach:</span> We ship to over 19,000+ pin codes across India, covering residential apartments, independent houses, corporate offices, and university campuses.</li>
+              <li><span class="highlight-badge">Trusted Courier Partners:</span> Shipments are managed through BlueDart, Delhivery Express, DTDC, Professional Couriers, and Speed Post for remote/hill regions.</li>
+              <li><span class="highlight-badge">Gift Packaging:</span> All orders are packed discreetly with premium padding so price invoices are not displayed when sending directly as a surprise gift to your loved ones!</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2. Estimated delivery time -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">2</span>
+            <h3>Estimated Delivery Time</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>Delivery time comprises two parts: <strong>Handcrafting Time</strong> + <strong>Transit Time</strong>:</p>
+            <ul>
+              <li><span class="highlight-badge">Handcrafting & Preparation:</span> 1 to 3 business days (laser cutting, digital caricature art, resin curing, framing, and quality check).</li>
+              <li><span class="highlight-badge">Tamil Nadu & South India:</span> 2 to 4 business days transit.</li>
+              <li><span class="highlight-badge">Major Metro Cities:</span> 3 to 5 business days transit (Mumbai, Delhi-NCR, Bengaluru, Hyderabad, Kolkata, Chennai, Pune, Ahmedabad).</li>
+              <li><span class="highlight-badge">Rest of India:</span> 4 to 7 business days transit.</li>
+              <li><span class="highlight-badge">Total Estimated Turnaround:</span> Most orders arrive safely at your doorstep within <strong>4 to 8 business days</strong> from the date of artwork confirmation.</li>
+            </ul>
+            <div class="note-box">
+              <i class="fas fa-bolt"></i>
+              <span><strong>Need an urgent delivery for a birthday or anniversary?</strong> Contact us on WhatsApp (+91 73975 54214) before ordering. We offer expedited priority processing for special deadlines!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Shipping charges -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">3</span>
+            <h3>Shipping Charges</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>We keep shipping charges transparent, fair, and economical:</p>
+            <ul>
+              <li><span class="highlight-badge">Free Shipping Threshold:</span> Orders above <strong>₹999</strong> qualify for <strong>100% FREE Standard Shipping</strong> across India!</li>
+              <li><span class="highlight-badge">Standard Flat Rate:</span> For orders below ₹999, a nominal flat courier fee of ₹60 to ₹99 applies depending on total package weight and volumetric dimensions.</li>
+              <li><span class="highlight-badge">Express Air Courier:</span> Available upon special request for urgent orders; actual air-courier surcharge quoted transparently prior to confirmation.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 4. Order tracking -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">4</span>
+            <h3>Order Tracking</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>Stay informed every step of the journey:</p>
+            <ul>
+              <li><span class="highlight-badge">Automated AWB Notification:</span> As soon as your custom gift is packaged and handed over to our logistics partner, you will receive your official Airway Bill (AWB) number and direct courier tracking link via WhatsApp and/or SMS.</li>
+              <li><span class="highlight-badge">Live Tracking:</span> You can monitor your parcel's live movement from our hub through sorting hubs right up to out-for-delivery status.</li>
+              <li><span class="highlight-badge">Delivery Inquiries:</span> If you need any assistance tracking your parcel, our WhatsApp desk is ready to check the real-time courier status for you.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 5. Delivery delays -->
+        <div class="policy-item">
+          <div class="policy-item-head">
+            <span class="item-num">5</span>
+            <h3>Delivery Delays & Operational Exceptions</h3>
+          </div>
+          <div class="policy-item-content">
+            <p>While 95%+ of our parcels reach on or before the estimated date, occasional delays may occur due to factors beyond our direct control:</p>
+            <ul>
+              <li><span class="highlight-badge">External Factors:</span> Extreme weather conditions, heavy rains/flooding, regional curfews, public strikes, national holidays, or peak Diwali/New Year courier network congestion.</li>
+              <li><span class="highlight-badge">Incomplete Address / Unreachable Recipient:</span> Couriers usually attempt delivery up to 3 times. If the recipient phone is switched off or the door is locked, please coordinate with the courier driver using the OTP/contact details sent via SMS.</li>
+              <li><span class="highlight-badge">Our Commitment:</span> In any case of an unexpected transit hold-up, our dedicated support team actively escalates with regional courier hub managers to ensure your gift is expedited for prompt delivery.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ── SUPPORT BANNER ── -->
+    <section class="support-banner">
+      <h3>Have Questions About an Order or Policy?</h3>
+      <p>We are a customer-first gifting studio! Whether you need to verify a delivery date, ask about custom designs, or check tracking, our friendly team is just a tap away.</p>
+      <div class="support-actions">
+        <a href="https://wa.me/917397554214?text=Hi%20CrazeeSpot!%20I%20have%20a%20question%20regarding%20orders%20or%20store%20policies." target="_blank" class="btn-wa-support">
+          <i class="fab fa-whatsapp"></i> Chat on WhatsApp (+91 73975 54214)
+        </a>
+        <a href="mailto:beecrazee05@gmail.com" class="btn-email-support">
+          <i class="fas fa-envelope"></i> Email Support
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-waves">
+      <svg viewBox="0 0 2880 100" preserveAspectRatio="none" style="height:100px;">
+        <path d="M0,50 C720,10 1440,90 2160,30 C2520,0 2760,70 2880,40 L2880,100 L0,100 Z" fill="rgba(196,122,48,0.15)"/>
+      </svg>
+    </div>
+
+    <div class="footer-top">
+      <!-- Col 1: Brand Info -->
+      <div class="footer-brand">
+        <div class="footer-brand-name">
+          <img src="logo-white.png" alt="CrazeeSpot Logo" style="height: 48px; width: auto; max-width: 190px; object-fit: contain; margin-bottom: 8px; display: block;" />
+        </div>
+        <span class="footer-tagline">"Where Ideas Get Crazee"</span>
+        <p>Your one-stop destination for unique, personalized gifts that turn moments into memories. Handcrafted with passion, customized with care, made to cherish forever.</p>
+        <div class="footer-contact-quick">
+          <a href="tel:+917397554214"><i class="fas fa-phone"></i> +91 73975 54214</a>
+          <a href="mailto:beecrazee05@gmail.com"><i class="fas fa-envelope"></i> beecrazee05@gmail.com</a>
+          <a href="#"><i class="fas fa-clock"></i> Mon–Sat: 10 AM – 8 PM</a>
+        </div>
+        <div class="footer-social">
+          <a href="https://wa.me/917397554214" target="_blank" class="social-btn" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.instagram.com/crazeespot?igsh=MTJhMzJuaG8xeDY2Mg==" target="_blank" class="social-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.facebook.com/share/1ENknwpaC6/" target="_blank" class="social-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.youtube.com/channel/UC_YOUR_CHANNEL_ID" target="_blank" class="social-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <!-- Col 2: Product Categories -->
+      <div class="footer-col">
+        <h4>Top Categories</h4>
+        <ul class="footer-links">
+          <li><a href="products.html?dept=keychains">Custom Keychains (22)</a></li>
+          <li><a href="products.html?dept=caricatures">Caricatures & Stands (17)</a></li>
+          <li><a href="products.html?dept=clocks">Personalized Clocks (15)</a></li>
+          <li><a href="products.html?dept=nameboard">House Nameboards (15)</a></li>
+          <li><a href="products.html?dept=miniature-frames">Miniature Frames (14)</a></li>
+          <li><a href="products.html?dept=penstand">Wooden Pen Stands (12)</a></li>
+          <li><a href="products.html">View All 307 Gifts</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Quick Navigation -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="index.html#about">About Us</a></li>
+          <li><a href="index.html#showcase">Gallery Showcase</a></li>
+          <li><a href="index.html#why-us">Why Choose Us</a></li>
+          <li><a href="index.html#testimonials">Customer Reviews</a></li>
+          <li><a href="index.html#contact">Get In Touch</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Store Policies -->
+      <div class="footer-col">
+        <h4>Customer Policies</h4>
+        <ul class="footer-links">
+          <li><a href="policies.html#privacy"><i class="fas fa-shield-alt" style="margin-right:6px;font-size:0.8rem;color:var(--brown-amber);"></i> Privacy Policy</a></li>
+          <li><a href="policies.html#terms"><i class="fas fa-file-contract" style="margin-right:6px;font-size:0.8rem;color:var(--brown-amber);"></i> Terms & Conditions</a></li>
+          <li><a href="policies.html#refunds"><i class="fas fa-undo-alt" style="margin-right:6px;font-size:0.8rem;color:var(--brown-amber);"></i> Refund & Cancellation</a></li>
+          <li><a href="policies.html#shipping"><i class="fas fa-truck" style="margin-right:6px;font-size:0.8rem;color:var(--brown-amber);"></i> Shipping & Delivery</a></li>
+          <li><a href="policies.html#replacement"><i class="fas fa-box-open" style="margin-right:6px;font-size:0.8rem;color:var(--brown-amber);"></i> Damage Replacement Guarantee</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 CrazeeSpot. All rights reserved. Made with <span>❤</span> for your memories.</p>
+      <p style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+        <a href="policies.html#privacy">Privacy</a> ·
+        <a href="policies.html#terms">Terms</a> ·
+        <a href="policies.html#refunds">Refunds</a> ·
+        <a href="policies.html#shipping">Shipping</a>
+      </p>
+      <p>✉ <a href="mailto:beecrazee05@gmail.com">beecrazee05@gmail.com</a> &nbsp;•&nbsp; 📞 +91 73975 54214</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Action Button -->
+  <div class="whatsapp-fab">
+    <a class="whatsapp-btn" href="https://wa.me/917397554214?text=Hi%20CrazeeSpot!%20I%20have%20a%20question%20about%20your%20products%20and%20policies." target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile menu toggle
+    const burgerBtn = document.getElementById('burgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    function toggleMenu() {
+      burgerBtn.classList.toggle('toggle');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    }
+
+    // Active pill highlight on click
+    function setActivePill(el) {
+      document.querySelectorAll('.policy-pill').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    // Highlight pill on scroll
+    const sections = document.querySelectorAll('.policy-section');
+    const pills = document.querySelectorAll('.policy-pill');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 190;
+        if (pageYOffset >= sectionTop) {
+          current = section.getAttribute('id');
+        }
+      });
+      pills.forEach(pill => {
+        pill.classList.remove('active');
+        if (pill.getAttribute('href') === '#' + current) {
+          pill.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

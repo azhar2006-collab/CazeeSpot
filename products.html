@@ -1398,7 +1398,8 @@
       background: var(--brown-deep); padding: 50px 5% 26px;
       border-top: 1px solid rgba(196,122,48,0.12);
     }
-    .footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1.1fr 1fr 1.2fr; gap: 36px; margin-bottom: 36px; }
+    @media (max-width: 960px) { .footer-inner { grid-template-columns: 1fr 1fr; gap: 28px; } }
     .footer-brand .nav-logo-text { font-size: 1.7rem; color: var(--brown-glow); }
     .footer-brand .tagline { margin-top: 4px; }
     .footer-brand p { font-size: 0.85rem; color: rgba(232,201,160,0.5); line-height: 1.7; margin-top: 14px; max-width: 320px; }
@@ -1475,7 +1476,7 @@
         <li><a href="products.html" class="active">Products</a></li>
         <li><a href="index.html#showcase">Gallery</a></li>
         <li><a href="index.html#why-us">Why Us</a></li>
-        <li><a href="index.html#testimonials">Reviews</a></li>
+        <li><a href="policies.html">Policies</a></li>
       </ul>
       <button class="cart-btn" onclick="openCart()" title="View your shopping cart">
         <i class="fas fa-shopping-bag"></i>
@@ -1491,7 +1492,7 @@
     <a href="index.html" onclick="toggleMenu()">Home</a>
     <a href="products.html" onclick="toggleMenu()">All Products (307 Models)</a>
     <a href="index.html#showcase" onclick="toggleMenu()">Gallery</a>
-    <a href="index.html#why-us" onclick="toggleMenu()">Why Us</a>
+    <a href="policies.html">Store Policies</a>
     <a href="index.html#contact" onclick="toggleMenu()">Contact</a>
   </div>
 
@@ -1851,9 +1852,23 @@
         <a href="index.html#contact">Send a Message</a>
         <a href="index.html">Back to Main Home</a>
       </div>
+      <div class="footer-col">
+        <h4>Store Policies</h4>
+        <a href="policies.html#privacy"><i class="fas fa-shield-alt" style="margin-right:6px;font-size:0.75rem;color:var(--brown-amber);"></i> Privacy Policy</a>
+        <a href="policies.html#terms"><i class="fas fa-file-contract" style="margin-right:6px;font-size:0.75rem;color:var(--brown-amber);"></i> Terms & Conditions</a>
+        <a href="policies.html#refunds"><i class="fas fa-undo-alt" style="margin-right:6px;font-size:0.75rem;color:var(--brown-amber);"></i> Refund & Cancellation</a>
+        <a href="policies.html#shipping"><i class="fas fa-truck" style="margin-right:6px;font-size:0.75rem;color:var(--brown-amber);"></i> Shipping & Delivery</a>
+        <a href="policies.html#replacement"><i class="fas fa-box-open" style="margin-right:6px;font-size:0.75rem;color:var(--brown-amber);"></i> Free Damage Replacement</a>
+      </div>
     </div>
     <div class="footer-bottom">
       <p>© 2026 <span>CrazeeSpot</span>. All rights reserved.</p>
+      <p style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+        <a href="policies.html#privacy" style="color:rgba(232,201,160,0.5);text-decoration:none;">Privacy</a> ·
+        <a href="policies.html#terms" style="color:rgba(232,201,160,0.5);text-decoration:none;">Terms</a> ·
+        <a href="policies.html#refunds" style="color:rgba(232,201,160,0.5);text-decoration:none;">Refunds</a> ·
+        <a href="policies.html#shipping" style="color:rgba(232,201,160,0.5);text-decoration:none;">Shipping</a>
+      </p>
       <p>Crafted with <span>♥</span> for gifting your loved ones</p>
     </div>
   </footer>
