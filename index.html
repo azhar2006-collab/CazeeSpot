@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CrazeeSpot – We Deliver Your Ideas As Gifts To Your Loved Ones</title>
   <meta name="description" content="CrazeeSpot offers unique customized gifts including polaroids, magic frames, mosaic frames, personalized wallets, pen stands, birthday gifts, caricatures, keychains & more. Pan India delivery." />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Outfit:wght@300;400;500;600;700;800&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
@@ -168,8 +170,15 @@
       display: flex; flex-direction: column; align-items: center; gap: 0;
     }
     .loader-gem { font-size: 1rem; color: var(--brown-amber); letter-spacing: 6px; margin-bottom: 24px; opacity: 0.6; animation: loaderLogoIn 0.6s ease 0.1s both; }
-    .loader-logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 7vw, 5rem); font-weight: 700; color: var(--brown-glow); letter-spacing: -2px; line-height: 1; animation: loaderLogoIn 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.2s both; }
-    .loader-logo span { color: var(--brown-amber); }
+    .loader-logo-img {
+      width: clamp(240px, 38vw, 340px);
+      height: auto;
+      max-width: 90vw;
+      object-fit: contain;
+      margin-bottom: 14px;
+      animation: loaderLogoIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+      filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.4));
+    }
     .loader-logo-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: rgba(232,201,160,0.38); letter-spacing: 0.5px; margin-top: 10px; display: block; text-align: center; animation: loaderLogoIn 0.7s ease 0.35s both; }
     .loader-divider { width: 0; height: 1px; margin: 32px 0 28px; background: linear-gradient(90deg, transparent, var(--brown-amber), transparent); animation: loaderLineExpand 0.7s ease 0.5s forwards; }
     @keyframes loaderLineExpand { from{width:0;opacity:0;} to{width:200px;opacity:1;} }
@@ -202,18 +211,19 @@
     }
 
     .logo-img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--brown-amber);
+      height: 52px;
+      width: auto;
+      max-width: 190px;
+      object-fit: contain;
       flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+    .nav-logo:hover .logo-img {
+      transform: scale(1.03);
     }
 
     .logo-content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      display: none;
     }
 
     .nav-logo-text {
@@ -239,7 +249,7 @@
     }
 
     @media (max-width: 480px) {
-      .logo-img { width: 42px; height: 42px; }
+      .logo-img { height: 42px; max-width: 150px; }
       .nav-logo-text { font-size: 1.3rem; }
       .tagline { font-size: 0.55rem; letter-spacing: 0.5px; }
     }
@@ -847,7 +857,7 @@
     </div>
     <div class="loader-inner">
       <div class="loader-gem">✦ ✦ ✦</div>
-      <div class="loader-logo">Crazee<span>Spot</span></div>
+      <img src="logo-white.png" alt="CrazeeSpot Logo" class="loader-logo-img" />
       <span class="loader-logo-sub">We deliver your ideas as gifts</span>
       <div class="loader-divider"></div>
       <div class="loader-progress-wrap">
@@ -859,15 +869,15 @@
 
   <!-- NAVBAR -->
   <nav id="navbar">
-    <a href="#" class="nav-logo">
+    <a href="#" class="nav-logo" aria-label="CrazeeSpot - Where Ideas Get Crazee">
       <img
-        src="https://res.cloudinary.com/djmgorf8l/image/upload/f_auto,q_auto/ChatGPT_Image_Jun_18_2026_04_15_42_PM_gheeyf"
-        alt="CrazeeSpot Logo"
+        src="logo.png"
+        alt="CrazeeSpot - Where Ideas Get Crazee"
         class="logo-img"
       >
       <div class="logo-content">
         <span class="nav-logo-text">Crazee<span>Spot</span></span>
-        <span class="tagline">WHERE IDEAS GETS CRAZEE!</span>
+        <span class="tagline">Where Ideas Get Crazee</span>
       </div>
     </a>
     <ul class="nav-links">
@@ -1387,8 +1397,10 @@
     </div>
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="footer-brand-name">🎁 Crazee<span>Spot</span></div>
-        <span class="footer-tagline">"We deliver your ideas as gifts to your loved ones"</span>
+        <div class="footer-brand-name">
+          <img src="logo-white.png" alt="CrazeeSpot Logo" style="height: 48px; width: auto; max-width: 190px; object-fit: contain; margin-bottom: 8px; display: block;" />
+        </div>
+        <span class="footer-tagline">"Where Ideas Get Crazee"</span>
         <p>Your one-stop destination for unique, personalized gifts that turn moments into memories. Every product is crafted with love, just for you.</p>
         <div class="footer-contact-quick">
           <a href="tel:+917397554214"><i class="fas fa-phone"></i> +91 73975 54214</a>

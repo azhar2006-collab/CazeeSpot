@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Products – CrazeeSpot | 147+ Handcrafted Personalized Gifts & Keepsakes</title>
   <meta name="description" content="Shop 147+ custom personalized gifts at CrazeeSpot. Keychains from ₹149, Caricatures, Clocks, Nameboards, Hampers, Baby Frames, Resin Art & Wood Engravings. Pan India delivery." />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Outfit:wght@300;400;500;600;700;800&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
@@ -83,8 +85,9 @@
     nav.scrolled { height: 66px; background: rgba(254,252,248,0.98); border-bottom-color: rgba(155,90,30,0.2); box-shadow: 0 4px 30px rgba(30,16,8,0.08); }
 
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .logo-img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--brown-amber); flex-shrink: 0; }
-    .logo-content { display: flex; flex-direction: column; justify-content: center; }
+    .logo-img { height: 50px; width: auto; max-width: 180px; object-fit: contain; flex-shrink: 0; transition: transform 0.25s ease; }
+    .nav-logo:hover .logo-img { transform: scale(1.03); }
+    .logo-content { display: none; }
     .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: var(--brown-deep); letter-spacing: -0.5px; line-height: 1; margin-bottom: 2px; }
     .nav-logo-text span { color: var(--brown-amber); }
     .tagline { font-family: 'Outfit', sans-serif; font-size: 0.62rem; font-weight: 700; color: var(--brown-amber); letter-spacing: 0.8px; text-transform: uppercase; line-height: 1; white-space: nowrap; }
@@ -149,7 +152,7 @@
     }
     @media (max-width: 480px) {
       nav { height: 68px; padding: 0 4%; }
-      .logo-img { width: 38px; height: 38px; }
+      .logo-img { height: 40px; max-width: 145px; }
       .nav-logo-text { font-size: 1.25rem; }
       .tagline { font-size: 0.52rem; }
       .cart-btn span.cart-btn-label { display: none; }
@@ -1459,11 +1462,11 @@
 
   <!-- ── NAVBAR ── -->
   <nav id="navbar">
-    <a href="index.html" class="nav-logo">
-      <img src="https://res.cloudinary.com/djmgorf8l/image/upload/f_auto,q_auto/ChatGPT_Image_Jun_18_2026_04_15_42_PM_gheeyf" alt="CrazeeSpot Logo" class="logo-img" />
+    <a href="index.html" class="nav-logo" aria-label="CrazeeSpot - Where Ideas Get Crazee">
+      <img src="logo.png" alt="CrazeeSpot - Where Ideas Get Crazee" class="logo-img" />
       <div class="logo-content">
         <span class="nav-logo-text">Crazee<span>Spot</span></span>
-        <span class="tagline">WHERE IDEAS GETS CRAZEE!</span>
+        <span class="tagline">Where Ideas Get Crazee</span>
       </div>
     </a>
     <div class="nav-right-group">
@@ -1821,8 +1824,8 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
-        <div class="nav-logo-text">Crazee<span style="color:var(--brown-amber)">Spot</span></div>
-        <div class="tagline">WHERE IDEAS GETS CRAZEE!</div>
+        <img src="logo-white.png" alt="CrazeeSpot Logo" style="height: 48px; width: auto; max-width: 190px; object-fit: contain; margin-bottom: 8px; display: block;" />
+        <div class="tagline">WHERE IDEAS GET CRAZEE!</div>
         <p>We deliver your ideas as gifts to your loved ones — handcrafted with passion, customized with care, made to cherish forever.</p>
         <div class="footer-socials">
           <a href="https://wa.me/917397554214" target="_blank" class="footer-social"><i class="fab fa-whatsapp"></i></a>
