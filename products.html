@@ -622,6 +622,7 @@
       gap: 4px;
     }
     .pc-stock-badge i { font-size: 0.55rem; }
+    .pc-stock-badge.out-of-stock { color: #ef4444; }
 
     .pc-btn-group {
       display: grid;
@@ -1867,7 +1868,8 @@
         <a href="policies.html#privacy" style="color:rgba(232,201,160,0.5);text-decoration:none;">Privacy</a> ·
         <a href="policies.html#terms" style="color:rgba(232,201,160,0.5);text-decoration:none;">Terms</a> ·
         <a href="policies.html#refunds" style="color:rgba(232,201,160,0.5);text-decoration:none;">Refunds</a> ·
-        <a href="policies.html#shipping" style="color:rgba(232,201,160,0.5);text-decoration:none;">Shipping</a>
+        <a href="policies.html#shipping" style="color:rgba(232,201,160,0.5);text-decoration:none;">Shipping</a> ·
+        <a href="admin.html" style="color:rgba(232,201,160,0.5);text-decoration:none;" title="Store Admin Portal"><i class="fas fa-lock"></i> Admin</a>
       </p>
       <p>Crafted with <span>♥</span> for gifting your loved ones</p>
     </div>
@@ -6905,6 +6907,18 @@
   }
 ];
 
+    /* Sync with Admin Panel updates (LocalStorage) */
+    try {
+      const adminStored = localStorage.getItem('crazeespot_admin_products');
+      if (adminStored) {
+        const parsedAdmin = JSON.parse(adminStored);
+        if (Array.isArray(parsedAdmin) && parsedAdmin.length > 0) {
+          products.length = 0;
+          products.push(...parsedAdmin);
+        }
+      }
+    } catch(e) {}
+
     const WHATSAPP_PHONE = '917397554214';
 
     /* ── STATE ── */
@@ -7462,6 +7476,7 @@
                 <span class="pc-price-now"><sup>₹</sup>${p.price}</span>
                 <span class="pc-price-old">₹${p.origPrice}</span>
               </div>
+              ${p.inStock !== false ? `
               <span class="pc-stock-badge"><i class="fas fa-circle"></i> In Stock</span>
             </div>
             <div class="pc-btn-group">
@@ -7472,6 +7487,18 @@
                 <i class="fab fa-whatsapp"></i> Order
               </a>
             </div>
+              ` : `
+              <span class="pc-stock-badge out-of-stock"><i class="fas fa-circle"></i> Out of Stock</span>
+            </div>
+            <div class="pc-btn-group">
+              <button class="btn-customize" style="opacity:0.7;" onclick="openModal(${p.id})">
+                <i class="fas fa-info-circle"></i> Details
+              </button>
+              <a href="${buildWhatsAppLink(p, 'Enquiry (Item Out of Stock)', 1)}" target="_blank" class="btn-order-wa" style="background:#4b5563;">
+                <i class="fab fa-whatsapp"></i> Enquire
+              </a>
+            </div>
+              `}
           </div>
         `;
         grid.appendChild(card);
