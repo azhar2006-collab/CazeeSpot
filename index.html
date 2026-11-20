@@ -131,7 +131,7 @@
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       pointer-events: all;
-      transition: opacity 0.55s ease;
+      transition: transform 1s cubic-bezier(0.76, 0, 0.24, 1);
       overflow: hidden;
     }
     /* wave inside loader */
@@ -152,12 +152,9 @@
       opacity: 0.4;
     }
     #loader.hide {
-      opacity: 0;
+      transform: translateY(-100vh);
       pointer-events: none;
-      transition: opacity 0.55s ease;
     }
-    #navbar { transition: opacity 0.4s ease, transform 0.4s ease; }
-    #navbar.nav-hidden { opacity: 0; pointer-events: none; }
     #loader::before {
       content: '';
       position: absolute;
@@ -1484,9 +1481,6 @@
       const loader = document.getElementById('loader');
       const pct    = document.getElementById('loaderPct');
       const fill   = document.getElementById('loaderFill');
-      const navbar = document.getElementById('navbar');
-      // Hide navbar while preloader is active
-      if (navbar) navbar.classList.add('nav-hidden');
       let count = 0;
       const tick = setInterval(() => {
         count += Math.floor(Math.random() * 6) + 2;
@@ -1494,11 +1488,7 @@
         if (pct) pct.textContent = count + '%';
         if (fill) fill.style.width = count + '%';
         if (count === 100) {
-          setTimeout(() => {
-            loader.classList.add('hide');
-            // Fade navbar in after preloader disappears
-            setTimeout(() => { if (navbar) navbar.classList.remove('nav-hidden'); }, 400);
-          }, 320);
+          setTimeout(() => { loader.classList.add('hide'); }, 320);
         }
       }, 28);
     })();

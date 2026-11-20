@@ -826,6 +826,51 @@
     @media (max-width: 400px) {
       .stats-grid { grid-template-columns: 1fr; }
     }
+  
+    /* UNPUBLISHED BANNER */
+    .unpublished-banner {
+      background: linear-gradient(90deg, #fef3c7 0%, #fffbeb 100%);
+      border: 1.5px solid #f59e0b;
+      border-radius: 12px; padding: 12px 18px;
+      margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; box-shadow: var(--shadow-sm); animation: pageFade 0.3s ease;
+    }
+    .unpublished-banner-text {
+      font-size: 0.88rem; font-weight: 600; color: #92400e; display: flex; align-items: center; gap: 8px;
+    }
+    .btn-publish-live {
+      background: #059669; color: #fff; border: none; font-weight: 700;
+      box-shadow: 0 4px 14px rgba(5,150,105,0.3); transition: all 0.2s;
+    }
+    .btn-publish-live:hover { background: #047857; transform: translateY(-1px); }
+
+    /* TOKEN INPUT WRAP */
+    .token-input-wrap {
+      position: relative; display: flex; align-items: center;
+    }
+    .token-eye-btn {
+      position: absolute; right: 12px; background: none; border: none;
+      color: var(--text-soft); cursor: pointer; padding: 4px;
+    }
+
+    /* STEP PROGRESS INDICATORS */
+    .pub-steps {
+      display: flex; flex-direction: column; gap: 10px; margin: 16px 0; text-align: left;
+    }
+    .pub-step-row {
+      display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--text-muted);
+    }
+    .pub-step-row.active { color: var(--brown-deep); font-weight: 600; }
+    .pub-step-row.done { color: var(--success); font-weight: 600; }
+    .pub-step-row i { width: 18px; text-align: center; }
+
+    /* LOADING SPINNER */
+    .spinner-sm {
+      width: 18px; height: 18px; border: 2.5px solid rgba(196,122,48,0.2);
+      border-top-color: var(--primary); border-radius: 50%;
+      animation: spin 0.6s linear infinite; display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
@@ -942,6 +987,11 @@
           <div class="topbar-title" id="topbarTitle">Dashboard <span>/ Overview</span></div>
         </div>
         <div class="topbar-right">
+          <button class="btn btn-publish-live btn-sm" id="btnPublishTop" onclick="openPublishModal()" title="Push latest products and stock to all devices worldwide">
+            <i class="fas fa-cloud-arrow-up"></i>
+            <span>Publish to Live Site</span>
+            <span id="topPublishBadge" class="nav-pill" style="display:none;background:#ef4444;color:#fff;margin-left:4px;font-size:0.68rem;padding:2px 6px;">Unsaved</span>
+          </button>
           <a href="products.html" target="_blank" class="btn btn-outline btn-sm btn-hide-mobile">
             <i class="fas fa-external-link-alt"></i> View Store
           </a>
@@ -953,6 +1003,17 @@
 
       <!-- CONTENT BODY -->
       <main class="content-body">
+
+        <!-- UNPUBLISHED CHANGES BANNER -->
+        <div class="unpublished-banner" id="unpublishedBanner" style="display:none;">
+          <div class="unpublished-banner-text">
+            <i class="fas fa-circle-exclamation" style="font-size:1.1rem;color:#f59e0b;"></i>
+            <span>You have changes saved locally that are not yet live on the website. Click <strong>Publish to Live Site</strong> to update all visitors across all devices.</span>
+          </div>
+          <button class="btn btn-publish-live btn-sm" onclick="openPublishModal()">
+            <i class="fas fa-cloud-arrow-up"></i> Publish Now
+          </button>
+        </div>
 
         <!-- ─────────────────────────────────
              PAGE: DASHBOARD
@@ -1402,6 +1463,61 @@
           </div>
 
           <div class="settings-grid">
+            <!-- GitHub Live Site Sync Card -->
+            <div class="card" style="grid-column:span 2;">
+              <div class="card-title">
+                <i class="fas fa-cloud-arrow-up"></i> GitHub Live Site Sync (Multi-Device Auto-Publish)
+                <span id="settingsGhStatusBadge" class="nav-pill nav-pill-info" style="margin-left:auto;">Checking...</span>
+              </div>
+              <p style="font-size:0.86rem;color:var(--text-muted);margin-bottom:18px;">
+                Connect your GitHub repository to allow 1-click publishing. When you tap <strong>Publish to Live Site</strong>, updated products and stock changes are committed to GitHub automatically so every customer visiting on any phone, laptop or tablet sees the new products in ~30 seconds.
+              </p>
+
+              <div class="form-fields" style="margin-bottom:18px;">
+                <div class="form-group">
+                  <label>GitHub Repository</label>
+                  <input type="text" id="setGhRepo" class="form-control" value="azhar2006-collab/CazeeSpot" placeholder="owner/repo" />
+                </div>
+                <div class="form-group">
+                  <label>Branch</label>
+                  <input type="text" id="setGhBranch" class="form-control" value="main" placeholder="main" />
+                </div>
+                <div class="form-group form-field-full">
+                  <label>GitHub Personal Access Token</label>
+                  <div class="token-input-wrap">
+                    <input type="password" id="setGhToken" class="form-control" placeholder="github_pat_... or ghp_..." style="padding-right:42px;" />
+                    <button type="button" class="token-eye-btn" onclick="toggleTokenView('setGhToken')"><i class="fas fa-eye"></i></button>
+                  </div>
+                  <div style="font-size:0.78rem;color:var(--text-muted);margin-top:6px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                    <span>Need a token?</span>
+                    <a href="https://github.com/settings/tokens/new?scopes=repo&description=CrazeeSpot+Admin+Panel" target="_blank" style="color:var(--primary);font-weight:700;text-decoration:none;">
+                      <i class="fas fa-external-link-alt"></i> Click here to generate a GitHub Token with 'repo' scope
+                    </a>
+                    <span>(takes 30 seconds, paste once and it stays saved on this device).</span>
+                  </div>
+                </div>
+                <div class="form-group form-field-full">
+                  <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:0.86rem;">
+                    <input type="checkbox" id="setAutoPublish" class="custom-cb" />
+                    <span><strong>Auto-publish on every change:</strong> Automatically commit updates to GitHub whenever you add/edit a product or change stock status.</span>
+                  </label>
+                </div>
+              </div>
+
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <button type="button" class="btn btn-primary btn-sm" onclick="saveGitHubSettingsFromPage()">
+                  <i class="fas fa-save"></i> Save GitHub Settings
+                </button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="testGitHubConnection()">
+                  <i class="fas fa-vial"></i> Test Connection
+                </button>
+                <button type="button" class="btn btn-publish-live btn-sm" onclick="openPublishModal()">
+                  <i class="fas fa-cloud-arrow-up"></i> Publish Live Now
+                </button>
+              </div>
+              <div id="ghTestResult" style="display:none;margin-top:14px;padding:12px;border-radius:10px;font-size:0.84rem;"></div>
+            </div>
+
             <!-- Password update -->
             <div class="card">
               <div class="card-title"><i class="fas fa-key"></i> Change Admin Password</div>
@@ -1556,6 +1672,82 @@
     </div>
   </div>
 
+  <!-- PUBLISH TO LIVE SITE MODAL -->
+  <div class="modal-backdrop" id="publishModal" onclick="closePublishModal(event)">
+    <div class="modal" style="max-width:540px;" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3 style="color:var(--brown-deep);display:flex;align-items:center;gap:10px;">
+          <i class="fas fa-cloud-arrow-up" style="color:var(--success);"></i> Publish to Live Website
+        </h3>
+        <button class="modal-close" onclick="closePublishModal()"><i class="fas fa-times"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:18px;">
+          This will commit the updated products catalog to your GitHub repository (<strong>azhar2006-collab/CazeeSpot</strong>). GitHub Pages will automatically deploy the changes so <strong>all visitors across all mobile phones, computers and devices worldwide</strong> will see the newest products, prices and stock availability.
+        </p>
+
+        <!-- Summary stats -->
+        <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:10px;background:var(--cream-light);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:18px;text-align:center;">
+          <div>
+            <div style="font-size:0.72rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;">Total Products</div>
+            <div id="modalPubTotal" style="font-size:1.35rem;font-weight:800;color:var(--brown-deep);">307</div>
+          </div>
+          <div>
+            <div style="font-size:0.72rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;">In Stock</div>
+            <div id="modalPubInStock" style="font-size:1.35rem;font-weight:800;color:var(--success);">307</div>
+          </div>
+          <div>
+            <div style="font-size:0.72rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;">Out of Stock</div>
+            <div id="modalPubOos" style="font-size:1.35rem;font-weight:800;color:var(--danger);">0</div>
+          </div>
+        </div>
+
+        <!-- Token Input -->
+        <div class="form-group" style="margin-bottom:14px;">
+          <label style="display:flex;align-items:center;justify-content:space-between;">
+            <span>GitHub Personal Access Token <span class="req">*</span></span>
+            <span id="tokenStatusText" style="font-size:0.74rem;color:var(--success);font-weight:600;">Saved on this device</span>
+          </label>
+          <div class="token-input-wrap">
+            <input type="password" id="modalGhToken" class="form-control" placeholder="github_pat_... or ghp_..." style="padding-right:42px;" oninput="updateTokenStatusFromInput()" />
+            <button type="button" class="token-eye-btn" onclick="toggleTokenView('modalGhToken')"><i class="fas fa-eye"></i></button>
+          </div>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-top:6px;">
+            <a href="https://github.com/settings/tokens/new?scopes=repo&description=CrazeeSpot+Admin+Panel" target="_blank" style="color:var(--primary);font-weight:700;text-decoration:none;">
+              <i class="fas fa-external-link-alt"></i> Generate a GitHub token with 'repo' scope
+            </a>
+            (takes 30 seconds, paste once and it stays saved on your device).
+          </div>
+        </div>
+
+        <!-- Live Progress Feedback Box -->
+        <div id="modalPubProgress" style="display:none;background:var(--cream-mid);border:1px solid var(--border);border-radius:12px;padding:16px;margin-top:14px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div class="spinner-sm" id="modalPubSpinner"></div>
+            <div id="modalPubStatusTitle" style="font-weight:700;color:var(--brown-deep);font-size:0.92rem;">Publishing to GitHub Pages...</div>
+          </div>
+          <div class="pub-steps">
+            <div class="pub-step-row" id="step1"><i class="fas fa-circle-notch"></i> <span>1. Connecting to GitHub repository</span></div>
+            <div class="pub-step-row" id="step2"><i class="fas fa-circle-notch"></i> <span>2. Preparing products.json catalog (20/11/2026)</span></div>
+            <div class="pub-step-row" id="step3"><i class="fas fa-circle-notch"></i> <span>3. Committing to main branch</span></div>
+            <div class="pub-step-row" id="step4"><i class="fas fa-circle-notch"></i> <span>4. Live on all visitor devices worldwide</span></div>
+          </div>
+        </div>
+
+        <!-- Error Feedback Box -->
+        <div id="modalPubError" style="display:none;margin-top:14px;padding:12px 16px;background:var(--danger-bg);border:1px solid rgba(211,47,47,0.3);color:var(--danger);border-radius:10px;font-size:0.84rem;font-weight:600;"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closePublishModal()">Cancel</button>
+        <button type="button" class="btn btn-publish-live" id="btnExecutePublish" onclick="executePublishToGitHub()">
+          <i class="fas fa-rocket"></i> Publish to All Devices Now
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- DELETE CONFIRM MODAL -->
   <div class="modal-backdrop" id="deleteModal" onclick="closeDeleteModal(event)">
     <div class="modal modal-sm" onclick="event.stopPropagation()">
@@ -1611,6 +1803,10 @@
     const STORAGE_KEY = 'crazeespot_admin_products';
     const ACTIVITY_KEY = 'crazeespot_activity_log';
     const SETTINGS_KEY = 'crazeespot_settings';
+    const GH_CONFIG_KEY = 'crazeespot_gh_config';
+    const UNPUBLISHED_KEY = 'crazeespot_has_unpublished';
+
+    let hasUnpublishedChanges = localStorage.getItem(UNPUBLISHED_KEY) === 'true';
 
     // ── ALL 25 DEPARTMENTS ──
     const DEPT_MAP = {
@@ -6598,6 +6794,8 @@
     // ── INITIALIZATION ──
     function initApp() {
       loadProductsData();
+      updateUnpublishedUI();
+      updateSettingsPageGitHubUI();
       populateDeptDropdowns();
       renderStats();
       renderProductsTable();
@@ -6608,35 +6806,72 @@
     }
 
     function loadProductsData() {
+      // 1. Initial synchronous load from local storage or base data
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length >= BASE_PRODUCTS.length) {
+          if (Array.isArray(parsed) && parsed.length > 0) {
             products = parsed.map(p => ({ ...p, inStock: p.inStock !== false }));
-            return;
-          }
-          // Merge with BASE_PRODUCTS if previous session had partial count
-          if (Array.isArray(parsed) && parsed.length < BASE_PRODUCTS.length) {
-            const map = new Map(parsed.map(p => [p.id, p]));
-            products = BASE_PRODUCTS.map(bp => {
-              const s = map.get(bp.id);
-              return s ? { ...bp, ...s, inStock: s.inStock !== false } : { ...bp, inStock: bp.inStock !== false };
-            });
-            const custom = parsed.filter(p => !BASE_PRODUCTS.some(bp => bp.id === p.id));
-            products.push(...custom);
-            saveProductsData();
-            return;
           }
         } catch(e) {}
       }
-      products = BASE_PRODUCTS.map(p => ({ ...p, inStock: p.inStock !== false }));
-      saveProductsData();
+      if (products.length === 0) {
+        products = BASE_PRODUCTS.map(p => ({ ...p, inStock: p.inStock !== false }));
+      }
+
+      // 2. Asynchronously fetch live products.json from server to stay in sync across admin devices
+      fetchLiveProductsJson();
+
+      updateUnpublishedUI();
+      renderStats();
     }
 
-    function saveProductsData() {
+    async function fetchLiveProductsJson() {
+      // If we already have unsaved local drafts, don't overwrite them
+      if (hasUnpublishedChanges) return;
+
+      try {
+        const res = await fetch('products.json?v=' + Date.now(), { cache: 'no-store' });
+        if (res.ok) {
+          const liveData = await res.json();
+          if (Array.isArray(liveData) && liveData.length > 0) {
+            products = liveData.map(p => ({ ...p, inStock: p.inStock !== false }));
+            saveProductsData(false); // save without marking unpublished
+            renderStats();
+            renderProductsTable();
+            renderOosTable();
+          }
+        }
+      } catch(err) {
+        console.warn('Could not fetch products.json over network, using local copy', err);
+      }
+    }
+
+    function saveProductsData(markUnpublished = true) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+      if (markUnpublished) {
+        setUnpublishedChanges(true);
+        // Check if auto-publish is enabled
+        const ghCfg = getGitHubConfig();
+        if (ghCfg.autoPublish && ghCfg.token) {
+          publishSilentlyToGitHub();
+        }
+      }
       renderStats();
+    }
+
+    function setUnpublishedChanges(state) {
+      hasUnpublishedChanges = state;
+      localStorage.setItem(UNPUBLISHED_KEY, state ? 'true' : 'false');
+      updateUnpublishedUI();
+    }
+
+    function updateUnpublishedUI() {
+      const banner = document.getElementById('unpublishedBanner');
+      const badge = document.getElementById('topPublishBadge');
+      if (banner) banner.style.display = hasUnpublishedChanges ? 'flex' : 'none';
+      if (badge) badge.style.display = hasUnpublishedChanges ? 'inline-block' : 'none';
     }
 
     // ── SIDEBAR & NAVIGATION ──
@@ -7651,6 +7886,343 @@
       toast.classList.add('show');
       if (toastTimeout) clearTimeout(toastTimeout);
       toastTimeout = setTimeout(() => { toast.classList.remove('show'); }, 3200);
+    }
+
+    // ── GITHUB AUTO-PUBLISH & MULTI-DEVICE SYNC ENGINE ──
+    function getGitHubConfig() {
+      const defaultCfg = {
+        repo: 'azhar2006-collab/CazeeSpot',
+        branch: 'main',
+        token: '',
+        autoPublish: false
+      };
+      try {
+        const saved = JSON.parse(localStorage.getItem(GH_CONFIG_KEY) || '{}');
+        return { ...defaultCfg, ...saved };
+      } catch(e) {
+        return defaultCfg;
+      }
+    }
+
+    function saveGitHubConfig(cfg) {
+      localStorage.setItem(GH_CONFIG_KEY, JSON.stringify(cfg));
+      updateSettingsPageGitHubUI();
+    }
+
+    function updateSettingsPageGitHubUI() {
+      const cfg = getGitHubConfig();
+      const repoEl = document.getElementById('setGhRepo');
+      const branchEl = document.getElementById('setGhBranch');
+      const tokenEl = document.getElementById('setGhToken');
+      const autoPubEl = document.getElementById('setAutoPublish');
+      const badge = document.getElementById('settingsGhStatusBadge');
+
+      if (repoEl) repoEl.value = cfg.repo || 'azhar2006-collab/CazeeSpot';
+      if (branchEl) branchEl.value = cfg.branch || 'main';
+      if (tokenEl && cfg.token) tokenEl.value = cfg.token;
+      if (autoPubEl) autoPubEl.checked = !!cfg.autoPublish;
+
+      if (badge) {
+        if (cfg.token) {
+          badge.className = 'nav-pill';
+          badge.style.background = 'var(--success-bg)';
+          badge.style.color = 'var(--success)';
+          badge.textContent = 'Token Configured ✅';
+        } else {
+          badge.className = 'nav-pill nav-pill-danger';
+          badge.textContent = 'Token Needed ⚠️';
+        }
+      }
+    }
+
+    function saveGitHubSettingsFromPage() {
+      const repo = (document.getElementById('setGhRepo')?.value || '').trim() || 'azhar2006-collab/CazeeSpot';
+      const branch = (document.getElementById('setGhBranch')?.value || '').trim() || 'main';
+      const token = (document.getElementById('setGhToken')?.value || '').trim();
+      const autoPublish = document.getElementById('setAutoPublish')?.checked || false;
+
+      saveGitHubConfig({ repo, branch, token, autoPublish });
+      showToast('✅', 'GitHub sync configuration saved!');
+      updateSettingsPageGitHubUI();
+    }
+
+    async function testGitHubConnection() {
+      const token = (document.getElementById('setGhToken')?.value || '').trim() || getGitHubConfig().token;
+      const repo = (document.getElementById('setGhRepo')?.value || '').trim() || getGitHubConfig().repo;
+      const resBox = document.getElementById('ghTestResult');
+
+      if (!token) {
+        showToast('⚠️', 'Please enter a GitHub Personal Access Token to test');
+        if (resBox) {
+          resBox.style.display = 'block';
+          resBox.style.background = 'var(--danger-bg)';
+          resBox.style.color = 'var(--danger)';
+          resBox.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Token is missing. Enter a token and click test.';
+        }
+        return;
+      }
+
+      if (resBox) {
+        resBox.style.display = 'block';
+        resBox.style.background = 'var(--cream-mid)';
+        resBox.style.color = 'var(--brown-deep)';
+        resBox.innerHTML = '<div class="spinner-sm"></div> Validating repository access on GitHub...';
+      }
+
+      try {
+        const res = await fetch(`https://api.github.com/repos/${repo}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/vnd.github.v3+json'
+          }
+        });
+
+        if (res.ok) {
+          const repoData = await res.json();
+          const canPush = repoData.permissions ? repoData.permissions.push : true;
+          if (resBox) {
+            resBox.style.background = 'var(--success-bg)';
+            resBox.style.color = 'var(--success)';
+            resBox.innerHTML = `<i class="fas fa-check-circle"></i> Connected to <strong>${repoData.full_name}</strong>! Write permissions: ${canPush ? 'Active ✅' : 'Read-only ⚠️ (needs repo scope)'}`;
+          }
+          showToast('✅', 'GitHub Connection Successful!');
+        } else {
+          const errData = await res.json().catch(() => ({}));
+          if (resBox) {
+            resBox.style.background = 'var(--danger-bg)';
+            resBox.style.color = 'var(--danger)';
+            resBox.innerHTML = `<i class="fas fa-circle-xmark"></i> Authentication failed (${res.status}): ${errData.message || 'Invalid token or repository access denied'}`;
+          }
+          showToast('❌', 'GitHub Authentication Failed');
+        }
+      } catch(e) {
+        if (resBox) {
+          resBox.style.background = 'var(--danger-bg)';
+          resBox.style.color = 'var(--danger)';
+          resBox.innerHTML = `<i class="fas fa-circle-xmark"></i> Network error testing GitHub: ${e.message}`;
+        }
+      }
+    }
+
+    function toggleTokenView(inputId) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    function updateTokenStatusFromInput() {
+      const val = document.getElementById('modalGhToken').value.trim();
+      const statusEl = document.getElementById('tokenStatusText');
+      if (!statusEl) return;
+      if (val) {
+        statusEl.textContent = 'Token entered';
+        statusEl.style.color = 'var(--success)';
+      } else {
+        statusEl.textContent = 'Token required to publish';
+        statusEl.style.color = 'var(--danger)';
+      }
+    }
+
+    // ── PUBLISH MODAL HANDLERS ──
+    function openPublishModal() {
+      const cfg = getGitHubConfig();
+      const total = products.length;
+      const inStock = products.filter(p => p.inStock !== false).length;
+      const oos = total - inStock;
+
+      document.getElementById('modalPubTotal').textContent = total;
+      document.getElementById('modalPubInStock').textContent = inStock;
+      document.getElementById('modalPubOos').textContent = oos;
+
+      const tokenInput = document.getElementById('modalGhToken');
+      tokenInput.value = cfg.token || '';
+      updateTokenStatusFromInput();
+
+      document.getElementById('modalPubProgress').style.display = 'none';
+      document.getElementById('modalPubError').style.display = 'none';
+      document.getElementById('btnExecutePublish').disabled = false;
+      document.getElementById('btnExecutePublish').innerHTML = '<i class="fas fa-rocket"></i> Publish to All Devices Now';
+
+      // Reset steps
+      for (let i = 1; i <= 4; i++) {
+        const step = document.getElementById('step' + i);
+        if (step) {
+          step.className = 'pub-step-row';
+          step.querySelector('i').className = 'fas fa-circle-notch';
+        }
+      }
+
+      document.getElementById('publishModal').classList.add('show');
+    }
+
+    function closePublishModal(e) {
+      if (e && e.target !== e.currentTarget) return;
+      document.getElementById('publishModal').classList.remove('show');
+    }
+
+    function setPubStep(stepNum, status, text) {
+      const step = document.getElementById('step' + stepNum);
+      if (!step) return;
+      if (status === 'active') {
+        step.className = 'pub-step-row active';
+        step.querySelector('i').className = 'fas fa-spinner fa-spin';
+      } else if (status === 'done') {
+        step.className = 'pub-step-row done';
+        step.querySelector('i').className = 'fas fa-check-circle';
+      }
+      if (text) step.querySelector('span').textContent = text;
+    }
+
+    function toBase64Utf8(str) {
+      return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1)));
+    }
+
+    async function executePublishToGitHub() {
+      const cfg = getGitHubConfig();
+      const token = document.getElementById('modalGhToken').value.trim() || cfg.token;
+      const repo = cfg.repo || 'azhar2006-collab/CazeeSpot';
+      const branch = cfg.branch || 'main';
+
+      const errBox = document.getElementById('modalPubError');
+      errBox.style.display = 'none';
+
+      if (!token) {
+        errBox.style.display = 'block';
+        errBox.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Please paste a GitHub Personal Access Token to publish.';
+        return;
+      }
+
+      // Save token for future 1-click publishing
+      saveGitHubConfig({ ...cfg, token });
+
+      // Start UI Progress
+      const btn = document.getElementById('btnExecutePublish');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-sm"></span> Publishing...';
+
+      const progBox = document.getElementById('modalPubProgress');
+      progBox.style.display = 'block';
+
+      try {
+        // Step 1: Connect & Get SHA of products.json
+        setPubStep(1, 'active', '1. Connecting to GitHub repository...');
+        let existingSha = null;
+
+        const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/products.json?ref=${branch}&t=${Date.now()}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/vnd.github.v3+json'
+          }
+        });
+
+        if (getRes.ok) {
+          const fileData = await getRes.json();
+          existingSha = fileData.sha;
+          setPubStep(1, 'done', '1. Connected to GitHub (SHA verified)');
+        } else if (getRes.status === 404) {
+          // File does not exist yet on repo, will create
+          setPubStep(1, 'done', '1. Connected to GitHub (creating products.json)');
+        } else if (getRes.status === 401 || getRes.status === 403) {
+          throw new Error('Invalid or expired GitHub token. Ensure your token has "repo" scope.');
+        } else {
+          throw new Error(`GitHub returned status ${getRes.status}: ${getRes.statusText}`);
+        }
+
+        // Step 2: Prepare JSON content
+        setPubStep(2, 'active', '2. Preparing clean UTF-8 products catalog...');
+        const jsonString = JSON.stringify(products, null, 2);
+        const base64Content = toBase64Utf8(jsonString);
+        setPubStep(2, 'done', `2. Prepared ${products.length} products (${(jsonString.length/1024).toFixed(1)} KB)`);
+
+        // Step 3: Commit to GitHub via PUT
+        setPubStep(3, 'active', '3. Committing to main branch...');
+        const putPayload = {
+          message: `Update products catalog from Admin Panel [${products.length} items, ${products.filter(p=>p.inStock!==false).length} in stock]`,
+          content: base64Content,
+          branch: branch
+        };
+        if (existingSha) putPayload.sha = existingSha;
+
+        const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/products.json`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github.v3+json'
+          },
+          body: JSON.stringify(putPayload)
+        });
+
+        if (!putRes.ok) {
+          const putErr = await putRes.json().catch(() => ({}));
+          throw new Error(putErr.message || `Commit failed with HTTP ${putRes.status}`);
+        }
+
+        const commitData = await putRes.json();
+        setPubStep(3, 'done', `3. Committed commit ${commitData.commit ? commitData.commit.sha.slice(0,7) : 'OK'}`);
+
+        // Step 4: Finished!
+        setPubStep(4, 'done', '4. Live! All visitor devices worldwide will see changes in ~30 seconds!');
+        document.getElementById('modalPubStatusTitle').textContent = '🎉 Successfully Published to Live Website!';
+        document.getElementById('modalPubSpinner').style.display = 'none';
+
+        // Clear unpublished state
+        setUnpublishedChanges(false);
+        logActivity('green', `Published ${products.length} products to live website on GitHub`);
+        showToast('🎉', 'Published live to all devices worldwide!');
+
+        btn.className = 'btn btn-success';
+        btn.innerHTML = '<i class="fas fa-check"></i> Published Successfully!';
+        setTimeout(() => {
+          closePublishModal();
+        }, 2200);
+
+      } catch(err) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-rotate-left"></i> Retry Publish';
+        errBox.style.display = 'block';
+        errBox.innerHTML = `<i class="fas fa-circle-xmark"></i> Publish Failed: ${errHtml(err.message)}`;
+      }
+    }
+
+    async function publishSilentlyToGitHub() {
+      const cfg = getGitHubConfig();
+      if (!cfg.token) return;
+      try {
+        const repo = cfg.repo || 'azhar2006-collab/CazeeSpot';
+        const branch = cfg.branch || 'main';
+
+        const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/products.json?ref=${branch}&t=${Date.now()}`, {
+          headers: { 'Authorization': `Bearer ${cfg.token}`, 'Accept': 'application/vnd.github.v3+json' }
+        });
+        const fileData = getRes.ok ? await getRes.json() : {};
+        const jsonString = JSON.stringify(products, null, 2);
+        const base64Content = toBase64Utf8(jsonString);
+
+        const putPayload = {
+          message: `Auto-publish products catalog [${products.length} items]`,
+          content: base64Content,
+          branch: branch
+        };
+        if (fileData.sha) putPayload.sha = fileData.sha;
+
+        const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/products.json`, {
+          method: 'PUT',
+          headers: { 'Authorization': `Bearer ${cfg.token}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' },
+          body: JSON.stringify(putPayload)
+        });
+
+        if (putRes.ok) {
+          setUnpublishedChanges(false);
+          logActivity('green', 'Auto-published catalog changes to GitHub');
+        }
+      } catch(e) {
+        console.warn('Auto-publish failed, changes preserved locally', e);
+      }
+    }
+
+    function errHtml(str) {
+      return escHtml(str);
     }
 
     // ── UTILITY ESCAPE HTML ──

@@ -6904,17 +6904,39 @@
   }
 ];
 
-    /* Sync with Admin Panel updates (LocalStorage) */
-    try {
-      const adminStored = localStorage.getItem('crazeespot_admin_products');
-      if (adminStored) {
-        const parsedAdmin = JSON.parse(adminStored);
-        if (Array.isArray(parsedAdmin) && parsedAdmin.length > 0) {
-          products.length = 0;
-          products.push(...parsedAdmin);
+    /* ── LIVE STOREFRONT CATALOG SYNC (Multi-Device) ── */
+    async function loadLiveProducts() {
+      try {
+        const res = await fetch('products.json?v=' + Date.now(), { cache: 'no-store' });
+        if (res.ok) {
+          const liveData = await res.json();
+          if (Array.isArray(liveData) && liveData.length > 0) {
+            products.length = 0;
+            products.push(...liveData);
+          }
         }
+      } catch (err) {
+        console.warn('Using baseline catalog fallback', err);
       }
-    } catch(e) {}
+
+      // Check local draft overrides if admin is previewing on this device
+      try {
+        const adminStored = localStorage.getItem('crazeespot_admin_products');
+        if (adminStored) {
+          const parsedAdmin = JSON.parse(adminStored);
+          if (Array.isArray(parsedAdmin) && parsedAdmin.length > 0) {
+            products.length = 0;
+            products.push(...parsedAdmin);
+          }
+        }
+      } catch (e) {}
+
+      // Refresh UI components with latest live products
+      if (typeof updateDeptUI === 'function') updateDeptUI();
+      if (typeof renderFilterTabs === 'function') renderFilterTabs();
+      if (typeof populateModelDropdown === 'function') populateModelDropdown();
+      if (typeof renderProducts === 'function') renderProducts();
+    }
 
     const WHATSAPP_PHONE = '917397554214';
 
@@ -7135,6 +7157,9 @@
       populateModelDropdown();
       renderProducts();
       updateCartUI();
+
+      // Fetch live products.json for all visitors across all devices
+      loadLiveProducts();
     });
 
     /* ── DEPARTMENT SWITCHER ── */
