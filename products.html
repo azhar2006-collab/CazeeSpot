@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>Products – CrazeeSpot | 147+ Handcrafted Personalized Gifts & Keepsakes</title>
   <meta name="description" content="Shop 147+ custom personalized gifts at CrazeeSpot. Keychains from ₹149, Caricatures, Clocks, Nameboards, Hampers, Baby Frames, Resin Art & Wood Engravings. Pan India delivery." />
   <link rel="icon" type="image/png" href="favicon.png" />
@@ -6906,17 +6909,29 @@
 
     /* ── LIVE STOREFRONT CATALOG SYNC (Multi-Device) ── */
     async function loadLiveProducts() {
+      // Direct raw GitHub URL gives 0-second instant updates across all mobile & desktop devices worldwide
+      const RAW_GITHUB_URL = 'https://raw.githubusercontent.com/azhar2006-collab/CazeeSpot/main/products.json?v=' + Date.now();
+      const LOCAL_FALLBACK_URL = 'products.json?v=' + Date.now();
+
+      let liveData = null;
       try {
-        const res = await fetch('products.json?v=' + Date.now(), { cache: 'no-store' });
+        const res = await fetch(RAW_GITHUB_URL, { cache: 'no-store' });
         if (res.ok) {
-          const liveData = await res.json();
-          if (Array.isArray(liveData) && liveData.length > 0) {
-            products.length = 0;
-            products.push(...liveData);
-          }
+          liveData = await res.json();
         }
       } catch (err) {
-        console.warn('Using baseline catalog fallback', err);
+        console.warn('Direct raw fetch failed, trying local fallback', err);
+      }
+
+      if (!liveData || !Array.isArray(liveData) || liveData.length === 0) {
+        try {
+          const res = await fetch(LOCAL_FALLBACK_URL, { cache: 'no-store' });
+          if (res.ok) {
+            liveData = await res.json();
+          }
+        } catch (err) {
+          console.warn('Local products.json fallback failed', err);
+        }
       }
 
       // Check local draft overrides if admin is previewing on this device

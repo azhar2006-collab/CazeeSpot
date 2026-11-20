@@ -6831,20 +6831,28 @@
       // If we already have unsaved local drafts, don't overwrite them
       if (hasUnpublishedChanges) return;
 
+      const RAW_URL = 'https://raw.githubusercontent.com/azhar2006-collab/CazeeSpot/main/products.json?v=' + Date.now();
+      const LOCAL_URL = 'products.json?v=' + Date.now();
+
+      let liveData = null;
       try {
-        const res = await fetch('products.json?v=' + Date.now(), { cache: 'no-store' });
-        if (res.ok) {
-          const liveData = await res.json();
-          if (Array.isArray(liveData) && liveData.length > 0) {
-            products = liveData.map(p => ({ ...p, inStock: p.inStock !== false }));
-            saveProductsData(false); // save without marking unpublished
-            renderStats();
-            renderProductsTable();
-            renderOosTable();
-          }
-        }
-      } catch(err) {
-        console.warn('Could not fetch products.json over network, using local copy', err);
+        const res = await fetch(RAW_URL, { cache: 'no-store' });
+        if (res.ok) liveData = await res.json();
+      } catch(e) {}
+
+      if (!liveData) {
+        try {
+          const res = await fetch(LOCAL_URL, { cache: 'no-store' });
+          if (res.ok) liveData = await res.json();
+        } catch(e) {}
+      }
+
+      if (Array.isArray(liveData) && liveData.length > 0) {
+        products = liveData.map(p => ({ ...p, inStock: p.inStock !== false }));
+        saveProductsData(false); // save without marking unpublished
+        renderStats();
+        renderProductsTable();
+        renderOosTable();
       }
     }
 
